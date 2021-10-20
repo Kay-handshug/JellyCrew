@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".main.view.MainActivity" >
+
+    <data>
+        <variable name="viewModel" type="handshug.jellycrew.main.viewModel.MainViewModel" />
+    </data>
+
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:id="@+id/root_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="false">
+
+        <!-- main layout -->
+        <FrameLayout
+            android:id="@+id/frame_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <!-- drawer menu -->
+        <com.google.android.material.navigation.NavigationView
+            android:id="@+id/main_navigationView"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:background="@color/white"
+            android:fitsSystemWindows="false" />
+<!--            app:headerLayout="@layout/drawer_menu_header"-->
+<!--            app:menu="@menu/drawer_menu_items"-->
+<!--            app:itemIconTint="@color/color_bg_white" />-->
+
+        <LinearLayout
+            android:id="@+id/progress_bar"
+            android:visibility="gone"
+            android:gravity="center"
+            android:clickable="true"
+            android:focusable="true"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.airbnb.lottie.LottieAnimationView
+                style="@style/ProgressBar"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true" />
+<!--                app:lottie_rawRes="@raw/progress_bike"/>-->
+
+        </LinearLayout>
+
+    </androidx.drawerlayout.widget.DrawerLayout>
+
+</layout>
