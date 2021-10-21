@@ -5,18 +5,19 @@ import handshug.jellycrew.R
 import handshug.jellycrew.base.BindingFragment
 import handshug.jellycrew.databinding.FragmentHomeBinding
 import handshug.jellycrew.home.HomeContract.Companion.OPEN_DRAWER
-import handshug.jellycrew.home.HomeContract.Companion.START_CARD_PAYMENT
-import handshug.jellycrew.main.view.MainActivity
-import org.koin.androidx.viewmodel.ext.android.getViewModel
+import handshug.jellycrew.home.HomeContract.Companion.START_PAYMENT_01
+import handshug.jellycrew.home.HomeContract.Companion.START_PAYMENT_02
+import handshug.jellycrew.home.HomeContract.Companion.START_PAYMENT_03
+import handshug.jellycrew.home.HomeContract.Companion.START_PAYMENT_04
+import handshug.jellycrew.home.HomeContract.Companion.START_PAYMENT_05
 import handshug.jellycrew.home.view.dialog.HomeDialog
 import handshug.jellycrew.home.viewModel.HomeViewModel
-import handshug.jellycrew.utils.Log
-import kr.co.bootpay.Bootpay
-import kr.co.bootpay.enums.Method
-import kr.co.bootpay.enums.PG
-import kr.co.bootpay.enums.UX
-import kr.co.bootpay.model.BootExtra
-import kr.co.bootpay.model.BootUser
+import handshug.jellycrew.main.view.MainActivity
+import org.koin.androidx.viewmodel.ext.android.getViewModel
+
+enum class payType {
+     CARD, KAKAO, TOTALPAY
+ }
 
 class HomeFragment: BindingFragment<FragmentHomeBinding>() {
     override fun getLayoutResId() = R.layout.fragment_home
@@ -40,54 +41,13 @@ class HomeFragment: BindingFragment<FragmentHomeBinding>() {
                     OPEN_DRAWER -> {
                         (activity as MainActivity).openDrawer()
                     }
-                    START_CARD_PAYMENT -> {
-                        goBootpayRequest()
-                    }
+                    START_PAYMENT_01 -> viewModel.goBootpayRequest(childFragmentManager, payType.CARD)
+                    START_PAYMENT_02 -> viewModel.goBootpayRequest(childFragmentManager, payType.KAKAO)
+                    START_PAYMENT_03 -> viewModel.goBootpayRequest(childFragmentManager, payType.TOTALPAY)
+                    START_PAYMENT_04 -> toast(getString(R.string.toast_payment_request_token))
+                    START_PAYMENT_05 -> toast(getString(R.string.toast_payment_request_token))
                 }
             }
         })
-    }
-
-    private fun goBootpayRequest() {
-        val bootUser = BootUser().setPhone("010-1234-5678")
-        val bootExtra = BootExtra().setQuotas(intArrayOf(0, 2, 3))
-
-        val stuck = 1 //재고 있음
-
-        Bootpay.init(activity)
-            .setApplicationId("616e6b217b5ba4f7e3529b99") // 해당 프로젝트(안드로이드)의 application id 값
-            .setContext(context)
-            .setBootUser(bootUser)
-            .setBootExtra(bootExtra)
-            .setUX(UX.PG_DIALOG)
-            .setPG(PG.KCP)
-            .setMethod(Method.CARD)
-//                .setUserPhone("010-1234-5678") // 구매자 전화번호
-            .setName("맥북프로's 임다") // 결제할 상품명
-            .setOrderId("1234") // 결제 고유번호expire_month
-            .setPrice(10000) // 결제할 금액
-            .addItem("마우's 스", 1, "ITEM_CODE_MOUSE", 100) // 주문정보에 담길 상품정보, 통계를 위해 사용
-            .addItem("키보드", 1, "ITEM_CODE_KEYBOARD", 200, "패션", "여성상의", "블라우스") // 주문정보에 담길 상품정보, 통계를 위해 사용
-            .onConfirm { message ->
-                if (0 < stuck) Bootpay.confirm(message); // 재고가 있을 경우.
-                else Bootpay.removePaymentWindow(); // 재고가 없어 중간에 결제창을 닫고 싶을 경우
-                Log.msg("#bootpay confirm : $message")
-            }
-            .onDone { message ->
-                Log.msg("#bootpay done : $message")
-            }
-            .onReady { message ->
-                Log.msg("#bootpay ready : $message")
-            }
-            .onCancel { message ->
-                Log.msg("#bootpay cancel : $message")
-            }
-            .onError{ message ->
-                Log.msg("#bootpay error : $message")
-            }
-            .onClose { message ->
-                Log.msg("#bootpay close : $message")
-            }
-            .request()
     }
 }

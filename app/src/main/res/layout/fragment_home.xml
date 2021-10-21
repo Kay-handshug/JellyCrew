@@ -40,19 +40,93 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_pay_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="결제 데모 화면"
+                android:textStyle="bold"
+                android:textSize="27sp"
+                android:textColor="@color/white"
+                android:layout_marginTop="100dp"
+                android:layout_marginStart="115dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
             <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_pay_test_01"
                 android:layout_width="200dp"
-                android:layout_height="100dp"
-                android:text="card pay test"
+                android:layout_height="50dp"
+                android:text="PG결제"
                 android:textStyle="bold"
                 android:textSize="21sp"
                 android:textColor="@color/white"
-                android:layout_marginTop="100dp"
+                android:layout_marginTop="30dp"
                 android:layout_marginStart="100dp"
-                android:onClick="@{() -> viewModel.startCardPayment()}"
+                android:onClick="@{() -> viewModel.startPayment01()}"
                 android:background="@color/purple_200"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
+                app:layout_constraintTop_toBottomOf="@+id/tv_pay_title"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_pay_test_02"
+                android:layout_width="200dp"
+                android:layout_height="50dp"
+                android:text="간편결제"
+                android:textStyle="bold"
+                android:textSize="21sp"
+                android:textColor="@color/white"
+                android:layout_marginTop="30dp"
+                android:layout_marginStart="100dp"
+                android:onClick="@{() -> viewModel.startPayment02()}"
+                android:background="@color/purple_200"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btn_pay_test_01"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_pay_test_03"
+                android:layout_width="200dp"
+                android:layout_height="50dp"
+                android:text="통합결제"
+                android:textStyle="bold"
+                android:textSize="21sp"
+                android:textColor="@color/white"
+                android:layout_marginTop="30dp"
+                android:layout_marginStart="100dp"
+                android:onClick="@{() -> viewModel.startPayment03()}"
+                android:background="@color/purple_200"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btn_pay_test_02"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_pay_test_04"
+                android:layout_width="200dp"
+                android:layout_height="50dp"
+                android:text="간편결제(비밀번호)"
+                android:textStyle="bold"
+                android:textSize="21sp"
+                android:textColor="@color/white"
+                android:layout_marginTop="30dp"
+                android:layout_marginStart="100dp"
+                android:onClick="@{() -> viewModel.startPayment04()}"
+                android:background="@color/purple_200"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btn_pay_test_03"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_pay_test_05"
+                android:layout_width="200dp"
+                android:layout_height="50dp"
+                android:text="간편결제(생체인증)"
+                android:textStyle="bold"
+                android:textSize="21sp"
+                android:textColor="@color/white"
+                android:layout_marginTop="30dp"
+                android:layout_marginStart="100dp"
+                android:onClick="@{() -> viewModel.startPayment05()}"
+                android:background="@color/purple_200"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btn_pay_test_04"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
