@@ -32,19 +32,26 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <androidx.appcompat.widget.AppCompatButton
+            <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/btn_login_kakao"
-                android:layout_width="wrap_content"
+                android:layout_width="130dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
-                android:text="kakao"
-                android:textColor="@color/black"
-                android:textSize="13sp"
-                android:background="@color/white"
                 android:onClick="@{() -> viewModel.startLoginKakao()}"
+                app:srcCompat="@drawable/btn_login_kakao"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_login_title"
                 tools:ignore="SmallSp" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/btn_login_naver"
+                android:layout_width="130dp"
+                android:layout_height="32dp"
+                android:layout_marginTop="37dp"
+                android:onClick="@{() -> viewModel.startLoginNaver()}"
+                app:srcCompat="@drawable/btn_login_naver"
+                app:layout_constraintStart_toEndOf="@+id/btn_login_kakao"
+                app:layout_constraintTop_toBottomOf="@+id/tv_login_title" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -10,6 +10,7 @@ interface MemberContract {
         const val ACTIVITY_FIND_PASSWORD = 1040
 
         const val START_LOGIN_KAKAO = 2000
+        const val START_LOGIN_NAVER = 2010
 
         const val MEMBER_LOGIN = 3000
         const val LOGIN_SUCCESS = 3010

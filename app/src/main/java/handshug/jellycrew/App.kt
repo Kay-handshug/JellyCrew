@@ -2,6 +2,7 @@ package handshug.jellycrew
 
 import android.app.Application
 import com.kakao.sdk.common.KakaoSdk
+import com.nhn.android.naverlogin.OAuthLogin
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 import handshug.jellycrew.modules.apiModule
@@ -31,6 +32,14 @@ class App : Application() {
 
         // Kakao
         KakaoSdk.init(this, "aed9b518e0077c6a7c0b1a367bca9f10")
+        
+        // Naver
+        OAuthLogin.getInstance().init(
+            this,
+            "u5KRBxmTD3QCsM7l3wF2",
+            "07YMCEwPuh",
+            getString(R.string.app_name)
+        )
 
 //        FirebaseAnalytics.getInstance(this).setUserId(userId)
     }
