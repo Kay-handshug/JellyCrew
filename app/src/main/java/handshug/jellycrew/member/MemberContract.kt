@@ -9,8 +9,10 @@ interface MemberContract {
         const val ACTIVITY_FIND_EMAIL = 1030
         const val ACTIVITY_FIND_PASSWORD = 1040
 
-        const val MEMBER_LOGIN = 2000
-        const val LOGIN_SUCCESS = 2001
+        const val START_LOGIN_KAKAO = 2000
+
+        const val MEMBER_LOGIN = 3000
+        const val LOGIN_SUCCESS = 3010
     }
 
     fun navigateToJoinEmail()
