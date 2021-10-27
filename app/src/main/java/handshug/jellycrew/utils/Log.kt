@@ -1,8 +1,8 @@
 package handshug.jellycrew.utils
 
 import android.util.Log
-import androidx.databinding.library.BuildConfig
 import com.google.gson.GsonBuilder
+import handshug.jellycrew.BuildConfig
 
 object Log {
 

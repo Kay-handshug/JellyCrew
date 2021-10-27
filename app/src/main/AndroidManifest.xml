@@ -33,6 +33,23 @@
             android:launchMode="singleTask"
             android:screenOrientation="portrait"/>
 
+        <activity
+            android:name=".member.view.LoginActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+
+        <activity android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <!-- Redirect URI: "kakao{NATIVE_APP_KEY}://oauth" -->
+                <data android:host="oauth"
+                    android:scheme="kakao{aed9b518e0077c6a7c0b1a367bca9f10}" />
+            </intent-filter>
+        </activity>
+
     </application>
 
 </manifest>

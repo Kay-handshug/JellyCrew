@@ -1,8 +1,8 @@
 package handshug.jellycrew.modules
 
-import androidx.databinding.library.BuildConfig
 import handshug.jellycrew.utils.NetworkConnectionInterceptor
 import com.google.gson.GsonBuilder
+import handshug.jellycrew.BuildConfig
 import handshug.jellycrew.Preference
 import okhttp3.Cache
 import okhttp3.OkHttpClient
