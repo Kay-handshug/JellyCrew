@@ -1,6 +1,8 @@
 package handshug.jellycrew
 
 import android.app.Application
+import com.facebook.FacebookSdk
+import com.facebook.appevents.AppEventsLogger
 import com.kakao.sdk.common.KakaoSdk
 import com.nhn.android.naverlogin.OAuthLogin
 import org.koin.android.ext.koin.androidContext
@@ -40,6 +42,10 @@ class App : Application() {
             "07YMCEwPuh",
             getString(R.string.app_name)
         )
+
+        // Facebook
+        FacebookSdk.sdkInitialize(this)
+//        AppEventsLogger.activateApp(this)
 
 //        FirebaseAnalytics.getInstance(this).setUserId(userId)
     }

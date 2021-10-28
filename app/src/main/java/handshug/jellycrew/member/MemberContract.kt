@@ -11,6 +11,7 @@ interface MemberContract {
 
         const val START_LOGIN_KAKAO = 2000
         const val START_LOGIN_NAVER = 2010
+        const val START_LOGIN_FACEBOOK = 2020
 
         const val MEMBER_LOGIN = 3000
         const val LOGIN_SUCCESS = 3010

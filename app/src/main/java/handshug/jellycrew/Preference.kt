@@ -13,6 +13,13 @@ object Preference {
             sharedPreference.edit().putBoolean("isLogin", flag).apply()
         }
 
+    // 0 : jellyCrew, 1: kakao, 2: naver, 3: facebook
+    var loginType: Int
+        get() = sharedPreference.getInt("loginType", 0)
+        set(loginType) {
+            sharedPreference.edit().putInt("loginType", loginType).apply()
+        }
+
     var loginKey: String
         get() = sharedPreference.getString("loginKey", "").toString()
         set(loginKey) {

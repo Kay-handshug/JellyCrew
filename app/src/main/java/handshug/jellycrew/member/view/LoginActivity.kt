@@ -3,12 +3,17 @@ package handshug.jellycrew.member.view
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
 import androidx.annotation.LayoutRes
+import com.facebook.CallbackManager
+import com.facebook.FacebookCallback
+import com.facebook.FacebookException
+import com.facebook.login.LoginManager
+import com.facebook.login.LoginResult
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.user.UserApiClient
 import com.nhn.android.naverlogin.OAuthLogin
 import com.nhn.android.naverlogin.OAuthLoginHandler
+import handshug.jellycrew.Preference
 import handshug.jellycrew.R
 import handshug.jellycrew.TimeSynchronizer
 import handshug.jellycrew.base.BindingActivity
@@ -16,6 +21,7 @@ import handshug.jellycrew.databinding.ActivityLoginBinding
 import handshug.jellycrew.main.view.MainActivity
 import handshug.jellycrew.member.MemberContract.Companion.ACTIVITY_CLOSE
 import handshug.jellycrew.member.MemberContract.Companion.LOGIN_SUCCESS
+import handshug.jellycrew.member.MemberContract.Companion.START_LOGIN_FACEBOOK
 import handshug.jellycrew.member.MemberContract.Companion.START_LOGIN_KAKAO
 import handshug.jellycrew.member.MemberContract.Companion.START_LOGIN_NAVER
 import handshug.jellycrew.member.viewModel.MemberViewModel
@@ -25,6 +31,8 @@ import org.koin.androidx.viewmodel.ext.android.getViewModel
 
 
 class LoginActivity : BindingActivity<ActivityLoginBinding>() {
+
+    private var callbackFacebook: CallbackManager? = null
 
     @LayoutRes
     override fun getLayoutResId() = R.layout.activity_login
@@ -49,6 +57,7 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>() {
                     LOGIN_SUCCESS -> goToMainActivity()
                     START_LOGIN_KAKAO -> startLoginKakao()
                     START_LOGIN_NAVER -> startLoginNaver()
+                    START_LOGIN_FACEBOOK -> startLoginFacebook()
                 }
             }
         })
@@ -60,6 +69,7 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>() {
                 Log.msg("# Login fail : $error")
             }
             else if(token != null) {
+                Preference.loginType = 1
                 Log.msg("# Login success : ${token.accessToken}")
             }
         }
@@ -79,18 +89,44 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>() {
         val handler: OAuthLoginHandler = object : OAuthLoginHandler() {
             override fun run(success: Boolean) {
                 if (success) {
+                    Preference.loginType = 2
+
                     val accessToken: String = module.getAccessToken(applicationContext)
                     val refreshToken: String = module.getRefreshToken(applicationContext)
                     val expiresAt: Long = module.getExpiresAt(applicationContext)
                     val tokenType: String = module.getTokenType(applicationContext)
+
+                    Log.msg("# login naver result : $accessToken")
                 } else {
                     val errorCode: String = module.getLastErrorCode(applicationContext).code
                     val errorDesc: String = module.getLastErrorDesc(applicationContext)
+
+                    Log.msg("# login naver error : $errorCode / $errorDesc")
                 }
             }
         }
 
         module.startOauthLoginActivity(this, handler)
+    }
+
+    private fun startLoginFacebook() {
+        callbackFacebook = CallbackManager.Factory.create()
+
+        LoginManager.getInstance().registerCallback(callbackFacebook, object: FacebookCallback<LoginResult> {
+            override fun onSuccess(result: LoginResult?) {
+                Preference.loginType = 3
+                Log.msg("# login facebook result : ${result?.accessToken}")
+            }
+
+            override fun onCancel() {
+                Log.msg("# login facebook cancel")
+            }
+
+            override fun onError(error: FacebookException?) {
+                Log.msg("# login facebook error : $error")
+            }
+        })
+
     }
 
     private fun goToMainActivity() {
@@ -100,5 +136,10 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>() {
         }
         ActivityUtil.removeActivity(this)
         finish()
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if(callbackFacebook != null) callbackFacebook!!.onActivityResult(requestCode, resultCode, data)
+        super.onActivityResult(requestCode, resultCode, data)
     }
 }

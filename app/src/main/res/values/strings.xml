@@ -4,6 +4,9 @@
     // default button
     <string name="btn_ok">ok</string>
 
+    // facebook
+    <string name="facebook_app_id">424827942650818</string>
+    <string name="fb_login_protocol_scheme">fb424827942650818</string>
 
 
     // toast
