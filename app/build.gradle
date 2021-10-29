@@ -137,7 +137,7 @@ dependencies {
     implementation 'com.naver.nid:naveridlogin-android-sdk:4.2.6'
 
     // Facebook
-    implementation 'com.facebook.android:facebook-android-sdk:[4,5)'
+    implementation 'com.facebook.android:facebook-android-sdk:[8,9)'
 
     // databinding
     kapt "com.android.databinding:compiler:3.1.4"

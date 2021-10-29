@@ -65,13 +65,19 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>() {
 
     private fun startLoginKakao() {
         val callback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
+            var logMsg = ""
             if(error != null) {
-                Log.msg("# Login fail : $error")
+                logMsg = "# Login kakao fail : $error"
+                Log.msg(logMsg)
             }
             else if(token != null) {
                 Preference.loginType = 1
-                Log.msg("# Login success : ${token.accessToken}")
+                logMsg = "# Login kakao success : ${token.accessToken}"
+                Log.msg(logMsg)
+
+                goToMainActivity()
             }
+            toast(logMsg)
         }
 
         val client = UserApiClient.instance
@@ -88,6 +94,7 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>() {
 
         val handler: OAuthLoginHandler = object : OAuthLoginHandler() {
             override fun run(success: Boolean) {
+                var logMsg = ""
                 if (success) {
                     Preference.loginType = 2
 
@@ -96,13 +103,18 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>() {
                     val expiresAt: Long = module.getExpiresAt(applicationContext)
                     val tokenType: String = module.getTokenType(applicationContext)
 
-                    Log.msg("# login naver result : $accessToken")
+                    logMsg = "# Login naver success : $accessToken"
+                    Log.msg(logMsg)
+
+                    goToMainActivity()
                 } else {
                     val errorCode: String = module.getLastErrorCode(applicationContext).code
                     val errorDesc: String = module.getLastErrorDesc(applicationContext)
 
-                    Log.msg("# login naver error : $errorCode / $errorDesc")
+                    logMsg = "# login naver error : $errorCode / $errorDesc"
+                    Log.msg(logMsg)
                 }
+                toast(logMsg)
             }
         }
 
@@ -115,14 +127,19 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>() {
         LoginManager.getInstance().registerCallback(callbackFacebook, object: FacebookCallback<LoginResult> {
             override fun onSuccess(result: LoginResult?) {
                 Preference.loginType = 3
+                toast("# Login facebook success : ${result?.accessToken}")
                 Log.msg("# login facebook result : ${result?.accessToken}")
+
+                goToMainActivity()
             }
 
             override fun onCancel() {
+                toast("# login facebook cancel")
                 Log.msg("# login facebook cancel")
             }
 
             override fun onError(error: FacebookException?) {
+                toast("# login facebook error : $error")
                 Log.msg("# login facebook error : $error")
             }
         })

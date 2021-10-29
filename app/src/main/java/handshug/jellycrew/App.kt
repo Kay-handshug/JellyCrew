@@ -45,6 +45,7 @@ class App : Application() {
 
         // Facebook
         FacebookSdk.sdkInitialize(this)
+//        FacebookSdk.setAutoInitEnabled(true)
 //        AppEventsLogger.activateApp(this)
 
 //        FirebaseAnalytics.getInstance(this).setUserId(userId)
