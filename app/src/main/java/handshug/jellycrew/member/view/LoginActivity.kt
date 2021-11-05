@@ -147,6 +147,8 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>() {
     }
 
     private fun goToMainActivity() {
+        Preference.isLogin = true
+
         TimeSynchronizer.sync()
         Intent(this, MainActivity::class.java).apply {
             startActivity(this)

@@ -1,10 +1,14 @@
 package handshug.jellycrew.main.view
 
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.Handler
 import android.view.View
 import androidx.annotation.LayoutRes
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import handshug.jellycrew.R
 import handshug.jellycrew.TimeSynchronizer
@@ -16,6 +20,8 @@ import handshug.jellycrew.main.MainContract.Companion.DRAWER_MENU_OPEN
 import handshug.jellycrew.main.viewModel.MainViewModel
 import org.koin.androidx.viewmodel.ext.android.getViewModel
 import handshug.jellycrew.home.view.HomeFragment
+import handshug.jellycrew.main.MainContract
+import handshug.jellycrew.utils.Log
 
 class MainActivity : BindingActivity<ActivityMainBinding>() {
 
@@ -62,6 +68,16 @@ class MainActivity : BindingActivity<ActivityMainBinding>() {
 
         val homeFragment = HomeFragment.newInstance()
         replaceFragment(homeFragment)
+
+//        requestPermission(RUNTIME_PERMISSION_LOCATION, RUNTIME_CODE_LOCATION)
+//        runtimePermissionEvent.observe(this, {
+//            it.getContentIfNotHandled()?.let { event ->
+//                when (event) {
+////                    RUNTIME_EVENT_LOCATION ->
+//                    RUNTIME_EVENT_NONE -> toast("RUNTIME_EVENT_NONE")
+//                }
+//            }
+//        })
     }
 
     // 뒤로가기 2회 클릭 시 종료

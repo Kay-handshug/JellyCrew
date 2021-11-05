@@ -15,6 +15,7 @@ import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
@@ -23,6 +24,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import handshug.jellycrew.R
 import handshug.jellycrew.utils.ActivityUtil
+import handshug.jellycrew.utils.Log
 import handshug.jellycrew.utils.gone
 import handshug.jellycrew.utils.visible
 
@@ -132,17 +134,17 @@ abstract class BindingActivity<T : ViewDataBinding> : AppCompatActivity() {
 
     // 런타임 퍼미션 관리
     companion object {
-        const val RUNTIME_CODE_CALL_PHONE = 10
-        const val RUNTIME_CODE_SEND_SMS = 11
+        const val RUNTIME_CODE_CAMERA = 10
+        const val RUNTIME_CODE_CALL_PHONE = 11
         const val RUNTIME_CODE_LOCATION = 12
 
-        const val RUNTIME_EVENT_CALL_PHONE = 1000
-        const val RUNTIME_EVENT_SEND_SMS = 1001
+        const val RUNTIME_EVENT_CAMERA = 1000
+        const val RUNTIME_EVENT_CALL_PHONE = 1001
         const val RUNTIME_EVENT_LOCATION = 1002
         const val RUNTIME_EVENT_NONE = 1010
 
+        const val RUNTIME_PERMISSION_CAMERA = Manifest.permission.CAMERA
         const val RUNTIME_PERMISSION_CALL_PHONE = Manifest.permission.CALL_PHONE
-        const val RUNTIME_PERMISSION_SEND_SMS = Manifest.permission.SEND_SMS
         const val RUNTIME_PERMISSION_LOCATION = Manifest.permission.ACCESS_FINE_LOCATION
     }
 
@@ -150,9 +152,17 @@ abstract class BindingActivity<T : ViewDataBinding> : AppCompatActivity() {
     val runtimePermissionEvent: LiveData<Event<Any>>
         get() = _runtimePermissionEvent
 
-    fun requestPermission(permission: String, code: Int) {
+    fun requestPermission(permission: String, requestCode: Int) {
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
-            requestPermissions(arrayOf(permission), code)
+            if(ActivityCompat.shouldShowRequestPermissionRationale(this, permission)) {
+                Log.msg("# check permission : 1")
+                requestPermissions(arrayOf(permission), requestCode)
+            }
+            else {
+                Log.msg("# check permission : 2")
+//                requestPermissions(arrayOf(permission), requestCode)
+                ActivityCompat.requestPermissions(this, arrayOf(permission), requestCode)
+            }
         }
     }
 
@@ -164,6 +174,13 @@ abstract class BindingActivity<T : ViewDataBinding> : AppCompatActivity() {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
 
         when (requestCode) {
+            RUNTIME_CODE_CAMERA -> {
+                if (checkPermission(RUNTIME_PERMISSION_CAMERA)) {
+                    setRuntimeEvent(RUNTIME_EVENT_CAMERA)
+                } else {
+                    setRuntimeEvent(RUNTIME_EVENT_NONE)
+                }
+            }
             RUNTIME_CODE_CALL_PHONE -> {
                 if (checkPermission(RUNTIME_PERMISSION_CALL_PHONE)) {
                     setRuntimeEvent(RUNTIME_EVENT_CALL_PHONE)
@@ -171,9 +188,9 @@ abstract class BindingActivity<T : ViewDataBinding> : AppCompatActivity() {
                     setRuntimeEvent(RUNTIME_EVENT_NONE)
                 }
             }
-            RUNTIME_CODE_SEND_SMS -> {
-                if (checkPermission(RUNTIME_PERMISSION_SEND_SMS)) {
-                    setRuntimeEvent(RUNTIME_EVENT_SEND_SMS)
+            RUNTIME_CODE_LOCATION -> {
+                if (checkPermission(RUNTIME_PERMISSION_LOCATION)) {
+                    setRuntimeEvent(RUNTIME_EVENT_LOCATION)
                 } else {
                     setRuntimeEvent(RUNTIME_EVENT_NONE)
                 }
@@ -185,8 +202,15 @@ abstract class BindingActivity<T : ViewDataBinding> : AppCompatActivity() {
         _runtimePermissionEvent.value = Event(event)
     }
 
-    fun checkPermission(permission: String): Boolean {
+    private fun checkPermission(permission: String): Boolean {
         return ContextCompat.checkSelfPermission(this, permission) == PERMISSION_GRANTED
+    }
+
+    fun verifyPermission(permission: String, requestCode: Int): Boolean {
+        return if (!checkPermission(permission)) {
+            requestPermission(permission, requestCode)
+            false
+        } else true
     }
 
     fun replaceFragment(fragment: Fragment) {
