@@ -2,10 +2,14 @@ package handshug.jellycrew.base
 
 import android.Manifest
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager.PERMISSION_GRANTED
+import android.net.Uri
 import android.os.Bundle
+import android.os.Handler
 import android.os.Parcelable
+import android.provider.Settings
 import android.text.TextUtils
 import android.view.View
 import android.view.WindowManager
@@ -14,6 +18,7 @@ import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.annotation.LayoutRes
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -22,11 +27,13 @@ import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.karumi.dexter.Dexter
+import com.karumi.dexter.MultiplePermissionsReport
+import com.karumi.dexter.PermissionToken
+import com.karumi.dexter.listener.PermissionRequest
+import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import handshug.jellycrew.R
-import handshug.jellycrew.utils.ActivityUtil
-import handshug.jellycrew.utils.Log
-import handshug.jellycrew.utils.gone
-import handshug.jellycrew.utils.visible
+import handshug.jellycrew.utils.*
 
 
 abstract class BindingActivity<T : ViewDataBinding> : AppCompatActivity() {
@@ -132,6 +139,15 @@ abstract class BindingActivity<T : ViewDataBinding> : AppCompatActivity() {
         progressBar?.gone()
     }
 
+    fun replaceFragment(fragment: Fragment) {
+        supportFragmentManager.beginTransaction().replace(R.id.frame_layout, fragment).commit()
+    }
+
+    override fun onDestroy() {
+        ActivityUtil.removeActivity(this)
+        super.onDestroy()
+    }
+
     // 런타임 퍼미션 관리
     companion object {
         const val RUNTIME_CODE_CAMERA = 10
@@ -213,13 +229,74 @@ abstract class BindingActivity<T : ViewDataBinding> : AppCompatActivity() {
         } else true
     }
 
-    fun replaceFragment(fragment: Fragment) {
-        supportFragmentManager.beginTransaction().replace(R.id.frame_layout, fragment).commit()
+    fun requestPermissions(context: Context, callback: (Boolean) -> Unit) {
+        val permissions = arrayListOf(
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.READ_PHONE_STATE,
+            Manifest.permission.CALL_PHONE
+        )
+
+        Dexter.withContext(context)
+            .withPermissions(permissions)
+            .withListener(object: MultiplePermissionsListener {
+                override fun onPermissionsChecked(permission: MultiplePermissionsReport?) {
+                    if (permission != null) {
+
+                        Log.msg("# permission ::: ${permission.deniedPermissionResponses[0].permissionName}")
+                        Log.msg("# permission ::: ${permission.deniedPermissionResponses[1].permissionName}")
+                        Log.msg("# permission ::: ${permission.deniedPermissionResponses[2].permissionName}")
+                        Log.msg("# permission ::: ${permission.deniedPermissionResponses[3].permissionName}")
+
+                        if (permission.areAllPermissionsGranted()) {
+                            Log.msg("# permission : areAllPermissionsGranted")
+                            callback(true)
+                        } else {
+                            Log.msg("# permission : areAllPermissionsDenied")
+                            callback(false)
+                        }
+                    }
+                    else {
+                        Log.msg("# permission : unchecked")
+                        callback(false)
+                    }
+                }
+
+                override fun onPermissionRationaleShouldBeShown(
+                    permission: MutableList<PermissionRequest>?,
+                    token: PermissionToken?
+                ) {
+                    Toast.makeText(
+                        context,
+                        "# permission : onPermissionRationaleShouldBeShown :: ${permission?.size}",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    callback(false)
+                }
+
+            })
+            .check()
     }
 
-    override fun onDestroy() {
-        ActivityUtil.removeActivity(this)
-        super.onDestroy()
+    fun showPermissionsSettingDialog(context: Context) {
+        val dialog = AlertDialog.Builder(context)
+        dialog.setTitle(getString(R.string.popup_permission_setting_title))
+        dialog.setMessage(getString(R.string.popup_permission_setting_message))
+        dialog.setPositiveButton(getString(R.string.btn_ok)) { dialog, _ ->
+            showSettingOS()
+            dialog.dismiss()
+        }
+        dialog.setNegativeButton(getString(R.string.btn_cancel)) { dialog, _ ->
+            dialog.dismiss()
+        }
+        dialog.show()
+    }
+
+    private fun showSettingOS() {
+        val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+        val uri = Uri.fromParts("package", packageName, null)
+        intent.data = uri
+        startActivityForResult(intent, 111)
     }
 }
 

@@ -1,15 +1,22 @@
 package handshug.jellycrew.main.view
 
 import android.Manifest
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
+import com.karumi.dexter.Dexter
+import com.karumi.dexter.MultiplePermissionsReport
+import com.karumi.dexter.PermissionToken
+import com.karumi.dexter.listener.PermissionRequest
+import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import handshug.jellycrew.Preference
 import handshug.jellycrew.R
 import handshug.jellycrew.databinding.ActivitySplashBinding
@@ -43,7 +50,7 @@ class SplashActivity : AppCompatActivity() {
             }
         })
 
-        if (!checkPermissions()) return
+//        if (!checkPermissions()) return
 
         // test by pass
         Handler().postDelayed({
@@ -99,51 +106,5 @@ class SplashActivity : AppCompatActivity() {
             startActivity(this)
         }
         finish()
-    }
-
-    private fun checkPermissions(): Boolean {
-        // Common Permissions Check
-        val noGrantedPermissions = getNoGrantedPermissions(
-            arrayListOf(
-                Manifest.permission.READ_EXTERNAL_STORAGE,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                Manifest.permission.READ_PHONE_STATE,
-                Manifest.permission.CALL_PHONE
-            )
-        )
-
-        return if (noGrantedPermissions.isNotEmpty()) {
-            requestPermissions(noGrantedPermissions, RESULT_REQ_MULTIPLE_PERMISSIONS)
-            false
-        } else true
-    }
-
-    private fun getNoGrantedPermissions(permissions: ArrayList<String>): ArrayList<String> {
-
-        val noGrantedPermissions = ArrayList<String>()
-
-        for (permission in permissions) {
-            if (ContextCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED) {
-                noGrantedPermissions.add(permission)
-            }
-        }
-
-        return noGrantedPermissions
-    }
-
-    private fun requestPermissions(noGrantedPermissions: ArrayList<String>, requestCode: Int) {
-        Log.msg("# checkPermission : 3 ###################")
-        ActivityCompat.requestPermissions(this, noGrantedPermissions.toTypedArray(), requestCode)
-    }
-
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-
-        when (requestCode) {
-            RESULT_REQ_MULTIPLE_PERMISSIONS -> run {
-//                if (!checkPermissions()) return
-                mainLogic()
-            }
-        }
     }
 }

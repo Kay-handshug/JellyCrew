@@ -120,6 +120,9 @@ dependencies {
     // Lottie
     implementation 'com.airbnb.android:lottie:3.4.0'
 
+    // Dexter
+    implementation 'com.karumi:dexter:6.2.1'
+
     // custom calendar view
     implementation 'com.github.prolificinteractive:material-calendarview:2.0.0'
 

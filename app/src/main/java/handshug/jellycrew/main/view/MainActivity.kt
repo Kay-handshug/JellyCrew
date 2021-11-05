@@ -6,6 +6,7 @@ import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.Handler
 import android.view.View
+import android.widget.Toast
 import androidx.annotation.LayoutRes
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -78,6 +79,15 @@ class MainActivity : BindingActivity<ActivityMainBinding>() {
 //                }
 //            }
 //        })
+        requestPermissions(this) { state ->
+            if (state) {
+                Toast.makeText(this, "# permission : checked", Toast.LENGTH_SHORT).show()
+            }
+            else {
+                Toast.makeText(this, "# permission : fail", Toast.LENGTH_SHORT).show()
+                showPermissionsSettingDialog(this)
+            }
+        }
     }
 
     // 뒤로가기 2회 클릭 시 종료
