@@ -170,15 +170,7 @@ abstract class BindingActivity<T : ViewDataBinding> : AppCompatActivity() {
 
     fun requestPermission(permission: String, requestCode: Int) {
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
-            if(ActivityCompat.shouldShowRequestPermissionRationale(this, permission)) {
-                Log.msg("# check permission : 1")
-                requestPermissions(arrayOf(permission), requestCode)
-            }
-            else {
-                Log.msg("# check permission : 2")
-//                requestPermissions(arrayOf(permission), requestCode)
-                ActivityCompat.requestPermissions(this, arrayOf(permission), requestCode)
-            }
+            requestPermissions(arrayOf(permission), requestCode)
         }
     }
 
@@ -242,12 +234,6 @@ abstract class BindingActivity<T : ViewDataBinding> : AppCompatActivity() {
             .withListener(object: MultiplePermissionsListener {
                 override fun onPermissionsChecked(permission: MultiplePermissionsReport?) {
                     if (permission != null) {
-
-                        Log.msg("# permission ::: ${permission.deniedPermissionResponses[0].permissionName}")
-                        Log.msg("# permission ::: ${permission.deniedPermissionResponses[1].permissionName}")
-                        Log.msg("# permission ::: ${permission.deniedPermissionResponses[2].permissionName}")
-                        Log.msg("# permission ::: ${permission.deniedPermissionResponses[3].permissionName}")
-
                         if (permission.areAllPermissionsGranted()) {
                             Log.msg("# permission : areAllPermissionsGranted")
                             callback(true)

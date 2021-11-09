@@ -20,4 +20,135 @@
         <item name="android:layout_gravity">center</item>
     </style>
 
+    // Common ################################################### Start
+    // Font
+    <style name="font_reqular">
+        <item name="android:fontFamily">@font/spoqa_han_sans_neo_regular</item>
+        <item name="fontFamily">@font/spoqa_han_sans_neo_regular</item>
+    </style>
+
+    <style name="font_medium">
+        <item name="android:fontFamily">@font/spoqa_han_sans_neo_medium</item>
+        <item name="fontFamily">@font/spoqa_han_sans_neo_medium</item>
+    </style>
+
+    <style name="font_bold">
+        <item name="android:fontFamily">@font/spoqa_han_sans_neo_bold</item>
+        <item name="fontFamily">@font/spoqa_han_sans_neo_bold</item>
+    </style>
+
+    // Title
+    <style name="style_common_title36">
+        <item name="android:textSize">36sp</item>
+    </style>
+
+    <style name="style_common_title32">
+        <item name="android:textSize">32sp</item>
+    </style>
+
+    <style name="style_common_title28">
+        <item name="android:textSize">28sp</item>
+    </style>
+
+    <style name="style_common_title22">
+        <item name="android:textSize">22sp</item>
+    </style>
+
+
+    // Sub Title
+    <style name="style_common_sub_title22">
+        <item name="android:textSize">22sp</item>
+    </style>
+
+    <style name="style_common_sub_title20">
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="style_common_sub_title18">
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="style_common_sub_title16">
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="style_common_sub_title14">
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="style_common_paragraph16">
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="style_common_paragraph14">
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="style_common_paragraph12">
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    // Button
+    <style name="style_common_button16">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="style_common_button14">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="style_common_button12">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="style_common_button10">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">10sp</item>
+    </style>
+
+    // Label
+    <style name="style_common_label16">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="style_common_label14">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="style_common_label12">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="style_common_label10">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">10sp</item>
+    </style>
+
+
+    // Line
+    <style name="style_common_line1">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+    </style>
+
+    <style name="style_common_line2">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">2dp</item>
+    </style>
+    // Common ################################################### End
+
 </resources>
