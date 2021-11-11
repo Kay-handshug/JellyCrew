@@ -45,6 +45,11 @@
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
+        <activity
+            android:name=".member.view.JoinActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+
         <activity android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />

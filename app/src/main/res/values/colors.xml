@@ -26,6 +26,8 @@
     <color name="color_common_bg_gray100">#F6F6F6</color>
     <color name="color_common_bg_gray200">#EEEEEE</color>
     <color name="color_common_bg_gray300">#E2E2E2</color>
+    <color name="color_common_bg_gray400">#CBCBCB</color>
+    <color name="color_common_bg_gray500">#AFAFAF</color>
 
     <color name="color_common_text_gray500">#AFAFAF</color>
     <color name="color_common_text_gray600">#757575</color>
@@ -38,4 +40,8 @@
     <color name="color_common_border_gray500">#AFAFAF</color>
     <color name="color_common_border_gray700">#5E5E5E</color>
 
+    // Button drawable
+    <drawable name="color_drawable_purple500">#C92EFF</drawable>
+    <drawable name="color_drawable_gray500">#AFAFAF</drawable>
+        
 </resources>

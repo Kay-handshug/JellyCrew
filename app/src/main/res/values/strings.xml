@@ -18,11 +18,20 @@
     <string name="toast_payment_request_token">이 로직은 서버사이드에서 먼저 수행되어야 합니다.</string>
 
     // login
-    <string name="login_title">크리에이터와 나를 잇는\n쇼핑플랫폼</string>
-    <string name="login_sub_title">JELLY CREW</string>
+    <string name="login_title">JELLY CREW</string>
+    <string name="login_sub_title">크리에이터와 나를 잇는\n쇼핑플랫폼</string>
     <string name="login_email">이메일 로그인</string>
     <string name="login_email_join">이메일로 가입</string>
     <string name="login_old_order_list_view">2022년 09월 이전 주문조회</string>
 
-
+    // join
+    <string name="join_title">회원가입</string>
+    <string name="join_terms_sub_title">젤리크루 약관에\n동의해 주세요. :)</string>
+    <string name="join_terms_agree_all">모두 동의 (선택정보 포함)</string>
+    <string name="join_terms_agree_item_01">[필수] 만 14세 이상입니다.</string>
+    <string name="join_terms_agree_item_02">[필수] 이용약관 동의</string>
+    <string name="join_terms_agree_item_03">[필수] 개인정보수집 및 이용 동의</string>
+    <string name="join_terms_agree_item_04">[선택] 특가, 쿠폰 등 이벤트 알림 이메일, 문자, 앱푸시</string>
+    <string name="join_terms_agree_view_detail">보기</string>
+    <string name="join_terms_agree_confirm">동의하고 가입하기</string>
 </resources>
