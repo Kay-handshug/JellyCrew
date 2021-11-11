@@ -126,27 +126,35 @@
 
     // Button
     <style name="style_common_button16">
-        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:fontFamily">@font/spoqa_han_sans_neo_bold</item>
     </style>
 
     <style name="style_common_button14">
-        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:fontFamily">@font/spoqa_han_sans_neo_bold</item>
     </style>
 
     <style name="style_common_button12">
-        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:fontFamily">@font/spoqa_han_sans_neo_bold</item>
     </style>
 
     <style name="style_common_button10">
-        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">10sp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:fontFamily">@font/spoqa_han_sans_neo_bold</item>
     </style>
 
     // Label
@@ -185,6 +193,18 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">2dp</item>
     </style>
+
+
+    // CheckBox
+    <style name="style_common_checkbox12">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@drawable/selector_color_gray_n_black</item>
+        <item name="android:buttonTint">@color/color_common_violet500</item>
+        <item name="android:fontFamily">@font/spoqa_han_sans_neo_medium</item>
+    </style>
+
     // Common ################################################### End
 
 </resources>

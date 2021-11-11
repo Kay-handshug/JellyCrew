@@ -20,6 +20,7 @@ import handshug.jellycrew.base.BindingActivity
 import handshug.jellycrew.databinding.ActivityLoginBinding
 import handshug.jellycrew.main.view.MainActivity
 import handshug.jellycrew.member.MemberContract.Companion.ACTIVITY_CLOSE
+import handshug.jellycrew.member.MemberContract.Companion.ACTIVITY_JOIN_EMAIL
 import handshug.jellycrew.member.MemberContract.Companion.LOGIN_SUCCESS
 import handshug.jellycrew.member.MemberContract.Companion.START_LOGIN_FACEBOOK
 import handshug.jellycrew.member.MemberContract.Companion.START_LOGIN_KAKAO
@@ -58,6 +59,11 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>() {
                     START_LOGIN_KAKAO -> startLoginKakao()
                     START_LOGIN_NAVER -> startLoginNaver()
                     START_LOGIN_FACEBOOK -> startLoginFacebook()
+                    ACTIVITY_JOIN_EMAIL -> {
+                        Intent(this, JoinActivity::class.java).apply {
+                            startActivity(this)
+                        }
+                    }
                 }
             }
         })

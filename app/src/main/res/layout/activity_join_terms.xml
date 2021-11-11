@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" >
+
+    <data>
+        <variable name="viewModel" type="handshug.jellycrew.member.viewModel.MemberViewModel" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        android:background="@color/white">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingLeft="16dp"
+            android:paddingTop="16dp"
+            android:paddingRight="16dp"
+            android:paddingBottom="16dp"
+            app:setCheckBoxAll="@{true}">
+
+            <include
+                android:id="@+id/ic_common_title_join"
+                layout="@layout/common_title_join"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:viewModel="@{viewModel}"/>
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_join_terms_title_img"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ic_common_title_join"
+                app:srcCompat="@drawable/bottom_background_img" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_join_terms_sub_title"
+                style="@style/style_common_title28"
+                android:text="@string/join_terms_sub_title"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/iv_join_terms_title_img" />
+
+            <androidx.appcompat.widget.AppCompatCheckBox
+                android:id="@+id/cb_join_terms_agree_all"
+                style="@style/style_common_checkbox12"
+                android:text="@string/join_terms_agree_all"
+                android:layout_marginTop="16dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_join_terms_sub_title" />
+
+            <View
+                android:id="@+id/v_line"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="16dp"
+                android:background="@color/color_common_border_gray500"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cb_join_terms_agree_all" />
+
+            <androidx.appcompat.widget.AppCompatCheckBox
+                android:id="@+id/cb_join_terms_agree_item_01"
+                style="@style/style_common_checkbox12"
+                android:text="@string/join_terms_agree_item_01"
+                android:layout_marginTop="16dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/v_line" />
+
+            <androidx.appcompat.widget.AppCompatCheckBox
+                android:id="@+id/cb_join_terms_agree_item_02"
+                style="@style/style_common_checkbox12"
+                android:text="@string/join_terms_agree_item_02"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cb_join_terms_agree_item_01" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_join_terms_agree_item_02_detail"
+                style="@style/style_common_text12"
+                android:text="@string/join_terms_agree_view_detail"
+                android:textColor="@color/color_common_violet500"
+                android:layout_marginStart="16dp"
+                app:layout_constraintStart_toEndOf="@+id/cb_join_terms_agree_item_02"
+                app:layout_constraintTop_toBottomOf="@+id/cb_join_terms_agree_item_01"
+                app:layout_constraintBaseline_toBaselineOf="@+id/cb_join_terms_agree_item_02"
+                app:underline="@{true}"/>
+
+            <androidx.appcompat.widget.AppCompatCheckBox
+                android:id="@+id/cb_join_terms_agree_item_03"
+                style="@style/style_common_checkbox12"
+                android:text="@string/join_terms_agree_item_03"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cb_join_terms_agree_item_02" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_join_terms_agree_item_03_detail"
+                style="@style/style_common_text12"
+                android:text="@string/join_terms_agree_view_detail"
+                android:textColor="@color/color_common_violet500"
+                android:layout_marginStart="16sp"
+                app:layout_constraintStart_toEndOf="@+id/cb_join_terms_agree_item_03"
+                app:layout_constraintTop_toBottomOf="@+id/cb_join_terms_agree_item_02"
+                app:layout_constraintBaseline_toBaselineOf="@+id/cb_join_terms_agree_item_03"
+                app:underline="@{true}" />
+
+            <androidx.appcompat.widget.AppCompatCheckBox
+                android:id="@+id/cb_join_terms_agree_item_04"
+                style="@style/style_common_checkbox12"
+                android:text="@string/join_terms_agree_item_04"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cb_join_terms_agree_item_03" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_join_terms_agree_confirm"
+                style="@style/style_common_button14"
+                android:text="@string/join_terms_agree_confirm"
+                android:background="@drawable/selector_btn_purple_n_gray"
+                android:onClick="@{() -> viewModel.navigateToMain()}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </RelativeLayout>
+
+</layout>
