@@ -88,8 +88,10 @@ class SplashActivity : AppCompatActivity() {
     private fun mainLogic() {
         // todo 버전체크, 업데이트관리, 로그인, 토큰관리 등등
 
-        if (Preference.isLogin) startMainActivity()
-        else startLoginActivity()
+//        if (Preference.isLogin) startMainActivity()
+//        else startLoginActivity()
+
+        startLoginActivity()
     }
 
     private fun startMainActivity() {

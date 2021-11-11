@@ -18,50 +18,97 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingLeft="16dp"
-            android:paddingTop="40dp"
+            android:paddingTop="200dp"
             android:paddingRight="16dp"
             android:paddingBottom="10dp" >
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tv_login_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Login demo view"
+                style="@style/style_common_sub_title22"
+                android:id="@+id/tv_login_subb_title"
+                android:layout_width="match_parent"
+                android:text="@string/login_title"
                 android:textColor="@color/white"
-                android:textSize="27sp"
+                android:gravity="center"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_login_title"
+                style="@style/style_common_title36"
+                android:gravity="center"
+                android:text="@string/login_sub_title"
+                android:textColor="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_login_subb_title" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/btn_login_kakao"
                 android:layout_width="130dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
+                android:layout_marginBottom="30dp"
                 android:onClick="@{() -> viewModel.startLoginKakao()}"
-                app:srcCompat="@drawable/btn_login_kakao"
+                app:layout_constraintBottom_toTopOf="@+id/btn_login_naver"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_login_title"
+                app:srcCompat="@drawable/btn_login_kakao"
                 tools:ignore="SmallSp" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/btn_login_naver"
                 android:layout_width="130dp"
                 android:layout_height="32dp"
-                android:layout_marginTop="37dp"
                 android:onClick="@{() -> viewModel.startLoginNaver()}"
-                app:srcCompat="@drawable/btn_login_naver"
-                app:layout_constraintStart_toEndOf="@+id/btn_login_kakao"
-                app:layout_constraintTop_toBottomOf="@+id/tv_login_title" />
+                android:layout_marginStart="20dp"
+                android:layout_marginBottom="30dp"
+                app:layout_constraintBottom_toTopOf="@+id/appCompatTextView3"
+                app:layout_constraintStart_toStartOf="parent"
+                app:srcCompat="@drawable/btn_login_naver" />
 
             <com.facebook.login.widget.LoginButton
                 android:id="@+id/btn_login_facebook"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 android:layout_gravity="center_horizontal"
                 android:onClick="@{() -> viewModel.startLoginFacebook()}"
+                android:layout_marginStart="10dp"
+                android:layout_marginBottom="30dp"
+                app:layout_constraintBottom_toTopOf="@+id/appCompatTextView3"
+                app:layout_constraintStart_toEndOf="@+id/btn_login_naver" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/appCompatTextView3"
+                style="@style/style_common_text14"
+                android:layout_marginStart="80dp"
+                android:layout_marginBottom="50dp"
+                android:text="@string/login_email"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toTopOf="@+id/appCompatTextView"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/btn_login_kakao" />
+                app:underline="@{true}" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/appCompatTextView4"
+                style="@style/style_common_text14"
+                android:layout_marginStart="60dp"
+                android:layout_marginBottom="50dp"
+                android:text="@string/login_email_join"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toTopOf="@+id/appCompatTextView"
+                app:layout_constraintStart_toEndOf="@+id/appCompatTextView3"
+                app:underline="@{true}" />
+
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/appCompatTextView"
+                style="@style/style_common_text14"
+                android:gravity="center"
+                android:text="@string/login_old_order_list_view"
+                android:textColor="@color/color_common_text_gray500"
+                android:layout_marginBottom="20dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

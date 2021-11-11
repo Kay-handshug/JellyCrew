@@ -28,10 +28,12 @@ android {
             minifyEnabled false
             versionNameSuffix '-dev'
             applicationIdSuffix '.dev'
+            buildConfigField "Boolean", "DEBUG_MODE", "true"
         }
         release {
             shrinkResources true
             minifyEnabled true
+            buildConfigField "Boolean", "DEBUG_MODE", "false"
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }

@@ -39,53 +39,89 @@
 
     // Title
     <style name="style_common_title36">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">36sp</item>
+        <item name="android:fontFamily">@font/spoqa_han_sans_neo_bold</item>
     </style>
 
     <style name="style_common_title32">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">32sp</item>
+        <item name="android:fontFamily">@font/spoqa_han_sans_neo_bold</item>
     </style>
 
     <style name="style_common_title28">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">28sp</item>
+        <item name="android:fontFamily">@font/spoqa_han_sans_neo_bold</item>
     </style>
 
     <style name="style_common_title22">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">22sp</item>
+        <item name="android:fontFamily">@font/spoqa_han_sans_neo_bold</item>
     </style>
 
 
     // Sub Title
     <style name="style_common_sub_title22">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">22sp</item>
+        <item name="android:fontFamily">@font/spoqa_han_sans_neo_bold</item>
     </style>
 
     <style name="style_common_sub_title20">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">20sp</item>
+        <item name="android:fontFamily">@font/spoqa_han_sans_neo_bold</item>
     </style>
 
     <style name="style_common_sub_title18">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">18sp</item>
+        <item name="android:fontFamily">@font/spoqa_han_sans_neo_bold</item>
     </style>
 
     <style name="style_common_sub_title16">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">16sp</item>
+        <item name="android:fontFamily">@font/spoqa_han_sans_neo_bold</item>
     </style>
 
     <style name="style_common_sub_title14">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">14sp</item>
+        <item name="android:fontFamily">@font/spoqa_han_sans_neo_bold</item>
     </style>
 
-    <style name="style_common_paragraph16">
+    <style name="style_common_text16">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">16sp</item>
+        <item name="android:fontFamily">@font/spoqa_han_sans_neo_medium</item>
     </style>
 
-    <style name="style_common_paragraph14">
+    <style name="style_common_text14">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">14sp</item>
+        <item name="android:fontFamily">@font/spoqa_han_sans_neo_medium</item>
     </style>
 
-    <style name="style_common_paragraph12">
+    <style name="style_common_text12">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">12sp</item>
+        <item name="android:fontFamily">@font/spoqa_han_sans_neo_medium</item>
     </style>
 
     // Button

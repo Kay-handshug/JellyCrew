@@ -9,7 +9,6 @@
     <string name="facebook_app_id">424827942650818</string>
     <string name="fb_login_protocol_scheme">fb424827942650818</string>
 
-
     // popup
     <string name="popup_permission_setting_title">필요 권한</string>
     <string name="popup_permission_setting_message">이 앱은 사용하기 위해 권한이 필요합니다. 앱 설정에서 부여할 수 있습니다.</string>
@@ -17,4 +16,13 @@
     // toast
     <string name="toast_app_finish">뒤로 가기를 한 번 더 누를 시 앱이 종료됩니다.</string>
     <string name="toast_payment_request_token">이 로직은 서버사이드에서 먼저 수행되어야 합니다.</string>
+
+    // login
+    <string name="login_title">크리에이터와 나를 잇는\n쇼핑플랫폼</string>
+    <string name="login_sub_title">JELLY CREW</string>
+    <string name="login_email">이메일 로그인</string>
+    <string name="login_email_join">이메일로 가입</string>
+    <string name="login_old_order_list_view">2022년 09월 이전 주문조회</string>
+
+
 </resources>
