@@ -1,18 +1,8 @@
 package handshug.jellycrew.member.view
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import androidx.annotation.LayoutRes
-import com.facebook.CallbackManager
-import com.facebook.FacebookCallback
-import com.facebook.FacebookException
-import com.facebook.login.LoginManager
-import com.facebook.login.LoginResult
-import com.kakao.sdk.auth.model.OAuthToken
-import com.kakao.sdk.user.UserApiClient
-import com.nhn.android.naverlogin.OAuthLogin
-import com.nhn.android.naverlogin.OAuthLoginHandler
 import handshug.jellycrew.Preference
 import handshug.jellycrew.R
 import handshug.jellycrew.TimeSynchronizer
@@ -21,13 +11,14 @@ import handshug.jellycrew.databinding.ActivityJoinTermsBinding
 import handshug.jellycrew.main.view.MainActivity
 import handshug.jellycrew.member.MemberContract.Companion.ACTIVITY_CLOSE
 import handshug.jellycrew.member.MemberContract.Companion.ACTIVITY_MAIN
+import handshug.jellycrew.member.MemberContract.Companion.SHOW_DIALOG_USER_INFO_NOTI
+import handshug.jellycrew.member.view.dialog.MemberDialog
 import handshug.jellycrew.member.viewModel.MemberViewModel
 import handshug.jellycrew.utils.ActivityUtil
-import handshug.jellycrew.utils.Log
 import org.koin.androidx.viewmodel.ext.android.getViewModel
 
 
-class JoinActivity : BindingActivity<ActivityJoinTermsBinding>() {
+class JoinTermsActivity : BindingActivity<ActivityJoinTermsBinding>() {
 
     @LayoutRes
     override fun getLayoutResId() = R.layout.activity_join_terms
@@ -41,6 +32,9 @@ class JoinActivity : BindingActivity<ActivityJoinTermsBinding>() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
+        val dialog = MemberDialog(this, viewModel)
+        val showDialogUserInfoNoti = dialog.showUserinfoNotiDialog()
+
         viewModel.toastMessage.observe(this, {
             toast(it)
         })
@@ -50,6 +44,7 @@ class JoinActivity : BindingActivity<ActivityJoinTermsBinding>() {
                 when (event) {
                     ACTIVITY_CLOSE -> finish()
                     ACTIVITY_MAIN -> goToMainActivity()
+                    SHOW_DIALOG_USER_INFO_NOTI -> showDialogUserInfoNoti.show()
                 }
             }
         })

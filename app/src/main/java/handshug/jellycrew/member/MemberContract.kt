@@ -9,6 +9,8 @@ interface MemberContract {
         const val ACTIVITY_FIND_EMAIL = 1030
         const val ACTIVITY_FIND_PASSWORD = 1040
 
+        const val SHOW_DIALOG_USER_INFO_NOTI = 1100
+
         const val START_LOGIN_KAKAO = 2000
         const val START_LOGIN_NAVER = 2010
         const val START_LOGIN_FACEBOOK = 2020

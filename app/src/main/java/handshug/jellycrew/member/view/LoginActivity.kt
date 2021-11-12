@@ -60,7 +60,7 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>() {
                     START_LOGIN_NAVER -> startLoginNaver()
                     START_LOGIN_FACEBOOK -> startLoginFacebook()
                     ACTIVITY_JOIN_EMAIL -> {
-                        Intent(this, JoinActivity::class.java).apply {
+                        Intent(this, JoinTermsActivity::class.java).apply {
                             startActivity(this)
                         }
                     }

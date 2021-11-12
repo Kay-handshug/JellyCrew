@@ -46,7 +46,7 @@
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".member.view.JoinActivity"
+            android:name=".member.view.JoinTermsActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
