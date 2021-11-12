@@ -20,7 +20,7 @@ import handshug.jellycrew.base.BindingActivity
 import handshug.jellycrew.databinding.ActivityLoginBinding
 import handshug.jellycrew.main.view.MainActivity
 import handshug.jellycrew.member.MemberContract.Companion.ACTIVITY_CLOSE
-import handshug.jellycrew.member.MemberContract.Companion.ACTIVITY_JOIN_EMAIL
+import handshug.jellycrew.member.MemberContract.Companion.ACTIVITY_JOIN_TERMS
 import handshug.jellycrew.member.MemberContract.Companion.LOGIN_SUCCESS
 import handshug.jellycrew.member.MemberContract.Companion.START_LOGIN_FACEBOOK
 import handshug.jellycrew.member.MemberContract.Companion.START_LOGIN_KAKAO
@@ -56,14 +56,10 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>() {
                 when (event) {
                     ACTIVITY_CLOSE -> finish()
                     LOGIN_SUCCESS -> goToMainActivity()
+                    ACTIVITY_JOIN_TERMS -> goToJoinTerms()
                     START_LOGIN_KAKAO -> startLoginKakao()
                     START_LOGIN_NAVER -> startLoginNaver()
                     START_LOGIN_FACEBOOK -> startLoginFacebook()
-                    ACTIVITY_JOIN_EMAIL -> {
-                        Intent(this, JoinTermsActivity::class.java).apply {
-                            startActivity(this)
-                        }
-                    }
                 }
             }
         })
@@ -161,6 +157,13 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>() {
         }
         ActivityUtil.removeActivity(this)
         finish()
+    }
+
+    private fun goToJoinTerms() {
+        Intent(this, JoinTermsActivity::class.java).apply {
+            startActivity(this)
+            overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

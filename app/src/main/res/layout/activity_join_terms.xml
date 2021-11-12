@@ -157,7 +157,7 @@
                 style="@style/style_common_button14"
                 android:text="@string/join_terms_agree_confirm"
                 android:background="@drawable/selector_btn_purple_n_gray"
-                android:onClick="@{() -> viewModel.navigateToMain()}"
+                android:onClick="@{() -> viewModel.navigateToJoinPhone()}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />

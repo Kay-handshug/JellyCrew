@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" >
+
+    <data>
+        <variable name="viewModel" type="handshug.jellycrew.member.viewModel.MemberViewModel" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        android:background="@color/white">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingLeft="16dp"
+            android:paddingTop="16dp"
+            android:paddingRight="16dp"
+            android:paddingBottom="16dp" >
+
+            <include
+                android:id="@+id/ic_common_title_join"
+                layout="@layout/common_title_join"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:viewModel="@{viewModel}"/>
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_join_phone_title_img"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ic_common_title_join"
+                app:srcCompat="@drawable/bottom_background_img" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_join_phone_sub_title"
+                style="@style/style_common_title22"
+                android:layout_marginTop="10dp"
+                android:text="@string/join_phone_sub_title"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/iv_join_phone_title_img" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_join_phone_sub_title_hint"
+                style="@style/style_common_text12"
+                android:paddingBottom="50dp"
+                android:text="@string/join_phone_sub_title_hint"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_join_phone_sub_title" />
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/et_join_phone_input"
+                style="@style/style_common_text12"
+                android:layout_width="0dp"
+                android:hint="@string/join_phone_input_hint"
+                android:textColorHint="@color/color_common_text_gray500"
+                android:inputType="phone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/btn_join_phone_request_verify"
+                app:layout_constraintTop_toBottomOf="@+id/tv_join_phone_sub_title_hint" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_join_phone_request_verify"
+                style="@style/style_common_button12"
+                android:layout_width="100dp"
+                android:layout_marginStart="16dp"
+                android:text="@string/join_phone_request_verify"
+                android:background="@drawable/selector_btn_purple_n_gray"
+                android:onClick="@{() -> viewModel.showDialogToast()}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/et_join_phone_input"
+                app:layout_constraintTop_toBottomOf="@+id/tv_join_phone_sub_title_hint"
+                app:layout_constraintBaseline_toBaselineOf="@+id/et_join_phone_input"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_join_terms_agree_confirm"
+                style="@style/style_common_button14"
+                android:text="@string/btn_next"
+                android:background="@drawable/selector_btn_purple_n_gray"
+                android:onClick="@{() -> viewModel.navigateToMain()}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </RelativeLayout>
+
+</layout>

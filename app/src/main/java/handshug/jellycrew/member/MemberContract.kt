@@ -5,11 +5,13 @@ interface MemberContract {
     companion object {
         const val ACTIVITY_CLOSE = 1000
         const val ACTIVITY_MAIN = 1010
-        const val ACTIVITY_JOIN_EMAIL = 1020
+        const val ACTIVITY_JOIN_PHONE = 1021
+        const val ACTIVITY_JOIN_TERMS = 1022
         const val ACTIVITY_FIND_EMAIL = 1030
         const val ACTIVITY_FIND_PASSWORD = 1040
 
         const val SHOW_DIALOG_USER_INFO_NOTI = 1100
+        const val SHOW_DIALOG_TOAST = 1101
 
         const val START_LOGIN_KAKAO = 2000
         const val START_LOGIN_NAVER = 2010

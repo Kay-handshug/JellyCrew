@@ -89,7 +89,7 @@
             android:layout_marginBottom="50dp"
             android:text="@string/login_email_join"
             android:textColor="@color/white"
-            android:onClick="@{() -> viewModel.navigateToJoin()}"
+            android:onClick="@{() -> viewModel.navigateToJoinTerms()}"
             app:layout_constraintBottom_toTopOf="@+id/appCompatTextView"
             app:layout_constraintStart_toEndOf="@+id/appCompatTextView3"
             app:underline="@{true}" />
