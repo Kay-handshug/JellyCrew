@@ -4,6 +4,7 @@
     // default button
     <string name="btn_ok">확인</string>
     <string name="btn_cancel">취소</string>
+    <string name="btn_next">다음</string>
 
     // facebook
     <string name="facebook_app_id">424827942650818</string>
@@ -24,7 +25,7 @@
     <string name="login_email_join">이메일로 가입</string>
     <string name="login_old_order_list_view">2022년 09월 이전 주문조회</string>
 
-    // join
+    // join terms
     <string name="join_title">회원가입</string>
     <string name="join_terms_sub_title">젤리크루 약관에\n동의해 주세요. :)</string>
     <string name="join_terms_agree_all">모두 동의 (선택정보 포함)</string>
@@ -38,4 +39,24 @@
     <string name="join_terms_agree_user_info_noti">개인정보 유효기간은 1년이 기본이고, 1년 간 접속 기록이 없는 경우 휴면회원(장기 미이용 고객)으로 전환되며, 평생회원으로 가입 시에는 휴면전환 또는 휴면 후 해제없이 탈퇴 시까지 유지되요.</string>
     <string name="join_terms_agree_view_detail">보기</string>
     <string name="join_terms_agree_confirm">동의하고 가입하기</string>
+
+    // join phone
+    <string name="join_phone_sub_title">휴대폰 번호를 알려주세요. :)</string>
+    <string name="join_phone_sub_title_hint">입력하신 번호로 인증번호를 보내드려요.</string>
+    <string name="join_phone_input_hint">휴대폰 번호 (- 제외)</string>
+    <string name="join_phone_request_verify">인증 요청</string>
+    <string name="join_phone_request_verify_retry">재전송</string>
+    <string name="join_phone_error_01">휴대폰 번호를 입력하세요.</string>
+    <string name="join_phone_error_02">휴대폰 번호가 올바르지 않아요.</string>
+    <string name="join_phone_error_03">인증번호가 맞지 않아요.</string>
+    <string name="join_phone_error_04">인증번호 입력 시간이 지났어요.</string>
+    <string name="join_phone_error_toast">인증 문자를 보내드릴 수 없는 번호로 확인되요.</string>
+    <string name="join_phone_error_request_verify_fail">인증문자가 계속 오지 않아요.</string>
+    <string name="join_phone_error_request_verify_fail_notice_01">안녕하세요. 젤리크루 고객센터 입니다.\n\n휴대폰 인증 문자가 오지 않아서 다음 단계 진행에 어려움이 있으시군요.\n아래 내용에 해당되는지 한 번 확인 부탁드려요.</string>
+    <string name="join_phone_error_request_verify_fail_notice_02">젤리크루 고객센터 번호 070-4402-1515가 스팸 번호로 등록되어있어 문자가 스팸 문자로 분류된 경우</string>
+    <string name="join_phone_error_request_verify_fail_notice_03">통신사 무료 부가서비스 중 스팸 필터링 부가서비스에 가입되어있는 경우</string>
+    <string name="join_phone_error_request_verify_fail_notice_04">위 2가지 사유인 경우가 많으므로, 먼저 휴대폰의 스팸 문자함 및 통신사에 해당 부가서비스 가입 여부를 확인해 주세요.</string>
+    <string name="join_phone_error_request_verify_fail_notice_05">그럼에도 불구하고 계속 오지 않는다면,</string>
+    <string name="join_phone_error_request_verify_fail_notice_06">젤리크루 카톡상담 또는 메일</string>
+    <string name="join_phone_error_request_verify_fail_notice_07">로 문의해 주세요.</string>
 </resources>
