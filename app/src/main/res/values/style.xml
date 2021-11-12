@@ -124,6 +124,13 @@
         <item name="android:fontFamily">@font/spoqa_han_sans_neo_medium</item>
     </style>
 
+    <style name="style_common_text10">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">10sp</item>
+        <item name="android:fontFamily">@font/spoqa_han_sans_neo_medium</item>
+    </style>
+
     // Button
     <style name="style_common_button16">
         <item name="android:layout_width">match_parent</item>

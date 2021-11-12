@@ -33,7 +33,7 @@
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/iv_join_terms_title_img"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="2dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/ic_common_title_join"
@@ -41,7 +41,8 @@
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tv_join_terms_sub_title"
-                style="@style/style_common_title28"
+                style="@style/style_common_title22"
+                android:layout_marginTop="10dp"
                 android:text="@string/join_terms_sub_title"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/iv_join_terms_title_img" />
@@ -58,7 +59,7 @@
                 android:id="@+id/v_line"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="10dp"
                 android:background="@color/color_common_border_gray500"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -68,7 +69,7 @@
                 android:id="@+id/cb_join_terms_agree_item_01"
                 style="@style/style_common_checkbox12"
                 android:text="@string/join_terms_agree_item_01"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="10dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/v_line" />
 
@@ -115,6 +116,42 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/cb_join_terms_agree_item_03" />
 
+            <androidx.appcompat.widget.AppCompatCheckBox
+                android:id="@+id/cb_join_terms_agree_item_05"
+                style="@style/style_common_checkbox12"
+                android:text="@string/join_terms_agree_item_05"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cb_join_terms_agree_item_04" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="15dp"
+                android:onClick="@{() -> viewModel.showDialogUserInfoNoti()}"
+                app:srcCompat="@drawable/close_btn_img"
+                app:layout_constraintStart_toEndOf="@+id/cb_join_terms_agree_item_05"
+                app:layout_constraintTop_toBottomOf="@+id/cb_join_terms_agree_item_04" />
+
+            <androidx.appcompat.widget.AppCompatCheckBox
+                android:id="@+id/cb_join_terms_agree_item_06"
+                style="@style/style_common_checkbox12"
+                android:text="@string/join_terms_agree_item_06"
+                android:layout_marginStart="20dp"
+                android:textColor="@drawable/selector_color_lite_gray_n_gray"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cb_join_terms_agree_item_05" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/cb_join_terms_agree_item_07"
+                style="@style/style_common_text10"
+                android:text="@string/join_terms_agree_item_07"
+                android:textColor="@color/color_common_red500"
+                android:layout_marginStart="30dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cb_join_terms_agree_item_06" />
+
+
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_join_terms_agree_confirm"
                 style="@style/style_common_button14"
@@ -124,8 +161,6 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
-
-
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

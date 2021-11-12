@@ -7,6 +7,7 @@ import handshug.jellycrew.main.MainContract.Companion.DRAWER_MENU_OPEN
 import handshug.jellycrew.main.model.MainApi
 import handshug.jellycrew.member.MemberContract.Companion.ACTIVITY_CLOSE
 import handshug.jellycrew.member.MemberContract.Companion.ACTIVITY_JOIN_EMAIL
+import handshug.jellycrew.member.MemberContract.Companion.SHOW_DIALOG_USER_INFO_NOTI
 import handshug.jellycrew.member.MemberContract.Companion.START_LOGIN_FACEBOOK
 import handshug.jellycrew.member.MemberContract.Companion.START_LOGIN_KAKAO
 import handshug.jellycrew.member.MemberContract.Companion.START_LOGIN_NAVER
@@ -24,5 +25,7 @@ class MemberViewModel(private val mainApi: MainApi) : BaseViewModel(mainApi), Ma
     fun startLoginKakao() = viewEvent(START_LOGIN_KAKAO)
     fun startLoginNaver() = viewEvent(START_LOGIN_NAVER)
     fun startLoginFacebook() = viewEvent(START_LOGIN_FACEBOOK)
+
+    fun showDialogUserInfoNoti() = viewEvent(SHOW_DIALOG_USER_INFO_NOTI)
 
 }
