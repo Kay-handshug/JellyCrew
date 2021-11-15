@@ -24,8 +24,8 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_join_phone_sub_title"
-            style="@style/style_common_title22"
-            android:layout_marginTop="16dp"
+            style="@style/style_common_title"
+            android:layout_marginTop="62dp"
             android:layout_marginStart="16dp"
             android:text="@string/join_phone_sub_title"
             app:layout_constraintStart_toStartOf="parent"
@@ -33,7 +33,7 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_join_phone_sub_title_hint"
-            style="@style/style_common_text12"
+            style="@style/style_common_text"
             android:layout_marginStart="16dp"
             android:paddingBottom="50dp"
             android:text="@string/join_phone_sub_title_hint"
@@ -52,7 +52,7 @@
 
             <androidx.appcompat.widget.AppCompatEditText
                 android:id="@+id/et_join_phone_input"
-                style="@style/style_common_text12"
+                style="@style/style_common_text"
                 android:layout_width="match_parent"
                 android:hint="@string/join_phone_input_hint"
                 android:textColorHint="@color/color_common_text_gray500"
@@ -63,7 +63,7 @@
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_join_phone_request_verify"
-            style="@style/style_common_button12"
+            style="@style/style_common_button"
             android:layout_width="100dp"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
@@ -89,7 +89,7 @@
 
             <androidx.appcompat.widget.AppCompatEditText
                 android:id="@+id/et_join_phone_input_verify_number"
-                style="@style/style_common_text12"
+                style="@style/style_common_text"
                 android:layout_width="match_parent"
                 android:layout_marginTop="10dp"
                 android:inputType="number"
@@ -99,7 +99,7 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_join_phone_input_verify_number_countdown"
-            style="@style/style_common_text12"
+            style="@style/style_common_text"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="21dp"
             android:textColor="@color/color_common_red500"
@@ -112,7 +112,7 @@
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_join_terms_agree_confirm"
-            style="@style/style_common_button14"
+            style="@style/style_common_button"
             android:text="@string/btn_next"
             android:background="@drawable/selector_btn_purple_n_gray"
             android:onClick="@{() -> viewModel.navigateToMain()}"

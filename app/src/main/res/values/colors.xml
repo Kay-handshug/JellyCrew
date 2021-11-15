@@ -14,6 +14,7 @@
     <color name="white">#FFFFFFFF</color>
 
     // Common
+    <color name="color_common_violet100">#FCE9FC</color>
     <color name="color_common_violet500">#A85FF0</color>
     <color name="color_common_purple500">#C92EFF</color>
     <color name="color_common_yellow400">#FFD471</color>
@@ -43,5 +44,6 @@
     // Button drawable
     <drawable name="color_drawable_purple500">#C92EFF</drawable>
     <drawable name="color_drawable_gray500">#AFAFAF</drawable>
-        
+    <drawable name="color_drawable_white">#ffffff</drawable>
+
 </resources>

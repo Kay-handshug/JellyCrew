@@ -35,11 +35,12 @@
             app:srcCompat="@drawable/ic_icon_logo" />
 
         <androidx.appcompat.widget.AppCompatTextView
-            style="@style/style_common_sub_title16"
+            style="@style/style_common_sub_title"
             android:id="@+id/tv_login_subb_title"
             android:layout_width="match_parent"
             android:layout_marginTop="16dp"
             android:text="@string/login_sub_title"
+            android:textSize="16sp"
             android:textColor="@color/color_common_violet500"
             android:gravity="center"
             app:layout_constraintEnd_toEndOf="parent"
@@ -82,10 +83,11 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_login_email"
-            style="@style/style_common_text14"
+            style="@style/style_common_text"
             android:layout_marginStart="70dp"
             android:layout_marginTop="30dp"
             android:text="@string/login_email"
+            android:textSize="14sp"
             android:textColor="@color/color_common_text_gray800"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/iv_login_facebook"
@@ -93,10 +95,11 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_login_email_join"
-            style="@style/style_common_text14"
+            style="@style/style_common_text"
             android:layout_marginTop="30dp"
             android:onClick="@{() -> viewModel.navigateToJoinTerms()}"
             android:text="@string/login_email_join"
+            android:textSize="14sp"
             android:textColor="@color/color_common_text_gray800"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/tv_login_email"
@@ -104,10 +107,11 @@
             app:underline="@{true}" />
 
         <androidx.appcompat.widget.AppCompatTextView
-            style="@style/style_common_text14"
+            style="@style/style_common_text"
             android:layout_marginTop="20dp"
             android:gravity="center"
             android:text="@string/login_old_order_list_view"
+            android:textSize="14sp"
             android:textColor="@color/color_common_border_gray500"
             android:onClick="@{() -> viewModel.navigateToPastOrders()}"
             app:layout_constraintEnd_toEndOf="parent"
