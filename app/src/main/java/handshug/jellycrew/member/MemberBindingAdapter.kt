@@ -128,13 +128,18 @@ fun ConstraintLayout.setCheckClickEvent(viewModel: MemberViewModel) {
     }
 }
 
-@BindingAdapter("setTitleIndex")
-fun ConstraintLayout.setTitleIndex(index: Int) {
+@BindingAdapter("setTitleIndex", "isShowRightBtn")
+fun ConstraintLayout.setTitleIndex(index: Int, isShowRightBtn: Boolean = false) {
+    val btnRight = this.btn_title_close
+
     val llIndex01 = this.ll_index_01
     val llIndex02 = this.ll_index_02
     val llIndex03 = this.ll_index_03
     val llIndex04 = this.ll_index_04
     val llIndex05 = this.ll_index_05
+
+    if (isShowRightBtn) btnRight.visible()
+    else btnRight.gone()
 
     llIndex01.gone()
     llIndex02.gone()

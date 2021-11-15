@@ -25,8 +25,7 @@
             app:srcCompat="@drawable/close_btn_img" />
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/style_common_text"
             android:text="@string/join_terms_agree_user_info_noti"
             android:textColor="@color/white"
             android:padding="20dp"

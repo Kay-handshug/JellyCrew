@@ -27,7 +27,7 @@
 
     // join terms
     <string name="join_title">회원가입</string>
-    <string name="join_terms_sub_title">젤리크루 약관에\n동의해 주세요. :)</string>
+    <string name="join_terms_sub_title">젤리크루\n약관에 동의해 주세요 :)</string>
     <string name="join_terms_agree_all">모두 동의 (선택정보 포함)</string>
     <string name="join_terms_agree_item_01">[필수] 만 14세 이상입니다.</string>
     <string name="join_terms_agree_item_02">[필수] 이용약관 동의</string>
@@ -35,13 +35,13 @@
     <string name="join_terms_agree_item_04">[선택] 특가, 쿠폰 등 이벤트 알림 이메일, 문자, 앱푸시</string>
     <string name="join_terms_agree_item_05">[선택] 개인정보 유효기간</string>
     <string name="join_terms_agree_item_06">평생회원(탈퇴 시)으로 가입</string>
-    <string name="join_terms_agree_item_07">※ 평생회원은 가입 적립금 + 1,000원을 더 드려요. :)</string>
+    <string name="join_terms_agree_item_07">※ 평생회원은 가입 적립금 + 1,000원을 더 드려요 :)</string>
     <string name="join_terms_agree_user_info_noti">개인정보 유효기간은 1년이 기본이고, 1년 간 접속 기록이 없는 경우 휴면회원(장기 미이용 고객)으로 전환되며, 평생회원으로 가입 시에는 휴면전환 또는 휴면 후 해제없이 탈퇴 시까지 유지되요.</string>
     <string name="join_terms_agree_view_detail">보기</string>
     <string name="join_terms_agree_confirm">동의하고 가입하기</string>
 
     // join phone
-    <string name="join_phone_sub_title">휴대폰 번호를 알려주세요. :)</string>
+    <string name="join_phone_sub_title">휴대폰 번호를 알려주세요 :)</string>
     <string name="join_phone_sub_title_hint">입력하신 번호로 인증번호를 보내드려요.</string>
     <string name="join_phone_input_hint">휴대폰 번호 (- 제외)</string>
     <string name="join_phone_request_verify">인증 요청</string>
