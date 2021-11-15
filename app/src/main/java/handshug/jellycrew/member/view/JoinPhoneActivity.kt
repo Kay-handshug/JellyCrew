@@ -2,6 +2,7 @@ package handshug.jellycrew.member.view
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.os.Handler
 import androidx.annotation.LayoutRes
 import handshug.jellycrew.Preference
@@ -12,6 +13,7 @@ import handshug.jellycrew.databinding.ActivityJoinPhoneBinding
 import handshug.jellycrew.main.view.MainActivity
 import handshug.jellycrew.member.MemberContract.Companion.ACTIVITY_CLOSE
 import handshug.jellycrew.member.MemberContract.Companion.ACTIVITY_MAIN
+import handshug.jellycrew.member.MemberContract.Companion.GET_COUNT_DOWN_TIMER
 import handshug.jellycrew.member.MemberContract.Companion.SHOW_DIALOG_TOAST
 import handshug.jellycrew.member.view.dialog.MemberDialog
 import handshug.jellycrew.member.viewModel.MemberViewModel
@@ -20,6 +22,8 @@ import org.koin.androidx.viewmodel.ext.android.getViewModel
 
 
 class JoinPhoneActivity : BindingActivity<ActivityJoinPhoneBinding>() {
+
+    private lateinit var timer: CountDownTimer
 
     @LayoutRes
     override fun getLayoutResId() = R.layout.activity_join_phone
@@ -32,6 +36,8 @@ class JoinPhoneActivity : BindingActivity<ActivityJoinPhoneBinding>() {
 
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
+
+        timer = viewModel.countDownTimer(binding.tvJoinPhoneInputVerifyNumberCountdown)
 
         val dialog = MemberDialog(this, viewModel)
         val dialogVerifyFail = dialog.showToastDialog(getString(R.string.join_phone_error_request_verify_fail))
@@ -51,6 +57,10 @@ class JoinPhoneActivity : BindingActivity<ActivityJoinPhoneBinding>() {
                             dialogVerifyFail.dismiss()
                         }, 2000L)
                     }
+                    GET_COUNT_DOWN_TIMER -> {
+                        timer.cancel()
+                        timer.start()
+                    }
                 }
             }
         })
@@ -65,5 +75,10 @@ class JoinPhoneActivity : BindingActivity<ActivityJoinPhoneBinding>() {
         }
         ActivityUtil.removeActivity(this)
         finish()
+    }
+
+    override fun onDestroy() {
+        timer.cancel()
+        super.onDestroy()
     }
 }

@@ -8,162 +8,152 @@
         <variable name="viewModel" type="handshug.jellycrew.member.viewModel.MemberViewModel" />
     </data>
 
-    <RelativeLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fitsSystemWindows="true"
-        android:background="@color/white">
+        android:background="@color/white"
+        app:setCheckBoxAll="@{true}">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <include
+            android:id="@+id/ic_common_title_join"
+            layout="@layout/common_title_join"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:viewModel="@{viewModel}"
+            app:index="@{0}" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_join_terms_sub_title"
+            style="@style/style_common_title22"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="10dp"
+            android:text="@string/join_terms_sub_title"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ic_common_title_join" />
+
+        <androidx.appcompat.widget.AppCompatCheckBox
+            android:id="@+id/cb_join_terms_agree_all"
+            style="@style/style_common_checkbox12"
+            android:layout_marginStart="16dp"
+            android:text="@string/join_terms_agree_all"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_join_terms_sub_title" />
+
+        <View
+            android:id="@+id/v_line"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingLeft="16dp"
-            android:paddingTop="16dp"
-            android:paddingRight="16dp"
-            android:paddingBottom="16dp"
-            app:setCheckBoxAll="@{true}">
+            android:layout_height="1dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="@color/color_common_border_gray500"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cb_join_terms_agree_all" />
 
-            <include
-                android:id="@+id/ic_common_title_join"
-                layout="@layout/common_title_join"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:viewModel="@{viewModel}"/>
+        <androidx.appcompat.widget.AppCompatCheckBox
+            android:id="@+id/cb_join_terms_agree_item_01"
+            style="@style/style_common_checkbox12"
+            android:text="@string/join_terms_agree_item_01"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/v_line" />
 
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/iv_join_terms_title_img"
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ic_common_title_join"
-                app:srcCompat="@drawable/bottom_background_img" />
+        <androidx.appcompat.widget.AppCompatCheckBox
+            android:id="@+id/cb_join_terms_agree_item_02"
+            style="@style/style_common_checkbox12"
+            android:text="@string/join_terms_agree_item_02"
+            android:layout_marginStart="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cb_join_terms_agree_item_01" />
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tv_join_terms_sub_title"
-                style="@style/style_common_title22"
-                android:layout_marginTop="10dp"
-                android:text="@string/join_terms_sub_title"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/iv_join_terms_title_img" />
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_join_terms_agree_item_02_detail"
+            style="@style/style_common_text12"
+            android:text="@string/join_terms_agree_view_detail"
+            android:textColor="@color/color_common_violet500"
+            android:layout_marginStart="16dp"
+            app:layout_constraintStart_toEndOf="@+id/cb_join_terms_agree_item_02"
+            app:layout_constraintTop_toBottomOf="@+id/cb_join_terms_agree_item_01"
+            app:layout_constraintBaseline_toBaselineOf="@+id/cb_join_terms_agree_item_02"
+            app:underline="@{true}"/>
 
-            <androidx.appcompat.widget.AppCompatCheckBox
-                android:id="@+id/cb_join_terms_agree_all"
-                style="@style/style_common_checkbox12"
-                android:text="@string/join_terms_agree_all"
-                android:layout_marginTop="16dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_join_terms_sub_title" />
+        <androidx.appcompat.widget.AppCompatCheckBox
+            android:id="@+id/cb_join_terms_agree_item_03"
+            style="@style/style_common_checkbox12"
+            android:text="@string/join_terms_agree_item_03"
+            android:layout_marginStart="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cb_join_terms_agree_item_02" />
 
-            <View
-                android:id="@+id/v_line"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginTop="10dp"
-                android:background="@color/color_common_border_gray500"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cb_join_terms_agree_all" />
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_join_terms_agree_item_03_detail"
+            style="@style/style_common_text12"
+            android:text="@string/join_terms_agree_view_detail"
+            android:textColor="@color/color_common_violet500"
+            android:layout_marginStart="16sp"
+            app:layout_constraintStart_toEndOf="@+id/cb_join_terms_agree_item_03"
+            app:layout_constraintTop_toBottomOf="@+id/cb_join_terms_agree_item_02"
+            app:layout_constraintBaseline_toBaselineOf="@+id/cb_join_terms_agree_item_03"
+            app:underline="@{true}" />
 
-            <androidx.appcompat.widget.AppCompatCheckBox
-                android:id="@+id/cb_join_terms_agree_item_01"
-                style="@style/style_common_checkbox12"
-                android:text="@string/join_terms_agree_item_01"
-                android:layout_marginTop="10dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/v_line" />
+        <androidx.appcompat.widget.AppCompatCheckBox
+            android:id="@+id/cb_join_terms_agree_item_04"
+            style="@style/style_common_checkbox12"
+            android:text="@string/join_terms_agree_item_04"
+            android:layout_marginStart="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cb_join_terms_agree_item_03" />
 
-            <androidx.appcompat.widget.AppCompatCheckBox
-                android:id="@+id/cb_join_terms_agree_item_02"
-                style="@style/style_common_checkbox12"
-                android:text="@string/join_terms_agree_item_02"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cb_join_terms_agree_item_01" />
+        <androidx.appcompat.widget.AppCompatCheckBox
+            android:id="@+id/cb_join_terms_agree_item_05"
+            style="@style/style_common_checkbox12"
+            android:text="@string/join_terms_agree_item_05"
+            android:layout_marginStart="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cb_join_terms_agree_item_04" />
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tv_join_terms_agree_item_02_detail"
-                style="@style/style_common_text12"
-                android:text="@string/join_terms_agree_view_detail"
-                android:textColor="@color/color_common_violet500"
-                android:layout_marginStart="16dp"
-                app:layout_constraintStart_toEndOf="@+id/cb_join_terms_agree_item_02"
-                app:layout_constraintTop_toBottomOf="@+id/cb_join_terms_agree_item_01"
-                app:layout_constraintBaseline_toBaselineOf="@+id/cb_join_terms_agree_item_02"
-                app:underline="@{true}"/>
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="15dp"
+            android:onClick="@{() -> viewModel.showDialogUserInfoNoti()}"
+            app:srcCompat="@drawable/close_btn_img"
+            app:layout_constraintStart_toEndOf="@+id/cb_join_terms_agree_item_05"
+            app:layout_constraintTop_toBottomOf="@+id/cb_join_terms_agree_item_04" />
 
-            <androidx.appcompat.widget.AppCompatCheckBox
-                android:id="@+id/cb_join_terms_agree_item_03"
-                style="@style/style_common_checkbox12"
-                android:text="@string/join_terms_agree_item_03"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cb_join_terms_agree_item_02" />
+        <androidx.appcompat.widget.AppCompatCheckBox
+            android:id="@+id/cb_join_terms_agree_item_06"
+            style="@style/style_common_checkbox12"
+            android:text="@string/join_terms_agree_item_06"
+            android:layout_marginStart="35dp"
+            android:textColor="@drawable/selector_color_lite_gray_n_gray"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cb_join_terms_agree_item_05" />
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tv_join_terms_agree_item_03_detail"
-                style="@style/style_common_text12"
-                android:text="@string/join_terms_agree_view_detail"
-                android:textColor="@color/color_common_violet500"
-                android:layout_marginStart="16sp"
-                app:layout_constraintStart_toEndOf="@+id/cb_join_terms_agree_item_03"
-                app:layout_constraintTop_toBottomOf="@+id/cb_join_terms_agree_item_02"
-                app:layout_constraintBaseline_toBaselineOf="@+id/cb_join_terms_agree_item_03"
-                app:underline="@{true}" />
-
-            <androidx.appcompat.widget.AppCompatCheckBox
-                android:id="@+id/cb_join_terms_agree_item_04"
-                style="@style/style_common_checkbox12"
-                android:text="@string/join_terms_agree_item_04"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cb_join_terms_agree_item_03" />
-
-            <androidx.appcompat.widget.AppCompatCheckBox
-                android:id="@+id/cb_join_terms_agree_item_05"
-                style="@style/style_common_checkbox12"
-                android:text="@string/join_terms_agree_item_05"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cb_join_terms_agree_item_04" />
-
-            <androidx.appcompat.widget.AppCompatImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="15dp"
-                android:onClick="@{() -> viewModel.showDialogUserInfoNoti()}"
-                app:srcCompat="@drawable/close_btn_img"
-                app:layout_constraintStart_toEndOf="@+id/cb_join_terms_agree_item_05"
-                app:layout_constraintTop_toBottomOf="@+id/cb_join_terms_agree_item_04" />
-
-            <androidx.appcompat.widget.AppCompatCheckBox
-                android:id="@+id/cb_join_terms_agree_item_06"
-                style="@style/style_common_checkbox12"
-                android:text="@string/join_terms_agree_item_06"
-                android:layout_marginStart="20dp"
-                android:textColor="@drawable/selector_color_lite_gray_n_gray"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cb_join_terms_agree_item_05" />
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/cb_join_terms_agree_item_07"
-                style="@style/style_common_text10"
-                android:text="@string/join_terms_agree_item_07"
-                android:textColor="@color/color_common_red500"
-                android:layout_marginStart="30dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cb_join_terms_agree_item_06" />
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/cb_join_terms_agree_item_07"
+            style="@style/style_common_text10"
+            android:text="@string/join_terms_agree_item_07"
+            android:textColor="@color/color_common_red500"
+            android:layout_marginStart="45dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cb_join_terms_agree_item_06" />
 
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btn_join_terms_agree_confirm"
-                style="@style/style_common_button14"
-                android:text="@string/join_terms_agree_confirm"
-                android:background="@drawable/selector_btn_purple_n_gray"
-                android:onClick="@{() -> viewModel.navigateToJoinPhone()}"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_join_terms_agree_confirm"
+            style="@style/style_common_button14"
+            android:text="@string/join_terms_agree_confirm"
+            android:background="@drawable/selector_btn_purple_n_gray"
+            android:onClick="@{() -> viewModel.navigateToJoinPhone()}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </RelativeLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>
