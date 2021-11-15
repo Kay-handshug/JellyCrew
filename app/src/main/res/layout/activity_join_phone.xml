@@ -1,94 +1,125 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto" >
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
         <variable name="viewModel" type="handshug.jellycrew.member.viewModel.MemberViewModel" />
     </data>
 
-    <RelativeLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fitsSystemWindows="true"
-        android:background="@color/white">
+        android:background="@color/white"
+        app:setCheckClickEvent="@{viewModel}">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingLeft="16dp"
-            android:paddingTop="16dp"
-            android:paddingRight="16dp"
-            android:paddingBottom="16dp" >
+        <include
+            android:id="@+id/ic_common_title_join"
+            layout="@layout/common_title_join"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:viewModel="@{viewModel}"
+            app:index="@{1}" />
 
-            <include
-                android:id="@+id/ic_common_title_join"
-                layout="@layout/common_title_join"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:viewModel="@{viewModel}"/>
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_join_phone_sub_title"
+            style="@style/style_common_title22"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"
+            android:text="@string/join_phone_sub_title"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ic_common_title_join" />
 
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/iv_join_phone_title_img"
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ic_common_title_join"
-                app:srcCompat="@drawable/bottom_background_img" />
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_join_phone_sub_title_hint"
+            style="@style/style_common_text12"
+            android:layout_marginStart="16dp"
+            android:paddingBottom="50dp"
+            android:text="@string/join_phone_sub_title_hint"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_join_phone_sub_title" />
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tv_join_phone_sub_title"
-                style="@style/style_common_title22"
-                android:layout_marginTop="10dp"
-                android:text="@string/join_phone_sub_title"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/iv_join_phone_title_img" />
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tv_join_phone_sub_title_hint"
-                style="@style/style_common_text12"
-                android:paddingBottom="50dp"
-                android:text="@string/join_phone_sub_title_hint"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_join_phone_sub_title" />
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tl_join_phone_input_layout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            app:endIconMode="clear_text"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/btn_join_phone_request_verify"
+            app:layout_constraintTop_toBottomOf="@+id/tv_join_phone_sub_title_hint" >
 
             <androidx.appcompat.widget.AppCompatEditText
                 android:id="@+id/et_join_phone_input"
                 style="@style/style_common_text12"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:hint="@string/join_phone_input_hint"
                 android:textColorHint="@color/color_common_text_gray500"
                 android:inputType="phone"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/btn_join_phone_request_verify"
-                app:layout_constraintTop_toBottomOf="@+id/tv_join_phone_sub_title_hint" />
+                android:background="@android:color/transparent" />
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btn_join_phone_request_verify"
-                style="@style/style_common_button12"
-                android:layout_width="100dp"
-                android:layout_marginStart="16dp"
-                android:text="@string/join_phone_request_verify"
-                android:background="@drawable/selector_btn_purple_n_gray"
-                android:onClick="@{() -> viewModel.showDialogToast()}"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/et_join_phone_input"
-                app:layout_constraintTop_toBottomOf="@+id/tv_join_phone_sub_title_hint"
-                app:layout_constraintBaseline_toBaselineOf="@+id/et_join_phone_input"/>
+        </com.google.android.material.textfield.TextInputLayout>
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btn_join_terms_agree_confirm"
-                style="@style/style_common_button14"
-                android:text="@string/btn_next"
-                android:background="@drawable/selector_btn_purple_n_gray"
-                android:onClick="@{() -> viewModel.navigateToMain()}"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_join_phone_request_verify"
+            style="@style/style_common_button12"
+            android:layout_width="100dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="10dp"
+            android:text="@string/join_phone_request_verify"
+            android:background="@drawable/selector_btn_purple_n_gray"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/tl_join_phone_input_layout"
+            app:layout_constraintTop_toBottomOf="@+id/tv_join_phone_sub_title_hint" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tl_join_phone_input_verify_layout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="10dp"
+            app:endIconMode="clear_text"
+            app:layout_constraintEnd_toStartOf="@+id/tv_join_phone_input_verify_number_countdown"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tl_join_phone_input_layout"
+            android:visibility="invisible"
+            tools:visibility="visible" >
 
-    </RelativeLayout>
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/et_join_phone_input_verify_number"
+                style="@style/style_common_text12"
+                android:layout_width="match_parent"
+                android:layout_marginTop="10dp"
+                android:inputType="number"
+                android:background="@android:color/transparent" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_join_phone_input_verify_number_countdown"
+            style="@style/style_common_text12"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="21dp"
+            android:textColor="@color/color_common_red500"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@+id/tl_join_phone_input_verify_layout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tl_join_phone_input_layout"
+            tools:text="03:00"
+            tools:visibility="visible"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_join_terms_agree_confirm"
+            style="@style/style_common_button14"
+            android:text="@string/btn_next"
+            android:background="@drawable/selector_btn_purple_n_gray"
+            android:onClick="@{() -> viewModel.navigateToMain()}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

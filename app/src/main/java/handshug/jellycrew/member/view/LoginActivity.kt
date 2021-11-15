@@ -2,6 +2,7 @@ package handshug.jellycrew.member.view
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.annotation.LayoutRes
 import com.facebook.CallbackManager
@@ -21,6 +22,7 @@ import handshug.jellycrew.databinding.ActivityLoginBinding
 import handshug.jellycrew.main.view.MainActivity
 import handshug.jellycrew.member.MemberContract.Companion.ACTIVITY_CLOSE
 import handshug.jellycrew.member.MemberContract.Companion.ACTIVITY_JOIN_TERMS
+import handshug.jellycrew.member.MemberContract.Companion.ACTIVITY_PAST_ORDERS
 import handshug.jellycrew.member.MemberContract.Companion.LOGIN_SUCCESS
 import handshug.jellycrew.member.MemberContract.Companion.START_LOGIN_FACEBOOK
 import handshug.jellycrew.member.MemberContract.Companion.START_LOGIN_KAKAO
@@ -57,6 +59,7 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>() {
                     ACTIVITY_CLOSE -> finish()
                     LOGIN_SUCCESS -> goToMainActivity()
                     ACTIVITY_JOIN_TERMS -> goToJoinTerms()
+                    ACTIVITY_PAST_ORDERS -> goToPastOrders()
                     START_LOGIN_KAKAO -> startLoginKakao()
                     START_LOGIN_NAVER -> startLoginNaver()
                     START_LOGIN_FACEBOOK -> startLoginFacebook()
@@ -163,6 +166,13 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>() {
         Intent(this, JoinTermsActivity::class.java).apply {
             startActivity(this)
             overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+        }
+    }
+
+    private fun goToPastOrders() {
+        val url = "http://www.naver.com"
+        Intent(Intent.ACTION_VIEW, Uri.parse(url)).apply {
+            startActivity(this)
         }
     }
 

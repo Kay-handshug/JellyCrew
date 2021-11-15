@@ -20,7 +20,7 @@
 
     // login
     <string name="login_title">JELLY CREW</string>
-    <string name="login_sub_title">크리에이터와 나를 잇는\n쇼핑플랫폼</string>
+    <string name="login_sub_title">크리에이터와 나를 잇는 쇼핑플랫폼</string>
     <string name="login_email">이메일 로그인</string>
     <string name="login_email_join">이메일로 가입</string>
     <string name="login_old_order_list_view">2022년 09월 이전 주문조회</string>
