@@ -14,7 +14,8 @@ import handshug.jellycrew.main.view.MainActivity
 import handshug.jellycrew.member.MemberContract.Companion.ACTIVITY_CLOSE
 import handshug.jellycrew.member.MemberContract.Companion.ACTIVITY_MAIN
 import handshug.jellycrew.member.MemberContract.Companion.GET_COUNT_DOWN_TIMER
-import handshug.jellycrew.member.MemberContract.Companion.SHOW_DIALOG_TOAST
+import handshug.jellycrew.member.MemberContract.Companion.SHOW_DIALOG_TOAST_VERIFY_FAIL
+import handshug.jellycrew.member.MemberContract.Companion.SHOW_DIALOG_TOAST_VERIFY_SEND
 import handshug.jellycrew.member.view.dialog.MemberDialog
 import handshug.jellycrew.member.viewModel.MemberViewModel
 import handshug.jellycrew.utils.ActivityUtil
@@ -40,6 +41,7 @@ class JoinPhoneActivity : BindingActivity<ActivityJoinPhoneBinding>() {
         timer = viewModel.countDownTimer(binding.tvJoinPhoneInputVerifyNumberCountdown)
 
         val dialog = MemberDialog(this, viewModel)
+        val dialogVerifySend = dialog.showToastDialog(getString(R.string.join_phone_verify_number_send))
         val dialogVerifyFail = dialog.showToastDialog(getString(R.string.join_phone_error_request_verify_fail))
 
         viewModel.toastMessage.observe(this, {
@@ -51,11 +53,21 @@ class JoinPhoneActivity : BindingActivity<ActivityJoinPhoneBinding>() {
                 when (event) {
                     ACTIVITY_CLOSE -> finish()
                     ACTIVITY_MAIN -> goToMainActivity()
-                    SHOW_DIALOG_TOAST -> {
-                        dialogVerifyFail.show()
-                        Handler().postDelayed({
-                            dialogVerifyFail.dismiss()
-                        }, 2000L)
+                    SHOW_DIALOG_TOAST_VERIFY_SEND -> {
+                        dialogVerifySend.apply {
+                            show()
+                            Handler().postDelayed({
+                                this.dismiss()
+                            }, 2000L)
+                        }
+                    }
+                    SHOW_DIALOG_TOAST_VERIFY_FAIL -> {
+                        dialogVerifyFail.apply {
+                            show()
+                            Handler().postDelayed({
+                                this.dismiss()
+                            }, 2000L)
+                        }
                     }
                     GET_COUNT_DOWN_TIMER -> {
                         timer.cancel()

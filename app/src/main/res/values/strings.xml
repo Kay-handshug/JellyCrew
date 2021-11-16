@@ -46,6 +46,7 @@
     <string name="join_phone_input_hint">휴대폰 번호 (- 제외)</string>
     <string name="join_phone_request_verify">인증 요청</string>
     <string name="join_phone_request_verify_retry">재전송</string>
+    <string name="join_phone_verify_number_send">인증 문자를 보내드렸어요. 확인해 주세요.</string>
     <string name="join_phone_error_01">휴대폰 번호를 입력하세요.</string>
     <string name="join_phone_error_02">휴대폰 번호가 올바르지 않아요.</string>
     <string name="join_phone_error_03">인증번호가 맞지 않아요.</string>

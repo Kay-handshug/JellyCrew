@@ -1,5 +1,6 @@
 package handshug.jellycrew.member
 
+import android.annotation.SuppressLint
 import android.text.Editable
 import android.text.TextWatcher
 import androidx.appcompat.widget.AppCompatCheckBox
@@ -103,37 +104,72 @@ fun checkItemLastOne(
     return checkCount
 }
 
+@SuppressLint("UseCompatLoadingForDrawables")
 @BindingAdapter("setCheckClickEvent")
 fun ConstraintLayout.setCheckClickEvent(viewModel: MemberViewModel) {
     val btnReqVerify = this.btn_join_phone_request_verify
     val btnNext = this.btn_join_phone_next
 
-    val etInputVerify = this.et_join_phone_input
-
+    val etInputPhoneNumber = this.et_join_phone_input
     val etInputVerifyNumber = this.et_join_phone_input_verify_number
+
     val tvInputVerifyCountDown = this.tv_join_phone_input_verify_number_countdown
+    val tvInputErrorMsg = this.tv_join_phone_input_error_msg
 
     btnReqVerify.setOnClickListener {
-        btnReqVerify.isSelected = false
-        btnReqVerify.text = context.getString(R.string.join_phone_request_verify_retry)
+        val phoneNumberCnt = etInputPhoneNumber.length()
+        var phoneNumberBg = context.getDrawable(R.drawable.selector_btn_radius08_gray400_n_gray700)
 
-        viewModel.showDialogToast()
-        etInputVerifyNumber.visible()
-        tvInputVerifyCountDown.visible()
-        viewModel.getCountDownTimer()
+        when {
+            phoneNumberCnt < 1 -> {
+                tvInputErrorMsg.text = context.getString(R.string.join_phone_error_01)
+                tvInputErrorMsg.visible()
+                phoneNumberBg = context.getDrawable(R.drawable.common_box_radius08_white_border_red500)
+            }
+            phoneNumberCnt < 10 -> {
+                tvInputErrorMsg.text = context.getString(R.string.join_phone_error_02)
+                tvInputErrorMsg.visible()
+                phoneNumberBg = context.getDrawable(R.drawable.common_box_radius08_white_border_red500)
+            }
+            else -> {
+                btnReqVerify.isSelected = false
+                btnReqVerify.text = context.getString(R.string.join_phone_request_verify_retry)
+
+                viewModel.showDialogToastSend()
+                etInputVerifyNumber.visible()
+                tvInputVerifyCountDown.visible()
+                viewModel.getCountDownTimer()
+
+                tvInputErrorMsg.gone()
+
+                etInputVerifyNumber.background = context.getDrawable(R.drawable.selector_btn_radius08_gray400_n_gray700)
+            }
+        }
+        etInputPhoneNumber.background = phoneNumberBg
     }
 
     btnNext.setOnClickListener {
-        btnNext.isSelected = false
+        if ("00:00" == tvInputVerifyCountDown.text) {
+            tvInputErrorMsg.text = context.getString(R.string.join_phone_error_04)
+            tvInputErrorMsg.visible()
+
+            etInputVerifyNumber.background = context.getDrawable(R.drawable.common_box_radius08_white_border_red500)
+        }
+        else {
+            btnNext.isSelected = false
+            tvInputErrorMsg.gone()
+
+            etInputVerifyNumber.background = context.getDrawable(R.drawable.selector_btn_radius08_gray400_n_gray700)
+        }
     }
 
-    etInputVerify.addTextChangedListener(object : TextWatcher {
+    etInputPhoneNumber.addTextChangedListener(object : TextWatcher {
         override fun afterTextChanged(s: Editable?) {}
         override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
         override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
             val cnt = s?.length?: 0
             btnReqVerify.isSelected = cnt > 9
-            etInputVerify.isSelected = cnt != 0
+            etInputPhoneNumber.isSelected = cnt != 0
         }
     })
 

@@ -12,7 +12,8 @@ import handshug.jellycrew.member.MemberContract.Companion.ACTIVITY_JOIN_TERMS
 import handshug.jellycrew.member.MemberContract.Companion.ACTIVITY_JOIN_PHONE
 import handshug.jellycrew.member.MemberContract.Companion.ACTIVITY_PAST_ORDERS
 import handshug.jellycrew.member.MemberContract.Companion.GET_COUNT_DOWN_TIMER
-import handshug.jellycrew.member.MemberContract.Companion.SHOW_DIALOG_TOAST
+import handshug.jellycrew.member.MemberContract.Companion.SHOW_DIALOG_TOAST_VERIFY_FAIL
+import handshug.jellycrew.member.MemberContract.Companion.SHOW_DIALOG_TOAST_VERIFY_SEND
 import handshug.jellycrew.member.MemberContract.Companion.SHOW_DIALOG_USER_INFO_NOTI
 import handshug.jellycrew.member.MemberContract.Companion.START_LOGIN_FACEBOOK
 import handshug.jellycrew.member.MemberContract.Companion.START_LOGIN_KAKAO
@@ -35,10 +36,10 @@ class MemberViewModel(private val mainApi: MainApi) : BaseViewModel(mainApi), Ma
     fun startLoginFacebook() = viewEvent(START_LOGIN_FACEBOOK)
 
     fun showDialogUserInfoNoti() = viewEvent(SHOW_DIALOG_USER_INFO_NOTI)
-    fun showDialogToast() = viewEvent(SHOW_DIALOG_TOAST)
+    fun showDialogToastSend() = viewEvent(SHOW_DIALOG_TOAST_VERIFY_SEND)
+    fun showDialogToastFail() = viewEvent(SHOW_DIALOG_TOAST_VERIFY_FAIL)
 
     fun getCountDownTimer() = viewEvent(GET_COUNT_DOWN_TIMER)
-
 
 
     fun countDownTimer(textView: AppCompatTextView): CountDownTimer {

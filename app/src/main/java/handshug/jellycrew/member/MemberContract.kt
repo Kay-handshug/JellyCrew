@@ -12,7 +12,8 @@ interface MemberContract {
         const val ACTIVITY_PAST_ORDERS = 1050
 
         const val SHOW_DIALOG_USER_INFO_NOTI = 1100
-        const val SHOW_DIALOG_TOAST = 1101
+        const val SHOW_DIALOG_TOAST_VERIFY_SEND = 1101
+        const val SHOW_DIALOG_TOAST_VERIFY_FAIL = 1102
 
         const val GET_COUNT_DOWN_TIMER = 1200
 
