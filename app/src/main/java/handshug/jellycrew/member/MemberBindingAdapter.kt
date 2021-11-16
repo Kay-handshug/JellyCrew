@@ -2,6 +2,8 @@ package handshug.jellycrew.member
 
 import android.annotation.SuppressLint
 import android.os.CountDownTimer
+import android.text.Editable
+import android.text.TextWatcher
 import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.AppCompatCheckBox
 import androidx.appcompat.widget.AppCompatTextView
@@ -109,23 +111,46 @@ fun checkItemLastOne(
 @BindingAdapter("setCheckClickEvent")
 fun ConstraintLayout.setCheckClickEvent(viewModel: MemberViewModel) {
     val btnReqVerify = this.btn_join_phone_request_verify
+    val btnNext = this.btn_join_phone_next
 
-    val tlInputLayout = this.tl_join_phone_input_layout
-    val etInputVerify = tlInputLayout.et_join_phone_input
+    val etInputVerify = this.et_join_phone_input
 
-    val tlInputVerifyLayout = this.tl_join_phone_input_verify_layout
-    val etInputVerifyNumber = tlInputVerifyLayout.et_join_phone_input_verify_number
-
+    val etInputVerifyNumber = this.et_join_phone_input_verify_number
     val tvInputVerifyCountDown = this.tv_join_phone_input_verify_number_countdown
 
     btnReqVerify.setOnClickListener {
+        btnReqVerify.isSelected = false
         btnReqVerify.text = context.getString(R.string.join_phone_request_verify_retry)
 
         viewModel.showDialogToast()
-        tlInputVerifyLayout.visible()
+        etInputVerifyNumber.visible()
         tvInputVerifyCountDown.visible()
         viewModel.getCountDownTimer()
     }
+
+    btnNext.setOnClickListener {
+        btnNext.isSelected = false
+    }
+
+    etInputVerify.addTextChangedListener(object : TextWatcher {
+        override fun afterTextChanged(s: Editable?) {}
+        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            val cnt = s?.length?: 0
+            btnReqVerify.isSelected = cnt > 9
+            etInputVerify.isSelected = cnt != 0
+        }
+    })
+
+    etInputVerifyNumber.addTextChangedListener(object : TextWatcher {
+        override fun afterTextChanged(s: Editable?) {}
+        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            val cnt = s?.length?: 0
+            btnNext.isSelected = cnt > 5
+            etInputVerifyNumber.isSelected = cnt != 0
+        }
+    })
 }
 
 @BindingAdapter("setTitleIndex", "isShowRightBtn")

@@ -163,14 +163,13 @@
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_join_terms_agree_confirm"
-            style="@style/style_common_button"
+            style="@style/style_common_button_bold"
+            android:layout_width="0dp"
             android:layout_marginTop="24dp"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
-            android:background="@drawable/selector_btn_radius08_gray200_n_violet500"
             android:onClick="@{() -> viewModel.navigateToJoinPhone()}"
             android:text="@string/join_terms_agree_confirm"
-            android:textColor="@drawable/selector_color_gray500_n_white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/v_blank" />
