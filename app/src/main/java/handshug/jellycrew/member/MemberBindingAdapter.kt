@@ -1,17 +1,12 @@
 package handshug.jellycrew.member
 
-import android.annotation.SuppressLint
-import android.os.CountDownTimer
 import android.text.Editable
 import android.text.TextWatcher
-import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.AppCompatCheckBox
-import androidx.appcompat.widget.AppCompatTextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.BindingAdapter
 import handshug.jellycrew.R
 import handshug.jellycrew.member.viewModel.MemberViewModel
-import handshug.jellycrew.utils.Log
 import handshug.jellycrew.utils.gone
 import handshug.jellycrew.utils.visible
 import kotlinx.android.synthetic.main.activity_join_phone.view.*
