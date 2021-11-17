@@ -2,8 +2,12 @@ package handshug.jellycrew.member
 
 import android.annotation.SuppressLint
 import android.text.Editable
+import android.text.InputType
 import android.text.TextWatcher
+import android.text.method.HideReturnsTransformationMethod
+import android.text.method.PasswordTransformationMethod
 import androidx.appcompat.widget.AppCompatCheckBox
+import androidx.appcompat.widget.AppCompatTextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.BindingAdapter
 import handshug.jellycrew.R
@@ -11,6 +15,8 @@ import handshug.jellycrew.member.viewModel.MemberViewModel
 import handshug.jellycrew.utils.gone
 import handshug.jellycrew.utils.visible
 import kotlinx.android.synthetic.main.activity_join_email.view.*
+import kotlinx.android.synthetic.main.activity_join_email.view.et_join_password_input
+import kotlinx.android.synthetic.main.activity_join_password.view.*
 import kotlinx.android.synthetic.main.activity_join_phone.view.*
 import kotlinx.android.synthetic.main.activity_join_terms.view.*
 import kotlinx.android.synthetic.main.common_title_join.view.*
@@ -112,60 +118,58 @@ fun ConstraintLayout.setCheckClickEvent(viewModel: MemberViewModel) {
     val btnNext = this.btn_join_phone_next
 
     val etInputPhoneNumber = this.et_join_phone_input
-    val etInputVerifyNumber = this.et_join_phone_input_verify_number
+    val etInputVerifyCode = this.et_join_phone_input_verify_code
 
     val tvInputVerifyCountDown = this.tv_join_phone_input_verify_number_countdown
     val tvInputErrorMsg = this.tv_join_phone_input_error_msg
 
     btnReqVerify.setOnClickListener {
         val phoneNumberCnt = etInputPhoneNumber.length()
-        var phoneNumberBg = context.getDrawable(R.drawable.selector_btn_radius08_gray400_n_gray700)
+        var bg = context.getDrawable(R.drawable.common_box_radius08_white_border_red500)
 
         when {
-            phoneNumberCnt < 1 -> {
-                tvInputErrorMsg.text = context.getString(R.string.join_phone_error_01)
-                tvInputErrorMsg.visible()
-                phoneNumberBg = context.getDrawable(R.drawable.common_box_radius08_white_border_red500)
-            }
-            phoneNumberCnt < 10 -> {
-                tvInputErrorMsg.text = context.getString(R.string.join_phone_error_02)
-                tvInputErrorMsg.visible()
-                phoneNumberBg = context.getDrawable(R.drawable.common_box_radius08_white_border_red500)
-            }
+            phoneNumberCnt < 1 -> setErrorMsg(tvInputErrorMsg, context.getString(R.string.join_phone_error_01))
+            phoneNumberCnt < 10 || !viewModel.verifyPhoneNumber(etInputPhoneNumber.text.toString()) ->
+                setErrorMsg(tvInputErrorMsg, context.getString(R.string.join_phone_error_02))
             else -> {
+                etInputPhoneNumber.isSelected = false
                 btnReqVerify.isSelected = false
                 btnReqVerify.text = context.getString(R.string.join_phone_request_verify_retry)
 
                 viewModel.showDialogToastSend()
-                etInputVerifyNumber.visible()
+                etInputVerifyCode.visible()
                 tvInputVerifyCountDown.visible()
                 viewModel.countDownTimerStart()
 
                 tvInputErrorMsg.gone()
 
-                etInputVerifyNumber.background = context.getDrawable(R.drawable.selector_btn_radius08_gray400_n_gray700)
+                bg = context.getDrawable(R.drawable.selector_btn_radius08_gray400_n_gray700)
+                etInputVerifyCode.background = context.getDrawable(R.drawable.selector_btn_radius08_gray400_n_gray700)  // 별도 입력해야 highlight 안겹침
             }
         }
-        etInputPhoneNumber.background = phoneNumberBg
+        etInputPhoneNumber.background = bg
     }
 
     btnNext.setOnClickListener {
-        if ("00:00" == tvInputVerifyCountDown.text) {
-            tvInputErrorMsg.text = context.getString(R.string.join_phone_error_04)
-            tvInputErrorMsg.visible()
+        var bg = context.getDrawable(R.drawable.common_box_radius08_white_border_red500)
 
-            etInputVerifyNumber.background = context.getDrawable(R.drawable.common_box_radius08_white_border_red500)
+        when {
+            etInputVerifyCode.length() < 1 -> setErrorMsg(tvInputErrorMsg, context.getString(R.string.join_phone_error_03))
+            !viewModel.verifyAuthCode(etInputVerifyCode.text.toString()) -> setErrorMsg(tvInputErrorMsg, context.getString(R.string.join_phone_error_04))
+            "00:00" == tvInputVerifyCountDown.text -> setErrorMsg(tvInputErrorMsg, context.getString(R.string.join_phone_error_05))
+            else -> {
+                btnNext.isSelected = false
+                tvInputErrorMsg.gone()
+
+                bg = context.getDrawable(R.drawable.selector_btn_radius08_gray400_n_gray700)
+
+                tvInputVerifyCountDown.gone()
+                viewModel.countDownTimerStop()
+                viewModel.navigateToJoinEmail()
+            }
         }
-        else {
-            btnNext.isSelected = false
-            tvInputErrorMsg.gone()
 
-            etInputVerifyNumber.background = context.getDrawable(R.drawable.selector_btn_radius08_gray400_n_gray700)
-
-            tvInputVerifyCountDown.gone()
-            viewModel.countDownTimerStop()
-            viewModel.navigateToJoinEmail()
-        }
+        etInputVerifyCode.background = bg
     }
 
     etInputPhoneNumber.addTextChangedListener(object : TextWatcher {
@@ -175,16 +179,22 @@ fun ConstraintLayout.setCheckClickEvent(viewModel: MemberViewModel) {
             val cnt = s?.length?: 0
             btnReqVerify.isSelected = cnt > 9
             etInputPhoneNumber.isSelected = cnt != 0
+
+            etInputPhoneNumber.setSelection(cnt)
         }
     })
 
-    etInputVerifyNumber.addTextChangedListener(object : TextWatcher {
+    etInputVerifyCode.addTextChangedListener(object : TextWatcher {
         override fun afterTextChanged(s: Editable?) {}
         override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
         override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
             val cnt = s?.length?: 0
-            btnNext.isSelected = cnt > 5
-            etInputVerifyNumber.isSelected = cnt != 0
+            val isVerify = cnt > 5
+            btnNext.isEnabled = isVerify
+            btnNext.isSelected = isVerify
+
+            etInputVerifyCode.isSelected = cnt != 0
+            etInputVerifyCode.setSelection(cnt)
         }
     })
 }
@@ -222,19 +232,25 @@ fun ConstraintLayout.setTitleIndex(index: Int, isShowRightBtn: Boolean = false) 
 fun ConstraintLayout.setCheckEmail(viewModel: MemberViewModel) {
     val btnNext = this.btn_join_email_next
 
-    val etEmailInput = this.et_join_email_input
+    val etEmailInput = this.et_join_password_input
     val tvInputErrorMsg = this.tv_join_email_input_error_msg
 
     btnNext.setOnClickListener {
-        if(etEmailInput.length() < 1) {
-            tvInputErrorMsg.visible()
-            tvInputErrorMsg.text = context.getString(R.string.join_email_input_error)
-            etEmailInput.background = context.getDrawable(R.drawable.common_box_radius08_white_border_red500)
+        var bg = context.getDrawable(R.drawable.common_box_radius08_white_border_red500)
+
+        if (etEmailInput.length() < 1) {
+            setErrorMsg(tvInputErrorMsg, context.getString(R.string.join_email_input_empty))
+        }
+        else if (!viewModel.verifyEmail(etEmailInput.text.toString())) {
+            setErrorMsg(tvInputErrorMsg, context.getString(R.string.join_email_input_error))
         }
         else {
             tvInputErrorMsg.gone()
-            etEmailInput.background = context.getDrawable(R.drawable.selector_btn_radius08_gray400_n_gray700)
+            bg = context.getDrawable(R.drawable.selector_btn_radius08_gray400_n_gray700)
+            viewModel.navigateToJoinPassword()
         }
+
+        etEmailInput.background = bg
     }
 
     etEmailInput.addTextChangedListener(object : TextWatcher {
@@ -242,8 +258,87 @@ fun ConstraintLayout.setCheckEmail(viewModel: MemberViewModel) {
         override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
         override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
             val cnt = s?.length?: 0
-            btnNext.isSelected = cnt != 0
             etEmailInput.isSelected = cnt != 0
+            etEmailInput.setSelection(cnt)
+
+            val isVerify = viewModel.verifyEmail(s.toString())
+            btnNext.isSelected = isVerify
+            btnNext.isEnabled = isVerify
         }
     })
+}
+
+@BindingAdapter("setCheckPassword")
+fun ConstraintLayout.setCheckPassword(viewModel: MemberViewModel) {
+    val btnNext = this.btn_join_password_next
+    val btnPasswordView01 = this.ibtn_join_password_input_view
+    val btnPasswordView02 = this.ibtn_join_password_input_view_same_check
+
+    val etInputPassword01 = this.et_join_password_input
+    val etInputPassword02 = this.et_join_password_input_same_check
+
+    val llRuleLayout = this.ll_join_password_rule
+    val tvRule01 = llRuleLayout.tv_join_password_rule_01
+    val tvRule02 = llRuleLayout.tv_join_password_rule_02
+    val tvRule03 = llRuleLayout.tv_join_password_rule_03
+    val tvSameCheckHint = this.tv_join_password_input_same_check_hint
+
+    btnPasswordView01.setOnClickListener {
+        it.isSelected = !it.isSelected
+
+        if (it.isSelected) etInputPassword01.transformationMethod = HideReturnsTransformationMethod.getInstance()
+        else etInputPassword01.transformationMethod = PasswordTransformationMethod.getInstance()
+    }
+
+    btnPasswordView02.setOnClickListener {
+        it.isSelected = !it.isSelected
+
+        if (it.isSelected) etInputPassword02.transformationMethod = HideReturnsTransformationMethod.getInstance()
+        else etInputPassword02.transformationMethod = PasswordTransformationMethod.getInstance()
+    }
+
+    btnNext.setOnClickListener {
+        if (tvRule01.isSelected && tvRule02.isSelected && tvRule03.isSelected
+                && (etInputPassword01.text.toString() == etInputPassword02.text.toString())) viewModel.navigateToMain()
+    }
+
+    etInputPassword01.addTextChangedListener(object : TextWatcher {
+        override fun afterTextChanged(s: Editable?) {}
+        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            val text = s.toString()
+            val cnt = text.length
+
+            if (cnt < 1) btnPasswordView01.gone()
+            else btnPasswordView01.visible()
+            etInputPassword01.isSelected = cnt != 0
+
+            tvRule01.isSelected = viewModel.verifyPasswordAlphabet(text)
+            tvRule02.isSelected = viewModel.verifyPasswordNumber(text) || viewModel.verifyPasswordSpecialCharacters(text)
+            tvRule03.isSelected = cnt > 5
+
+            etInputPassword01.setSelection(cnt)
+        }
+    })
+
+    etInputPassword02.addTextChangedListener(object : TextWatcher {
+        override fun afterTextChanged(s: Editable?) {}
+        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            val cnt = s?.length?: 0
+            if (cnt < 1) btnPasswordView02.gone()
+            else btnPasswordView02.visible()
+            etInputPassword02.isSelected = cnt != 0
+
+            tvSameCheckHint.isSelected = etInputPassword01.text.toString() == s.toString()
+            btnNext.isSelected = tvRule01.isSelected && tvRule02.isSelected && tvRule03.isSelected && tvSameCheckHint.isSelected
+
+            etInputPassword02.setSelection(cnt)
+        }
+    })
+}
+
+fun setErrorMsg(view: AppCompatTextView, msg: String) {
+    view.text = msg
+    view.visible()
 }

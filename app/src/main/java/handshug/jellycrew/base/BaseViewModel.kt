@@ -15,17 +15,20 @@ open class BaseViewModel(private val baseApi: BaseApi?) : ViewModel() {
     companion object {
         // 최소 8 자, 최소 하나의 문자, 하나의 숫자 및 하나의 특수 문자
         const val REGEX_PATTERN_PASSWORD = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[\$@\$!%*#?&])[A-Za-z\\d\$@\$!%*#?&]{8,}\$"
-        const val REGEX_PATTERN_PHONE_NUMBER = "^(?:[+0]9)?[0-9]{10,12}\$"
-        const val REGEX_PATTERN_EMAIL = "^[a-zA-Z0-9]+@[a-zA-Z0-9]+\\\\.[a-z]+\$"
+        const val REGEX_PATTERN_PHONE_NUMBER = "^01(?:0|1|[6-9])[0-9]{10,12}\$"
+        const val REGEX_PATTERN_EMAIL = "^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}\$"
+        const val REGEX_PATTERN_NICK_NAME =  "(^[a-zA-Z0-9가-힣]{2,10}$)"
+        const val REGEX_PATTERN_AUTH_CODE = "\\d{6}"
         const val REGEX_PATTERN_ZIP_CODE = "\\d{5}"
 
         // 영문자
-        const val REGEX_PATTERN_ALPHABET = "^[a-zA-Z]*\$"
-        // 숫자
-        const val REGEX_PATTERN_NUMBER = "^[0-9]*\$ == \\\\d"
+        const val REGEX_PATTERN_ALPHABET = ".*[a-zA-Z].*"
+        // 숫자 또는 특수문자
+        const val REGEX_PATTERN_NUMBER = ".*[0-9].*"
         // 특수문자
-        const val REGEX_PATTERN_SPECIAL_CHARACTERS = "[^a-zA-Z0-9\\\\s]"
+        const val REGEX_PATTERN_SPECIAL_CHARACTERS = ".*[^\\w\\s].*"
 
+        // 영어, 숫자, 특수문자 모두 포함 = "(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[^\w\s]).*"
 
         const val PROGRESS_SHOW = 777
         const val PROGRESS_HIDE = 778

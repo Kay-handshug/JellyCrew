@@ -8,6 +8,7 @@ interface MemberContract {
         const val ACTIVITY_JOIN_TERMS = 1021
         const val ACTIVITY_JOIN_PHONE = 1022
         const val ACTIVITY_JOIN_EMAIL = 1023
+        const val ACTIVITY_JOIN_PASSWORD = 1024
 
         const val ACTIVITY_FIND_EMAIL = 1030
         const val ACTIVITY_FIND_PASSWORD = 1040

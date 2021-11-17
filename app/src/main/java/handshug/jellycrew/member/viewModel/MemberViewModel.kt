@@ -9,6 +9,7 @@ import handshug.jellycrew.main.MainContract.Companion.ACTIVITY_MAIN
 import handshug.jellycrew.main.model.MainApi
 import handshug.jellycrew.member.MemberContract.Companion.ACTIVITY_CLOSE
 import handshug.jellycrew.member.MemberContract.Companion.ACTIVITY_JOIN_EMAIL
+import handshug.jellycrew.member.MemberContract.Companion.ACTIVITY_JOIN_PASSWORD
 import handshug.jellycrew.member.MemberContract.Companion.ACTIVITY_JOIN_TERMS
 import handshug.jellycrew.member.MemberContract.Companion.ACTIVITY_JOIN_PHONE
 import handshug.jellycrew.member.MemberContract.Companion.ACTIVITY_PAST_ORDERS
@@ -32,6 +33,7 @@ class MemberViewModel(private val mainApi: MainApi) : BaseViewModel(mainApi), Ma
     fun navigateToJoinTerms() = viewEvent(ACTIVITY_JOIN_TERMS)
     fun navigateToJoinPhone() = viewEvent(ACTIVITY_JOIN_PHONE)
     fun navigateToJoinEmail() = viewEvent(ACTIVITY_JOIN_EMAIL)
+    fun navigateToJoinPassword() = viewEvent(ACTIVITY_JOIN_PASSWORD)
 
     fun navigateToPastOrders() = viewEvent(ACTIVITY_PAST_ORDERS)
 
@@ -48,8 +50,9 @@ class MemberViewModel(private val mainApi: MainApi) : BaseViewModel(mainApi), Ma
 
 
 
-    fun verifyPhoneNumber(phoneNumber: String) = regexPattern(REGEX_PATTERN_PHONE_NUMBER, phoneNumber)
+    fun verifyPhoneNumber(phoneNumber: String) = phoneNumber.startsWith("01")
     fun verifyEmail(email: String) = regexPattern(REGEX_PATTERN_EMAIL, email)
+    fun verifyAuthCode(code: String) = regexPattern(REGEX_PATTERN_AUTH_CODE, code)
 
     fun verifyPasswordAlphabet(password: String) = regexPattern(REGEX_PATTERN_ALPHABET, password)
     fun verifyPasswordNumber(password: String) = regexPattern(REGEX_PATTERN_NUMBER, password)

@@ -46,15 +46,16 @@
             android:layout_width="0dp"
             android:layout_height="45dp"
             android:layout_marginStart="16dp"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/selector_btn_radius08_gray400_n_gray700"
             android:hint="@string/join_phone_input_hint"
-            android:textColorHint="@color/color_common_text_gray500"
             android:inputType="phone"
             android:maxLength="11"
-            android:background="@drawable/selector_btn_radius08_gray400_n_gray700"
-            app:layout_constraintStart_toStartOf="parent"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:textColorHint="@color/color_common_text_gray500"
             app:layout_constraintEnd_toStartOf="@+id/btn_join_phone_request_verify"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_join_phone_sub_title_hint" />
 
         <androidx.appcompat.widget.AppCompatButton
@@ -62,16 +63,14 @@
             style="@style/style_common_button_bold"
             android:layout_width="100dp"
             android:layout_height="45dp"
-            android:layout_marginStart="10dp"
             android:layout_marginEnd="16dp"
             android:text="@string/join_phone_request_verify"
             android:background="@drawable/selector_btn_radius08_white_n_violet500"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/et_join_phone_input"
             app:layout_constraintTop_toBottomOf="@+id/tv_join_phone_sub_title_hint" />
 
         <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/et_join_phone_input_verify_number"
+            android:id="@+id/et_join_phone_input_verify_code"
             style="@style/style_common_text"
             android:layout_width="0dp"
             android:layout_height="45dp"
@@ -98,7 +97,7 @@
             android:textSize="14sp"
             android:textColor="@color/color_common_text_gray900"
             android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="@+id/et_join_phone_input_verify_number"
+            app:layout_constraintBottom_toBottomOf="@+id/et_join_phone_input_verify_code"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/et_join_phone_input"
             tools:text="03:00"
@@ -111,7 +110,7 @@
             android:layout_marginTop="16dp"
             android:visibility="gone"
             android:textColor="@color/color_common_red500"
-            app:layout_constraintTop_toBottomOf="@+id/et_join_phone_input_verify_number"
+            app:layout_constraintTop_toBottomOf="@+id/et_join_phone_input_verify_code"
             app:layout_constraintStart_toStartOf="parent"
             tools:text="@string/join_phone_error_01"
             tools:visibility="visible" />

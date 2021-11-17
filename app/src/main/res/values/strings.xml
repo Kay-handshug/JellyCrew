@@ -49,8 +49,9 @@
     <string name="join_phone_verify_number_send">인증 문자를 보내드렸어요. 확인해 주세요.</string>
     <string name="join_phone_error_01">휴대폰 번호를 입력하세요.</string>
     <string name="join_phone_error_02">휴대폰 번호가 올바르지 않아요.</string>
-    <string name="join_phone_error_03">인증번호가 맞지 않아요.</string>
-    <string name="join_phone_error_04">인증번호 입력 시간이 지났어요.</string>
+    <string name="join_phone_error_03">인증번호를 입력하세요.</string>
+    <string name="join_phone_error_04">인증번호가 맞지 않아요.</string>
+    <string name="join_phone_error_05">인증번호 입력 시간이 지났어요.</string>
     <string name="join_phone_error_toast">인증 문자를 보내드릴 수 없는 번호로 확인되요.</string>
     <string name="join_phone_error_request_verify_fail">인증문자가 계속 오지 않아요.</string>
     <string name="join_phone_error_request_verify_fail_notice_01">안녕하세요. 젤리크루 고객센터 입니다.\n\n휴대폰 인증 문자가 오지 않아서 다음 단계 진행에 어려움이 있으시군요.\n아래 내용에 해당되는지 한 번 확인 부탁드려요.</string>
@@ -64,5 +65,16 @@
     // Join Email
     <string name="join_email_sub_title">아이디가 될\n이메일 주소를 입력해 주세요 :)</string>
     <string name="join_email_input_hint">이메일 주소 입력</string>
+    <string name="join_email_input_empty">이메일 주소를 입력해 주세요 :)</string>
     <string name="join_email_input_error">이메일 주소가 올바르지 않아요. (메일아이디@메일도메인)</string>
+
+    // Join Password
+    <string name="join_password_sub_title">비밀번호를 만들어주세요 :)</string>
+    <string name="join_password_sub_title_hint">이메일로 가입한 경우에 사용돼요.</string>
+    <string name="join_password_input_hint">비밀번호 입력</string>
+    <string name="join_password_rule_01">영문 포함</string>
+    <string name="join_password_rule_02">숫자 또는 특수문자 포함</string>
+    <string name="join_password_rule_03">6자 이상</string>
+    <string name="join_password_same_check">비밀번호 일치</string>
+    <string name="join_password_same_check_error">비밀번호가 일치하지 않아요.</string>
 </resources>
