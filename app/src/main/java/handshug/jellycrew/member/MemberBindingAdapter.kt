@@ -10,6 +10,7 @@ import handshug.jellycrew.R
 import handshug.jellycrew.member.viewModel.MemberViewModel
 import handshug.jellycrew.utils.gone
 import handshug.jellycrew.utils.visible
+import kotlinx.android.synthetic.main.activity_join_email.view.*
 import kotlinx.android.synthetic.main.activity_join_phone.view.*
 import kotlinx.android.synthetic.main.activity_join_terms.view.*
 import kotlinx.android.synthetic.main.common_title_join.view.*
@@ -138,7 +139,7 @@ fun ConstraintLayout.setCheckClickEvent(viewModel: MemberViewModel) {
                 viewModel.showDialogToastSend()
                 etInputVerifyNumber.visible()
                 tvInputVerifyCountDown.visible()
-                viewModel.getCountDownTimer()
+                viewModel.countDownTimerStart()
 
                 tvInputErrorMsg.gone()
 
@@ -160,6 +161,10 @@ fun ConstraintLayout.setCheckClickEvent(viewModel: MemberViewModel) {
             tvInputErrorMsg.gone()
 
             etInputVerifyNumber.background = context.getDrawable(R.drawable.selector_btn_radius08_gray400_n_gray700)
+
+            tvInputVerifyCountDown.gone()
+            viewModel.countDownTimerStop()
+            viewModel.navigateToJoinEmail()
         }
     }
 
@@ -210,4 +215,35 @@ fun ConstraintLayout.setTitleIndex(index: Int, isShowRightBtn: Boolean = false) 
         3 -> llIndex04.visible()
         4 -> llIndex05.visible()
     }
+}
+
+@SuppressLint("UseCompatLoadingForDrawables")
+@BindingAdapter("setCheckEmail")
+fun ConstraintLayout.setCheckEmail(viewModel: MemberViewModel) {
+    val btnNext = this.btn_join_email_next
+
+    val etEmailInput = this.et_join_email_input
+    val tvInputErrorMsg = this.tv_join_email_input_error_msg
+
+    btnNext.setOnClickListener {
+        if(etEmailInput.length() < 1) {
+            tvInputErrorMsg.visible()
+            tvInputErrorMsg.text = context.getString(R.string.join_email_input_error)
+            etEmailInput.background = context.getDrawable(R.drawable.common_box_radius08_white_border_red500)
+        }
+        else {
+            tvInputErrorMsg.gone()
+            etEmailInput.background = context.getDrawable(R.drawable.selector_btn_radius08_gray400_n_gray700)
+        }
+    }
+
+    etEmailInput.addTextChangedListener(object : TextWatcher {
+        override fun afterTextChanged(s: Editable?) {}
+        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            val cnt = s?.length?: 0
+            btnNext.isSelected = cnt != 0
+            etEmailInput.isSelected = cnt != 0
+        }
+    })
 }

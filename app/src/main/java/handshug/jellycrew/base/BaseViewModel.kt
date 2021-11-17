@@ -16,7 +16,16 @@ open class BaseViewModel(private val baseApi: BaseApi?) : ViewModel() {
         // 최소 8 자, 최소 하나의 문자, 하나의 숫자 및 하나의 특수 문자
         const val REGEX_PATTERN_PASSWORD = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[\$@\$!%*#?&])[A-Za-z\\d\$@\$!%*#?&]{8,}\$"
         const val REGEX_PATTERN_PHONE_NUMBER = "^(?:[+0]9)?[0-9]{10,12}\$"
+        const val REGEX_PATTERN_EMAIL = "^[a-zA-Z0-9]+@[a-zA-Z0-9]+\\\\.[a-z]+\$"
         const val REGEX_PATTERN_ZIP_CODE = "\\d{5}"
+
+        // 영문자
+        const val REGEX_PATTERN_ALPHABET = "^[a-zA-Z]*\$"
+        // 숫자
+        const val REGEX_PATTERN_NUMBER = "^[0-9]*\$ == \\\\d"
+        // 특수문자
+        const val REGEX_PATTERN_SPECIAL_CHARACTERS = "[^a-zA-Z0-9\\\\s]"
+
 
         const val PROGRESS_SHOW = 777
         const val PROGRESS_HIDE = 778

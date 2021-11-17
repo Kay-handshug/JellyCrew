@@ -8,10 +8,12 @@ import handshug.jellycrew.main.MainContract
 import handshug.jellycrew.main.MainContract.Companion.ACTIVITY_MAIN
 import handshug.jellycrew.main.model.MainApi
 import handshug.jellycrew.member.MemberContract.Companion.ACTIVITY_CLOSE
+import handshug.jellycrew.member.MemberContract.Companion.ACTIVITY_JOIN_EMAIL
 import handshug.jellycrew.member.MemberContract.Companion.ACTIVITY_JOIN_TERMS
 import handshug.jellycrew.member.MemberContract.Companion.ACTIVITY_JOIN_PHONE
 import handshug.jellycrew.member.MemberContract.Companion.ACTIVITY_PAST_ORDERS
-import handshug.jellycrew.member.MemberContract.Companion.GET_COUNT_DOWN_TIMER
+import handshug.jellycrew.member.MemberContract.Companion.COUNT_DOWN_TIMER_START
+import handshug.jellycrew.member.MemberContract.Companion.COUNT_DOWN_TIMER_STOP
 import handshug.jellycrew.member.MemberContract.Companion.SHOW_DIALOG_TOAST_VERIFY_FAIL
 import handshug.jellycrew.member.MemberContract.Companion.SHOW_DIALOG_TOAST_VERIFY_SEND
 import handshug.jellycrew.member.MemberContract.Companion.SHOW_DIALOG_USER_INFO_NOTI
@@ -29,6 +31,8 @@ class MemberViewModel(private val mainApi: MainApi) : BaseViewModel(mainApi), Ma
     fun navigateToMain() = viewEvent(ACTIVITY_MAIN)
     fun navigateToJoinTerms() = viewEvent(ACTIVITY_JOIN_TERMS)
     fun navigateToJoinPhone() = viewEvent(ACTIVITY_JOIN_PHONE)
+    fun navigateToJoinEmail() = viewEvent(ACTIVITY_JOIN_EMAIL)
+
     fun navigateToPastOrders() = viewEvent(ACTIVITY_PAST_ORDERS)
 
     fun startLoginKakao() = viewEvent(START_LOGIN_KAKAO)
@@ -39,7 +43,18 @@ class MemberViewModel(private val mainApi: MainApi) : BaseViewModel(mainApi), Ma
     fun showDialogToastSend() = viewEvent(SHOW_DIALOG_TOAST_VERIFY_SEND)
     fun showDialogToastFail() = viewEvent(SHOW_DIALOG_TOAST_VERIFY_FAIL)
 
-    fun getCountDownTimer() = viewEvent(GET_COUNT_DOWN_TIMER)
+    fun countDownTimerStart() = viewEvent(COUNT_DOWN_TIMER_START)
+    fun countDownTimerStop() = viewEvent(COUNT_DOWN_TIMER_STOP)
+
+
+
+    fun verifyPhoneNumber(phoneNumber: String) = regexPattern(REGEX_PATTERN_PHONE_NUMBER, phoneNumber)
+    fun verifyEmail(email: String) = regexPattern(REGEX_PATTERN_EMAIL, email)
+
+    fun verifyPasswordAlphabet(password: String) = regexPattern(REGEX_PATTERN_ALPHABET, password)
+    fun verifyPasswordNumber(password: String) = regexPattern(REGEX_PATTERN_NUMBER, password)
+    fun verifyPasswordSpecialCharacters(password: String) = regexPattern(REGEX_PATTERN_SPECIAL_CHARACTERS, password)
+
 
 
     fun countDownTimer(textView: AppCompatTextView): CountDownTimer {

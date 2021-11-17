@@ -12,8 +12,10 @@ import handshug.jellycrew.base.BindingActivity
 import handshug.jellycrew.databinding.ActivityJoinPhoneBinding
 import handshug.jellycrew.main.view.MainActivity
 import handshug.jellycrew.member.MemberContract.Companion.ACTIVITY_CLOSE
+import handshug.jellycrew.member.MemberContract.Companion.ACTIVITY_JOIN_EMAIL
 import handshug.jellycrew.member.MemberContract.Companion.ACTIVITY_MAIN
-import handshug.jellycrew.member.MemberContract.Companion.GET_COUNT_DOWN_TIMER
+import handshug.jellycrew.member.MemberContract.Companion.COUNT_DOWN_TIMER_START
+import handshug.jellycrew.member.MemberContract.Companion.COUNT_DOWN_TIMER_STOP
 import handshug.jellycrew.member.MemberContract.Companion.SHOW_DIALOG_TOAST_VERIFY_FAIL
 import handshug.jellycrew.member.MemberContract.Companion.SHOW_DIALOG_TOAST_VERIFY_SEND
 import handshug.jellycrew.member.view.dialog.MemberDialog
@@ -53,6 +55,8 @@ class JoinPhoneActivity : BindingActivity<ActivityJoinPhoneBinding>() {
                 when (event) {
                     ACTIVITY_CLOSE -> finish()
                     ACTIVITY_MAIN -> goToMainActivity()
+                    ACTIVITY_JOIN_EMAIL -> goToJoinEmailActivity()
+
                     SHOW_DIALOG_TOAST_VERIFY_SEND -> {
                         dialogVerifySend.apply {
                             show()
@@ -69,9 +73,12 @@ class JoinPhoneActivity : BindingActivity<ActivityJoinPhoneBinding>() {
                             }, 2000L)
                         }
                     }
-                    GET_COUNT_DOWN_TIMER -> {
+                    COUNT_DOWN_TIMER_START -> {
                         timer.cancel()
                         timer.start()
+                    }
+                    COUNT_DOWN_TIMER_STOP -> {
+                        timer.cancel()
                     }
                 }
             }
@@ -87,6 +94,13 @@ class JoinPhoneActivity : BindingActivity<ActivityJoinPhoneBinding>() {
         }
         ActivityUtil.removeActivity(this)
         finish()
+    }
+
+    private fun goToJoinEmailActivity() {
+        Intent(this, JoinEmailActivity::class.java).apply {
+            startActivity(this)
+            overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+        }
     }
 
     override fun onDestroy() {
