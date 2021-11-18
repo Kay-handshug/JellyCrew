@@ -77,4 +77,14 @@
     <string name="join_password_rule_03">6자 이상</string>
     <string name="join_password_same_check">비밀번호 일치</string>
     <string name="join_password_same_check_error">비밀번호가 일치하지 않아요.</string>
+
+    // Join UserInfo
+    <string name="join_user_info_sub_title">마지막으로\n가입/생일 쿠폰 등의 혜택을 위해\n인적사항을 알려주세요!</string>
+    <string name="join_user_info_name_hint">이름 입력</string>
+    <string name="join_user_info_name_rule_01">한글 또는 영문</string>
+    <string name="join_user_info_name_rule_02">2자 이상</string>
+    <string name="join_user_info_birth_hint">생년월일 입력</string>
+    <string name="join_user_info_gender_hint">성별 입력</string>
+    <string name="join_confirm">가입완료</string>
+
 </resources>

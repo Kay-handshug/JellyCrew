@@ -22,6 +22,7 @@ import handshug.jellycrew.databinding.ActivityLoginBinding
 import handshug.jellycrew.main.view.MainActivity
 import handshug.jellycrew.member.MemberContract.Companion.ACTIVITY_CLOSE
 import handshug.jellycrew.member.MemberContract.Companion.ACTIVITY_JOIN_TERMS
+import handshug.jellycrew.member.MemberContract.Companion.ACTIVITY_MAIN
 import handshug.jellycrew.member.MemberContract.Companion.ACTIVITY_PAST_ORDERS
 import handshug.jellycrew.member.MemberContract.Companion.LOGIN_SUCCESS
 import handshug.jellycrew.member.MemberContract.Companion.START_LOGIN_FACEBOOK
@@ -57,12 +58,13 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>() {
             it.getContentIfNotHandled()?.let { event ->
                 when (event) {
                     ACTIVITY_CLOSE -> finish()
-                    LOGIN_SUCCESS -> goToMainActivity()
+                    ACTIVITY_MAIN -> goToMainActivity()
                     ACTIVITY_JOIN_TERMS -> goToJoinTerms()
                     ACTIVITY_PAST_ORDERS -> goToPastOrders()
                     START_LOGIN_KAKAO -> startLoginKakao()
                     START_LOGIN_NAVER -> startLoginNaver()
                     START_LOGIN_FACEBOOK -> startLoginFacebook()
+                    LOGIN_SUCCESS -> goToMainActivity()
                 }
             }
         })
