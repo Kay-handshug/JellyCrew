@@ -9,6 +9,7 @@ interface MemberContract {
         const val ACTIVITY_JOIN_PHONE = 1022
         const val ACTIVITY_JOIN_EMAIL = 1023
         const val ACTIVITY_JOIN_PASSWORD = 1024
+        const val ACTIVITY_JOIN_USER_INFO = 1025
 
         const val ACTIVITY_FIND_EMAIL = 1030
         const val ACTIVITY_FIND_PASSWORD = 1040
@@ -17,6 +18,7 @@ interface MemberContract {
         const val SHOW_DIALOG_USER_INFO_NOTI = 1100
         const val SHOW_DIALOG_TOAST_VERIFY_SEND = 1101
         const val SHOW_DIALOG_TOAST_VERIFY_FAIL = 1102
+        const val SHOW_DIALOG_DATE_PICKER = 1103
 
         const val COUNT_DOWN_TIMER_START = 1200
         const val COUNT_DOWN_TIMER_STOP = 1201

@@ -127,7 +127,7 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">14sp</item>
-        <item name="android:textColor">@drawable/selector_color_gray_n_black</item>
+        <item name="android:textColor">@drawable/selector_color_gray500_n_gray800</item>
         <item name="android:buttonTint">@color/color_common_violet500</item>
         <item name="android:fontFamily">@font/spoqa_han_sans_neo_medium</item>
     </style>
@@ -136,7 +136,7 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">14sp</item>
-        <item name="android:textColor">@drawable/selector_color_gray_n_black</item>
+        <item name="android:textColor">@drawable/selector_color_gray500_n_gray800</item>
         <item name="android:button">@drawable/selector_checkbox_purple_n_gray</item>
         <item name="android:paddingStart">5dp</item>
         <item name="android:fontFamily">@font/spoqa_han_sans_neo_medium</item>

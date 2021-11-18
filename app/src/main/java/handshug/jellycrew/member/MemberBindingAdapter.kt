@@ -14,7 +14,6 @@ import handshug.jellycrew.member.viewModel.MemberViewModel
 import handshug.jellycrew.utils.gone
 import handshug.jellycrew.utils.visible
 import kotlinx.android.synthetic.main.activity_join_email.view.*
-import kotlinx.android.synthetic.main.activity_join_email.view.et_join_password_input
 import kotlinx.android.synthetic.main.activity_join_password.view.*
 import kotlinx.android.synthetic.main.activity_join_phone.view.*
 import kotlinx.android.synthetic.main.activity_join_terms.view.*
@@ -230,7 +229,7 @@ fun ConstraintLayout.setTitleIndex(index: Int, isShowRightBtn: Boolean = false) 
 fun ConstraintLayout.setCheckEmail(viewModel: MemberViewModel) {
     val btnNext = this.btn_join_email_next
 
-    val etEmailInput = this.et_join_password_input
+    val etEmailInput = this.et_join_email_input
     val tvInputErrorMsg = this.tv_join_email_input_error_msg
 
     btnNext.setOnClickListener {
@@ -273,7 +272,7 @@ fun ConstraintLayout.setCheckPassword(viewModel: MemberViewModel) {
     val etInputPassword01 = this.et_join_password_input
     val etInputPassword02 = this.et_join_password_input_same_check
 
-    val llRuleLayout = this.ll_join_password_rule
+    val llRuleLayout = this.ll_join_password_input_rule
     val tvRule01 = llRuleLayout.tv_join_password_rule_01
     val tvRule02 = llRuleLayout.tv_join_password_rule_02
     val tvRule03 = llRuleLayout.tv_join_password_rule_03
@@ -294,7 +293,7 @@ fun ConstraintLayout.setCheckPassword(viewModel: MemberViewModel) {
     }
 
     btnNext.setOnClickListener {
-        viewModel.navigateToMain()
+        viewModel.navigateToJoinUserInfo()
     }
 
     etInputPassword01.addTextChangedListener(object : TextWatcher {
@@ -403,6 +402,11 @@ fun ConstraintLayout.setCheckPassword(viewModel: MemberViewModel) {
             }
         }
     })
+}
+
+@BindingAdapter("setCheckUserInfo")
+fun ConstraintLayout.setCheckUserInfo(viewModel: MemberViewModel) {
+
 }
 
 fun setErrorMsg(view: AppCompatTextView, msg: String) {

@@ -3,25 +3,28 @@ package handshug.jellycrew.member.view
 import android.content.Intent
 import android.os.Bundle
 import androidx.annotation.LayoutRes
+import com.google.android.material.datepicker.MaterialDatePicker
 import handshug.jellycrew.Preference
 import handshug.jellycrew.R
 import handshug.jellycrew.TimeSynchronizer
 import handshug.jellycrew.base.BindingActivity
-import handshug.jellycrew.databinding.ActivityJoinPasswordBinding
+import handshug.jellycrew.databinding.ActivityJoinUserInfoBinding
 import handshug.jellycrew.main.view.MainActivity
 import handshug.jellycrew.member.MemberContract.Companion.ACTIVITY_CLOSE
-import handshug.jellycrew.member.MemberContract.Companion.ACTIVITY_JOIN_USER_INFO
 import handshug.jellycrew.member.MemberContract.Companion.ACTIVITY_MAIN
+import handshug.jellycrew.member.MemberContract.Companion.SHOW_DIALOG_DATE_PICKER
 import handshug.jellycrew.member.view.dialog.MemberDialog
 import handshug.jellycrew.member.viewModel.MemberViewModel
 import handshug.jellycrew.utils.ActivityUtil
+import handshug.jellycrew.utils.FormatterUtil
+import handshug.jellycrew.utils.Log
 import org.koin.androidx.viewmodel.ext.android.getViewModel
 
 
-class JoinPasswordActivity : BindingActivity<ActivityJoinPasswordBinding>() {
+class JoinUserInfoActivity : BindingActivity<ActivityJoinUserInfoBinding>() {
 
     @LayoutRes
-    override fun getLayoutResId() = R.layout.activity_join_password
+    override fun getLayoutResId() = R.layout.activity_join_user_info
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,12 +42,26 @@ class JoinPasswordActivity : BindingActivity<ActivityJoinPasswordBinding>() {
             toast(it)
         })
 
-        viewModel.viewEvent.observe(this, {
+        viewModel.viewEvent.observe(this, { it ->
             it.getContentIfNotHandled()?.let { event ->
                 when (event) {
                     ACTIVITY_CLOSE -> finish()
                     ACTIVITY_MAIN -> goToMainActivity()
-                    ACTIVITY_JOIN_USER_INFO -> goToUserInfo()
+                    SHOW_DIALOG_DATE_PICKER -> {
+                        val builder = MaterialDatePicker.Builder.datePicker()
+                                .setTheme(R.style.ThemeOverlay_MaterialComponents_MaterialCalendar)
+                        val picker = builder.build().apply {
+                            addOnNegativeButtonClickListener { dismiss() }
+                            addOnPositiveButtonClickListener { date ->
+                                val dateString = FormatterUtil.getDateTimestamp(date)
+                                binding.tvJoinUserInfoBirth.text = dateString
+                                binding.tvJoinUserInfoBirth.isSelected = true
+                                binding.ivJoinUserInfoBirthDropDown.isSelected = true
+                            }
+                        }
+
+                        picker.show(supportFragmentManager, picker.toString())
+                    }
                 }
             }
         })
@@ -59,12 +76,6 @@ class JoinPasswordActivity : BindingActivity<ActivityJoinPasswordBinding>() {
         }
         ActivityUtil.removeActivity(this)
         finish()
-    }
-
-    private fun goToUserInfo() {
-        Intent(this, JoinUserInfoActivity::class.java).apply {
-            startActivity(this)
-        }
     }
 
     override fun onDestroy() {

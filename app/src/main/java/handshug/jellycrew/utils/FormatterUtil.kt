@@ -149,7 +149,7 @@ object FormatterUtil {
         return String.format("%,.${digit}f", price)
     }
 
-    fun getTimeBuyTimestamp(timestamp: Long): String {
+    fun getDateTimestamp(timestamp: Long): String {
         return SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date(timestamp))
     }
 
