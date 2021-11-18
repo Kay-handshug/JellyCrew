@@ -3,6 +3,7 @@ package handshug.jellycrew.member.viewModel
 import android.annotation.SuppressLint
 import android.os.CountDownTimer
 import androidx.appcompat.widget.AppCompatTextView
+import androidx.lifecycle.MutableLiveData
 import handshug.jellycrew.base.BaseViewModel
 import handshug.jellycrew.main.MainContract
 import handshug.jellycrew.main.MainContract.Companion.ACTIVITY_MAIN
@@ -18,6 +19,7 @@ import handshug.jellycrew.member.MemberContract.Companion.ACTIVITY_PAST_ORDERS
 import handshug.jellycrew.member.MemberContract.Companion.COUNT_DOWN_TIMER_START
 import handshug.jellycrew.member.MemberContract.Companion.COUNT_DOWN_TIMER_STOP
 import handshug.jellycrew.member.MemberContract.Companion.SHOW_DIALOG_DATE_PICKER
+import handshug.jellycrew.member.MemberContract.Companion.SHOW_DIALOG_GENDER
 import handshug.jellycrew.member.MemberContract.Companion.SHOW_DIALOG_TOAST_VERIFY_FAIL
 import handshug.jellycrew.member.MemberContract.Companion.SHOW_DIALOG_TOAST_VERIFY_SEND
 import handshug.jellycrew.member.MemberContract.Companion.SHOW_DIALOG_USER_INFO_NOTI
@@ -30,6 +32,8 @@ class MemberViewModel(private val mainApi: MainApi) : BaseViewModel(mainApi), Ma
 //    private val _versionData: MutableLiveData<VersionData> = MutableLiveData()
 //    val versionData: LiveData<VersionData>
 //        get() = _versionData
+
+    val selectedGender: MutableLiveData<Boolean> = MutableLiveData()
 
     fun activityClose() = viewEvent(ACTIVITY_CLOSE)
     fun navigateToMain() = viewEvent(ACTIVITY_MAIN)
@@ -48,6 +52,7 @@ class MemberViewModel(private val mainApi: MainApi) : BaseViewModel(mainApi), Ma
     fun showDialogToastSend() = viewEvent(SHOW_DIALOG_TOAST_VERIFY_SEND)
     fun showDialogToastFail() = viewEvent(SHOW_DIALOG_TOAST_VERIFY_FAIL)
     fun showDialogDatePicker() = viewEvent(SHOW_DIALOG_DATE_PICKER)
+    fun showDialogGender() = viewEvent(SHOW_DIALOG_GENDER)
 
     fun countDownTimerStart() = viewEvent(COUNT_DOWN_TIMER_START)
     fun countDownTimerStop() = viewEvent(COUNT_DOWN_TIMER_STOP)
@@ -60,6 +65,8 @@ class MemberViewModel(private val mainApi: MainApi) : BaseViewModel(mainApi), Ma
     fun verifyPasswordAlphabet(password: String) = regexPattern(REGEX_PATTERN_ALPHABET, password)
     fun verifyPasswordNumber(password: String) = regexPattern(REGEX_PATTERN_NUMBER, password)
     fun verifyPasswordSpecialCharacters(password: String) = regexPattern(REGEX_PATTERN_SPECIAL_CHARACTERS, password)
+
+    fun verifyName(name: String) = regexPattern(REGEX_PATTERN_TEXT, name)
 
 
     fun countDownTimer(textView: AppCompatTextView): CountDownTimer {

@@ -21,6 +21,8 @@ open class BaseViewModel(private val baseApi: BaseApi?) : ViewModel() {
         const val REGEX_PATTERN_AUTH_CODE = "\\d{6}"
         const val REGEX_PATTERN_ZIP_CODE = "\\d{5}"
 
+        // 한글 또는 영문
+        const val REGEX_PATTERN_TEXT = ".*[a-zA-Z가-힣].*"
         // 영문자
         const val REGEX_PATTERN_ALPHABET = ".*[a-zA-Z].*"
         // 숫자 또는 특수문자

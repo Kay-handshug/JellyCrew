@@ -123,6 +123,7 @@
             android:text="@string/join_user_info_gender_hint"
             android:textColor="@drawable/selector_color_gray500_n_gray800"
             android:background="@drawable/selector_btn_radius08_gray400_n_gray700"
+            android:onClick="@{() -> viewModel.showDialogGender()}"
             app:layout_constraintTop_toBottomOf="@+id/tv_join_user_info_birth"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
@@ -132,6 +133,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="24dp"
+            android:onClick="@{() -> viewModel.showDialogGender()}"
             app:layout_constraintBottom_toBottomOf="@id/tv_join_user_info_gender"
             app:layout_constraintEnd_toEndOf="@id/tv_join_user_info_gender"
             app:layout_constraintTop_toTopOf="@id/tv_join_user_info_gender"

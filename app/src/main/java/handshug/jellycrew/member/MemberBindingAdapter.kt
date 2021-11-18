@@ -17,6 +17,7 @@ import kotlinx.android.synthetic.main.activity_join_email.view.*
 import kotlinx.android.synthetic.main.activity_join_password.view.*
 import kotlinx.android.synthetic.main.activity_join_phone.view.*
 import kotlinx.android.synthetic.main.activity_join_terms.view.*
+import kotlinx.android.synthetic.main.activity_join_user_info.view.*
 import kotlinx.android.synthetic.main.common_title_join.view.*
 
 
@@ -404,9 +405,67 @@ fun ConstraintLayout.setCheckPassword(viewModel: MemberViewModel) {
     })
 }
 
+@SuppressLint("UseCompatLoadingForDrawables")
 @BindingAdapter("setCheckUserInfo")
 fun ConstraintLayout.setCheckUserInfo(viewModel: MemberViewModel) {
+    val btnNext = this.btn_join_user_info_next
 
+    val etName = this.et_join_user_info_name_input
+
+    val llNameRule = this.ll_join_user_info_name_input_rule
+    val tvRule01 = llNameRule.tv_join_user_info_rule_01
+    val tvRule02 = llNameRule.tv_join_user_info_rule_02
+
+    val tvBirth = this.tv_join_user_info_birth
+    val tvGender = this.tv_join_user_info_gender
+
+    etName.addTextChangedListener(object : TextWatcher {
+        override fun afterTextChanged(s: Editable?) {}
+        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            val text = s.toString()
+            val cnt = text.length
+
+            btnNext.isSelected = false
+            btnNext.isEnabled = false
+
+            if (cnt < 1) {
+                val textColor = context.getColor(R.color.color_common_text_gray500)
+                tvRule01.setTextColor(textColor)
+                tvRule02.setTextColor(textColor)
+
+                etName.background = context.getDrawable(R.drawable.selector_btn_radius08_gray400_n_gray700)
+            }
+            else {
+                val textColorRed = context.getColor(R.color.color_common_red500)
+                val textColorGreen = context.getColor(R.color.color_common_green400)
+                tvRule01.apply {
+                    val isVerify = viewModel.verifyName(text)
+                    setTextColor(if(isVerify) textColorGreen else textColorRed)
+                    this.isSelected = isVerify
+                }
+                tvRule02.apply {
+                    val isVerify = cnt > 1
+                    setTextColor(if(isVerify) textColorGreen else textColorRed)
+                    this.isSelected = isVerify
+                }
+
+                if (tvRule01.isSelected && tvRule02.isSelected) {
+                    if (tvBirth.isSelected && tvGender.isSelected) {
+                        btnNext.isSelected = true
+                        btnNext.isEnabled = true
+                    }
+                    etName.background = context.getDrawable(R.drawable.selector_btn_radius08_gray400_n_gray700)
+                }
+                else {
+                    etName.background = context.getDrawable(R.drawable.common_box_radius08_white_border_red500)
+                }
+            }
+
+            etName.isSelected = cnt != 0
+            etName.setSelection(cnt)
+        }
+    })
 }
 
 fun setErrorMsg(view: AppCompatTextView, msg: String) {
