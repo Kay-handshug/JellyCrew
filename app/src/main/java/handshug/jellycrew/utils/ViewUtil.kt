@@ -4,7 +4,10 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.res.ColorStateList
 import android.text.Html
+import android.text.Spannable
+import android.text.SpannableString
 import android.text.Spanned
+import android.text.style.ForegroundColorSpan
 import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
@@ -12,12 +15,21 @@ import android.widget.RadioButton
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
-import handshug.jellycrew.R
 
 object ViewUtil {
 
     fun setTextColor(view: TextView, colorId: Int) {
         view.setTextColor(ContextCompat.getColor(view.context, colorId))
+    }
+
+    fun setTextColorSpannable(view: TextView, colorId: Int, text: String, start: String, end: String) {
+        setTextColorSpannable(view, colorId, text, start.length, end.length)
+    }
+
+    fun setTextColorSpannable(view: TextView, colorId: Int, text: String, start: Int, end: Int) {
+        val spannable = SpannableString(text)
+        spannable.setSpan(ForegroundColorSpan(colorId), start, start + end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        view.setText(spannable, TextView.BufferType.SPANNABLE)
     }
 
     fun setBackgroundColor(view: TextView, colorId: Int) {

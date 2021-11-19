@@ -3,21 +3,24 @@ package handshug.jellycrew.member.viewModel
 import android.annotation.SuppressLint
 import android.os.CountDownTimer
 import androidx.appcompat.widget.AppCompatTextView
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import handshug.jellycrew.base.BaseViewModel
 import handshug.jellycrew.main.MainContract
 import handshug.jellycrew.main.MainContract.Companion.ACTIVITY_MAIN
 import handshug.jellycrew.main.model.MainApi
-import handshug.jellycrew.member.MemberContract
 import handshug.jellycrew.member.MemberContract.Companion.ACTIVITY_CLOSE
-import handshug.jellycrew.member.MemberContract.Companion.ACTIVITY_JOIN_EMAIL
-import handshug.jellycrew.member.MemberContract.Companion.ACTIVITY_JOIN_PASSWORD
-import handshug.jellycrew.member.MemberContract.Companion.ACTIVITY_JOIN_TERMS
-import handshug.jellycrew.member.MemberContract.Companion.ACTIVITY_JOIN_PHONE
-import handshug.jellycrew.member.MemberContract.Companion.ACTIVITY_JOIN_USER_INFO
+import handshug.jellycrew.member.MemberContract.Companion.ACTIVITY_JOIN_CONFIRM
+import handshug.jellycrew.member.MemberContract.Companion.ACTIVITY_JOIN_SUCCESS
+import handshug.jellycrew.member.MemberContract.Companion.ACTIVITY_LOGIN_HOME
 import handshug.jellycrew.member.MemberContract.Companion.ACTIVITY_PAST_ORDERS
 import handshug.jellycrew.member.MemberContract.Companion.COUNT_DOWN_TIMER_START
 import handshug.jellycrew.member.MemberContract.Companion.COUNT_DOWN_TIMER_STOP
+import handshug.jellycrew.member.MemberContract.Companion.FRAGMENT_JOIN_EMAIL
+import handshug.jellycrew.member.MemberContract.Companion.FRAGMENT_JOIN_PASSWORD
+import handshug.jellycrew.member.MemberContract.Companion.FRAGMENT_JOIN_PHONE
+import handshug.jellycrew.member.MemberContract.Companion.FRAGMENT_JOIN_TERMS
+import handshug.jellycrew.member.MemberContract.Companion.FRAGMENT_JOIN_USER_INFO
 import handshug.jellycrew.member.MemberContract.Companion.SHOW_DIALOG_DATE_PICKER
 import handshug.jellycrew.member.MemberContract.Companion.SHOW_DIALOG_GENDER
 import handshug.jellycrew.member.MemberContract.Companion.SHOW_DIALOG_TOAST_VERIFY_FAIL
@@ -29,20 +32,20 @@ import handshug.jellycrew.member.MemberContract.Companion.START_LOGIN_NAVER
 
 class MemberViewModel(private val mainApi: MainApi) : BaseViewModel(mainApi), MainContract {
 
-//    private val _versionData: MutableLiveData<VersionData> = MutableLiveData()
-//    val versionData: LiveData<VersionData>
-//        get() = _versionData
-
-    val selectedGender: MutableLiveData<Boolean> = MutableLiveData()
+    val selectedGender: MutableLiveData<Int> = MutableLiveData()
 
     fun activityClose() = viewEvent(ACTIVITY_CLOSE)
     fun navigateToMain() = viewEvent(ACTIVITY_MAIN)
-    fun navigateToJoinTerms() = viewEvent(ACTIVITY_JOIN_TERMS)
-    fun navigateToJoinPhone() = viewEvent(ACTIVITY_JOIN_PHONE)
-    fun navigateToJoinEmail() = viewEvent(ACTIVITY_JOIN_EMAIL)
-    fun navigateToJoinPassword() = viewEvent(ACTIVITY_JOIN_PASSWORD)
-    fun navigateToJoinUserInfo() = viewEvent(ACTIVITY_JOIN_USER_INFO)
+    fun navigateToLoginHome() = viewEvent(ACTIVITY_LOGIN_HOME)
+    fun navigateToJoinSuccess() = viewEvent(ACTIVITY_JOIN_SUCCESS)
+    fun navigateToJoinConfirm() = viewEvent(ACTIVITY_JOIN_CONFIRM)
     fun navigateToPastOrders() = viewEvent(ACTIVITY_PAST_ORDERS)
+
+    fun navigateToJoinTerms() = viewEvent(FRAGMENT_JOIN_TERMS)
+    fun navigateToJoinPhone() = viewEvent(FRAGMENT_JOIN_PHONE)
+    fun navigateToJoinEmail() = viewEvent(FRAGMENT_JOIN_EMAIL)
+    fun navigateToJoinPassword() = viewEvent(FRAGMENT_JOIN_PASSWORD)
+    fun navigateToJoinUserInfo() = viewEvent(FRAGMENT_JOIN_USER_INFO)
 
     fun startLoginKakao() = viewEvent(START_LOGIN_KAKAO)
     fun startLoginNaver() = viewEvent(START_LOGIN_NAVER)
@@ -67,7 +70,6 @@ class MemberViewModel(private val mainApi: MainApi) : BaseViewModel(mainApi), Ma
     fun verifyPasswordSpecialCharacters(password: String) = regexPattern(REGEX_PATTERN_SPECIAL_CHARACTERS, password)
 
     fun verifyName(name: String) = regexPattern(REGEX_PATTERN_TEXT, name)
-
 
     fun countDownTimer(textView: AppCompatTextView): CountDownTimer {
         return object: CountDownTimer(3 * 60 * 1000L, 1000L) {

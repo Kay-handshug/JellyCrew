@@ -3,11 +3,6 @@
 <layout xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android" >
 
-    <data>
-        <variable name="dialog" type="com.google.android.material.bottomsheet.BottomSheetDialog" />
-        <variable name="msg" type="String" />
-    </data>
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -28,23 +23,35 @@
             app:layout_constraintStart_toStartOf="parent" />
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_join_user_info_gender_male"
-            style="@style/style_common_button_bold"
-            android:layout_width="0dp"
-            android:background="@drawable/selector_btn_radius08_gray200_n_violet500"
-            android:padding="5dp"
-            android:text="@string/join_user_info_gender_male"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_join_user_info_gender_noti" />
-
-        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_join_user_info_gender_female"
             style="@style/style_common_button_bold"
             android:layout_width="0dp"
             android:background="@drawable/selector_btn_radius08_gray200_n_violet500"
             android:padding="5dp"
             android:text="@string/join_user_info_gender_female"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_join_user_info_gender_noti" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_join_user_info_gender_male"
+            style="@style/style_common_button_bold"
+            android:layout_width="0dp"
+            android:background="@drawable/selector_btn_radius08_gray200_n_violet500"
+            android:padding="5dp"
+            android:text="@string/join_user_info_gender_male"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_join_user_info_gender_female" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_join_user_info_gender_etc"
+            style="@style/style_common_button_bold"
+            android:layout_width="0dp"
+            android:background="@drawable/selector_btn_radius08_gray200_n_violet500"
+            android:padding="5dp"
+            android:text="@string/join_user_info_gender_etc"
             android:layout_marginTop="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

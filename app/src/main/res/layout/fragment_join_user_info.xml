@@ -13,14 +13,6 @@
         android:background="@color/white"
         app:setCheckUserInfo="@{viewModel}">
 
-        <include
-            android:id="@+id/ic_common_title_join"
-            layout="@layout/common_title_join"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:viewModel="@{viewModel}"
-            app:index="@{4}" />
-
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_join_user_info_sub_title"
             style="@style/style_common_title"
@@ -28,7 +20,7 @@
             android:layout_marginStart="16dp"
             android:text="@string/join_user_info_sub_title"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ic_common_title_join" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/et_join_user_info_name_input"
@@ -37,7 +29,7 @@
             android:layout_height="45dp"
             android:background="@drawable/selector_btn_radius08_gray400_n_gray700"
             android:hint="@string/join_user_info_name_hint"
-            android:inputType="textPassword"
+            android:inputType="text"
             android:maxLength="30"
             android:layout_marginTop="24dp"
             android:layout_marginStart="16dp"
@@ -143,7 +135,7 @@
             android:id="@+id/btn_join_user_info_next"
             style="@style/style_common_button_bold"
             android:layout_width="0dp"
-            android:text="@string/btn_next"
+            android:text="@string/join_confirm"
             android:layout_marginTop="24dp"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"

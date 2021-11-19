@@ -31,7 +31,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="10dp"
-            android:onClick="@{() -> viewModel.navigateToMain()}"
+            android:onClick="@{() -> viewModel.navigateToLoginHome()}"
             app:srcCompat="@drawable/ic_icon_home"
             app:layout_constraintStart_toEndOf="@+id/iv_login_title_close"
             app:layout_constraintTop_toTopOf="parent" />

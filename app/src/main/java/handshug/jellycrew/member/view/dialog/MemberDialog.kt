@@ -1,7 +1,6 @@
 package handshug.jellycrew.member.view.dialog
 
 import android.app.Activity
-//import androidx.appcompat.app.AlertDialog
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import handshug.jellycrew.R
 import handshug.jellycrew.base.BaseDialog
@@ -49,17 +48,19 @@ class MemberDialog(
 
         val dialog = dialogBinding.getBottomSheetDialog()
         dialogBinding.apply {
-            binding.dialog = dialog
-            binding.btnJoinUserInfoGenderMale.setOnClickListener {
-                viewModel.selectedGender.value = false
+            binding.btnJoinUserInfoGenderFemale.setOnClickListener {
+                viewModel.selectedGender.value = 0
                 dialog.dismiss()
             }
-            binding.btnJoinUserInfoGenderFemale.setOnClickListener {
-                viewModel.selectedGender.value = true
+            binding.btnJoinUserInfoGenderMale.setOnClickListener {
+                viewModel.selectedGender.value = 1
+                dialog.dismiss()
+            }
+            binding.btnJoinUserInfoGenderEtc.setOnClickListener {
+                viewModel.selectedGender.value = 2
                 dialog.dismiss()
             }
         }
-
 
         return dialog
     }

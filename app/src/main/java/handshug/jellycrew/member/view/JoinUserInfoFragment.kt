@@ -1,59 +1,58 @@
 package handshug.jellycrew.member.view
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.annotation.LayoutRes
 import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.AppCompatTextView
 import com.google.android.material.datepicker.MaterialDatePicker
-import handshug.jellycrew.Preference
 import handshug.jellycrew.R
-import handshug.jellycrew.TimeSynchronizer
-import handshug.jellycrew.base.BindingActivity
-import handshug.jellycrew.databinding.ActivityJoinUserInfoBinding
-import handshug.jellycrew.main.view.MainActivity
-import handshug.jellycrew.member.MemberContract.Companion.ACTIVITY_CLOSE
-import handshug.jellycrew.member.MemberContract.Companion.ACTIVITY_MAIN
+import handshug.jellycrew.base.BindingFragment
+import handshug.jellycrew.databinding.FragmentJoinUserInfoBinding
+import handshug.jellycrew.member.MemberContract.Companion.ACTIVITY_JOIN_SUCCESS
 import handshug.jellycrew.member.MemberContract.Companion.SHOW_DIALOG_DATE_PICKER
 import handshug.jellycrew.member.MemberContract.Companion.SHOW_DIALOG_GENDER
 import handshug.jellycrew.member.view.dialog.MemberDialog
 import handshug.jellycrew.member.viewModel.MemberViewModel
-import handshug.jellycrew.utils.ActivityUtil
 import handshug.jellycrew.utils.FormatterUtil
-import handshug.jellycrew.utils.Log
+import handshug.jellycrew.utils.ViewUtil
 import org.koin.androidx.viewmodel.ext.android.getViewModel
 
 
-class JoinUserInfoActivity : BindingActivity<ActivityJoinUserInfoBinding>() {
+class JoinUserInfoFragment : BindingFragment<FragmentJoinUserInfoBinding>() {
 
     @LayoutRes
-    override fun getLayoutResId() = R.layout.activity_join_user_info
+    override fun getLayoutResId() = R.layout.fragment_join_user_info
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    companion object {
+        fun newInstance() = JoinUserInfoFragment()
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
 
         val viewModel: MemberViewModel = getViewModel()
-        this.viewModel = viewModel
 
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
 
-        val dialog = MemberDialog(this, viewModel)
+        val dialog = MemberDialog(requireActivity(), viewModel)
         val dialogGender = dialog.showGenderDialog()
 
-        viewModel.toastMessage.observe(this, {
+        viewModel.toastMessage.observe(viewLifecycleOwner, {
             toast(it)
         })
 
-        viewModel.selectedGender.observe(this, { isFemale ->
+        viewModel.selectedGender.observe(viewLifecycleOwner, { index ->
             binding.tvJoinUserInfoGender.apply {
                 binding.ivJoinUserInfoGenderDropDown.isSelected = true
                 isSelected = true
-                text = if (isFemale) {
-                    getString(R.string.join_user_info_gender_female)
-                } else {
-                    getString(R.string.join_user_info_gender_male)
+                ViewUtil.setBackgroundDrawable(this, R.drawable.selector_btn_radius08_gray400_n_gray700)
+
+                text = when (index) {
+                    0 -> getString(R.string.join_user_info_gender_female)
+                    1 -> getString(R.string.join_user_info_gender_male)
+                    else -> getString(R.string.join_user_info_gender_etc)
                 }
 
                 isVerifyAllOk(
@@ -66,11 +65,13 @@ class JoinUserInfoActivity : BindingActivity<ActivityJoinUserInfoBinding>() {
             }
         })
 
-        viewModel.viewEvent.observe(this, { it ->
+        viewModel.viewEvent.observe(viewLifecycleOwner, { it ->
             it.getContentIfNotHandled()?.let { event ->
                 when (event) {
-                    ACTIVITY_CLOSE -> finish()
-                    ACTIVITY_MAIN -> goToMainActivity()
+                    ACTIVITY_JOIN_SUCCESS -> {
+                        startActivity(JoinSuccessActivity::class.java)
+                        activity?.finish()
+                    }
                     SHOW_DIALOG_DATE_PICKER -> {
                         val builder = MaterialDatePicker.Builder.datePicker()
                                 .setTheme(R.style.ThemeOverlay_MaterialComponents_MaterialCalendar)
@@ -81,6 +82,7 @@ class JoinUserInfoActivity : BindingActivity<ActivityJoinUserInfoBinding>() {
                                 binding.tvJoinUserInfoBirth.text = dateString
                                 binding.tvJoinUserInfoBirth.isSelected = true
                                 binding.ivJoinUserInfoBirthDropDown.isSelected = true
+                                ViewUtil.setBackgroundDrawable(binding.tvJoinUserInfoBirth, R.drawable.selector_btn_radius08_gray400_n_gray700)
 
                                 isVerifyAllOk(
                                         binding.btnJoinUserInfoNext,
@@ -92,7 +94,7 @@ class JoinUserInfoActivity : BindingActivity<ActivityJoinUserInfoBinding>() {
                             }
                         }
 
-                        picker.show(supportFragmentManager, picker.toString())
+                        picker.show(parentFragmentManager, picker.toString())
                     }
                     SHOW_DIALOG_GENDER -> {
                         dialogGender.show()
@@ -100,17 +102,6 @@ class JoinUserInfoActivity : BindingActivity<ActivityJoinUserInfoBinding>() {
                 }
             }
         })
-    }
-
-    private fun goToMainActivity() {
-        Preference.isLogin = true
-
-        TimeSynchronizer.sync()
-        Intent(this, MainActivity::class.java).apply {
-            startActivity(this)
-        }
-        ActivityUtil.removeActivity(this)
-        finish()
     }
 
     private fun isVerifyAllOk(
@@ -122,9 +113,5 @@ class JoinUserInfoActivity : BindingActivity<ActivityJoinUserInfoBinding>() {
         val isVerify = tvRule01.isSelected && tvRule02.isSelected && tvBirth.isSelected && tvGender.isSelected
         btnNext.isSelected = isVerify
         btnNext.isEnabled = isVerify
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
     }
 }

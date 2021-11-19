@@ -12,15 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white"
-        app:setCheckBoxAll="@{true}">
-
-        <include
-            android:id="@+id/ic_common_title_join"
-            layout="@layout/common_title_join"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:viewModel="@{viewModel}"
-            app:index="@{0}" />
+        app:setCheckTerms="@{viewModel}">
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_join_terms_sub_title"
@@ -29,7 +21,7 @@
             android:layout_marginTop="62dp"
             android:text="@string/join_terms_sub_title"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ic_common_title_join" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.AppCompatCheckBox
             android:id="@+id/cb_join_terms_agree_all"
@@ -168,8 +160,8 @@
             android:layout_marginTop="24dp"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
-            android:onClick="@{() -> viewModel.navigateToJoinPhone()}"
             android:text="@string/join_terms_agree_confirm"
+            android:enabled="false"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/v_blank" />

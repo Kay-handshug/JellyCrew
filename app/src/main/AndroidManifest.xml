@@ -37,7 +37,7 @@
 
         <activity
             android:name=".main.view.MainActivity"
-            android:launchMode="singleTask"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait"/>
 
         <activity
@@ -46,27 +46,12 @@
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".member.view.JoinTermsActivity"
+            android:name=".member.view.JoinActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".member.view.JoinPhoneActivity"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait" />
-
-        <activity
-            android:name=".member.view.JoinEmailActivity"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait" />
-
-        <activity
-            android:name=".member.view.JoinPasswordActivity"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait" />
-
-        <activity
-            android:name=".member.view.JoinUserInfoActivity"
+            android:name=".member.view.JoinSuccessActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 

@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable name="viewModel" type="handshug.jellycrew.member.viewModel.MemberViewModel" />
+        <variable name="name" type="String" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white" >
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_join_success_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="62dp"
+            app:srcCompat="@drawable/ic_img_login_success"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_join_success_sub_title_01"
+            style="@style/style_common_title"
+            android:layout_marginTop="42dp"
+            android:layout_marginStart="16dp"
+            android:text="@string/join_success_sub_title_01"
+            android:textSize="28sp"
+            android:textColor="@color/color_common_violet500"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/iv_join_success_img" />
+
+        <LinearLayout
+            android:id="@+id/ll_join_success_sub_title_02"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_join_success_sub_title_01" >
+
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/style_common_text"
+                android:text="@{name}"
+                android:textSize="18sp"
+                android:textColor="@color/color_common_violet500"
+                tools:text="김젤리"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/style_common_text"
+                android:text="@string/join_success_sub_title_02"
+                android:textSize="18sp"
+                android:textColor="@color/color_common_text_gray900"  />
+
+        </LinearLayout>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_join_success_sub_title_03"
+            style="@style/style_common_text"
+            android:layout_marginTop="8dp"
+            android:text="@string/join_success_sub_title_03"
+            android:textSize="14sp"
+            android:textColor="@color/color_common_text_gray700"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ll_join_success_sub_title_02" />
+
+        <RelativeLayout
+            android:id="@+id/rl_join_success_benefits_01"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            android:padding="10dp"
+            android:background="@drawable/common_box_radius08_gray100"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_join_success_sub_title_03">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/style_common_text_bold"
+                android:drawableStart="@drawable/ic_icon_join_benefits_01"
+                android:drawablePadding="10dp"
+                android:text="@string/join_success_benefits_01"
+                android:textColor="@color/color_common_text_gray900"
+                android:textSize="16sp"
+                android:layout_toStartOf="@+id/v_center_01"/>
+
+            <View
+                android:id="@+id/v_center_01"
+                android:layout_width="1dp"
+                android:layout_height="12dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp"
+                android:layout_centerInParent="true"
+                android:background="@color/color_common_border_gray500" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/style_common_text_bold"
+                android:text="@string/join_success_benefits_01_value"
+                android:textColor="@color/color_common_text_gray900"
+                android:textSize="16sp"
+                android:layout_toEndOf="@+id/v_center_01"
+                app:setTextColorSpannableStart="@{0}"
+                app:setTextColorSpannableEnd="@{5}"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_join_success_benefits_02"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            android:padding="10dp"
+            android:background="@drawable/common_box_radius08_gray100"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rl_join_success_benefits_01">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/style_common_text_bold"
+                android:drawableStart="@drawable/ic_icon_join_benefits_02"
+                android:drawablePadding="10dp"
+                android:text="@string/join_success_benefits_02"
+                android:textColor="@color/color_common_text_gray900"
+                android:textSize="16sp"
+                android:layout_toStartOf="@+id/v_center_02"/>
+
+            <View
+                android:id="@+id/v_center_02"
+                android:layout_width="1dp"
+                android:layout_height="12dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp"
+                android:layout_centerInParent="true"
+                android:background="@color/color_common_border_gray500" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/style_common_text_bold"
+                android:text="@string/join_success_benefits_02_value"
+                android:textColor="@color/color_common_text_gray900"
+                android:textSize="16sp"
+                android:layout_toEndOf="@+id/v_center_02"
+                app:setTextColorSpannableStart="@{0}"
+                app:setTextColorSpannableEnd="@{3}"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_join_success_benefits_03"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            android:padding="10dp"
+            android:background="@drawable/common_box_radius08_gray100"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rl_join_success_benefits_02">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/style_common_text_bold"
+                android:drawableStart="@drawable/ic_icon_join_benefits_03"
+                android:drawablePadding="10dp"
+                android:text="@string/join_success_benefits_03"
+                android:textColor="@color/color_common_text_gray900"
+                android:textSize="16sp"
+                android:layout_toStartOf="@+id/v_center_03"/>
+
+            <View
+                android:id="@+id/v_center_03"
+                android:layout_width="1dp"
+                android:layout_height="12dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp"
+                android:layout_centerInParent="true"
+                android:background="@color/color_common_border_gray500" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/style_common_text_bold"
+                android:text="@string/join_success_benefits_03_value"
+                android:textColor="@color/color_common_text_gray900"
+                android:textSize="16sp"
+                android:layout_toEndOf="@+id/v_center_03"
+                app:setTextColorSpannableStart="@{0}"
+                app:setTextColorSpannableEnd="@{5}"/>
+
+        </RelativeLayout>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_join_success_benefits_noti"
+            style="@style/style_common_text"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/join_success_benefits_noti"
+            app:layout_constraintTop_toBottomOf="@+id/rl_join_success_benefits_03"
+            app:layout_constraintStart_toStartOf="parent"
+            app:setTextColorSpannableStart="@{15}"
+            app:setTextColorSpannableEnd="@{5}"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_join_success_confirm"
+            style="@style/style_common_button_bold"
+            android:layout_width="0dp"
+            android:text="@string/join_success_confirm"
+            android:textColor="@color/white"
+            android:layout_marginTop="32dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/common_box_radius08_violet500"
+            android:onClick="@{() -> viewModel.navigateToJoinConfirm()}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_join_success_benefits_noti" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

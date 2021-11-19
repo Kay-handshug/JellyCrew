@@ -14,14 +14,6 @@
         android:background="@color/white"
         app:setCheckEmail="@{viewModel}">
 
-        <include
-            android:id="@+id/ic_common_title_join"
-            layout="@layout/common_title_join"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:viewModel="@{viewModel}"
-            app:index="@{2}" />
-
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_join_email_sub_title"
             style="@style/style_common_title"
@@ -29,7 +21,7 @@
             android:layout_marginStart="16dp"
             android:text="@string/join_email_sub_title"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ic_common_title_join" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/et_join_email_input"

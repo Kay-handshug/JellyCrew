@@ -5,26 +5,27 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
+import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.AppCompatCheckBox
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.BindingAdapter
+import handshug.jellycrew.Preference
 import handshug.jellycrew.R
 import handshug.jellycrew.member.viewModel.MemberViewModel
+import handshug.jellycrew.utils.ViewUtil
 import handshug.jellycrew.utils.gone
 import handshug.jellycrew.utils.visible
-import kotlinx.android.synthetic.main.activity_join_email.view.*
-import kotlinx.android.synthetic.main.activity_join_password.view.*
-import kotlinx.android.synthetic.main.activity_join_phone.view.*
-import kotlinx.android.synthetic.main.activity_join_terms.view.*
-import kotlinx.android.synthetic.main.activity_join_user_info.view.*
 import kotlinx.android.synthetic.main.common_title_join.view.*
+import kotlinx.android.synthetic.main.fragment_join_email.view.*
+import kotlinx.android.synthetic.main.fragment_join_password.view.*
+import kotlinx.android.synthetic.main.fragment_join_phone.view.*
+import kotlinx.android.synthetic.main.fragment_join_terms.view.*
+import kotlinx.android.synthetic.main.fragment_join_user_info.view.*
 
 
-@BindingAdapter("setCheckBoxAll")
-fun ConstraintLayout.setCheckBoxAll(isUsed: Boolean = false) {
-    if(!isUsed) return
-
+@BindingAdapter("setCheckTerms")
+fun ConstraintLayout.setCheckTerms(viewModel: MemberViewModel) {
     val cbAgreeAll = this.cb_join_terms_agree_all
     val cbAgreeItem01 = this.cb_join_terms_agree_item_01
     val cbAgreeItem02 = this.cb_join_terms_agree_item_02
@@ -32,6 +33,8 @@ fun ConstraintLayout.setCheckBoxAll(isUsed: Boolean = false) {
     val cbAgreeItem04 = this.cb_join_terms_agree_item_04
     val cbAgreeItem05 = this.cb_join_terms_agree_item_05
     val cbAgreeItem06 = this.cb_join_terms_agree_item_06
+
+    val btnNext = this.btn_join_terms_agree_confirm
 
     cbAgreeAll.setOnCheckedChangeListener { _, state ->
         if (state) {
@@ -56,14 +59,17 @@ fun ConstraintLayout.setCheckBoxAll(isUsed: Boolean = false) {
 
     cbAgreeItem01.setOnCheckedChangeListener { _, state ->
         checkItemState(cbAgreeAll, cbAgreeItem01, cbAgreeItem02, cbAgreeItem03, cbAgreeItem04, cbAgreeItem05, state)
+        checkItemEssential(cbAgreeItem01, cbAgreeItem02, cbAgreeItem03, btnNext)
     }
 
     cbAgreeItem02.setOnCheckedChangeListener { _, state ->
         checkItemState(cbAgreeAll, cbAgreeItem01, cbAgreeItem02, cbAgreeItem03, cbAgreeItem04, cbAgreeItem05, state)
+        checkItemEssential(cbAgreeItem01, cbAgreeItem02, cbAgreeItem03, btnNext)
     }
 
     cbAgreeItem03.setOnCheckedChangeListener { _, state ->
         checkItemState(cbAgreeAll, cbAgreeItem01, cbAgreeItem02, cbAgreeItem03, cbAgreeItem04, cbAgreeItem05, state)
+        checkItemEssential(cbAgreeItem01, cbAgreeItem02, cbAgreeItem03, btnNext)
     }
 
     cbAgreeItem04.setOnCheckedChangeListener { _, state ->
@@ -73,6 +79,10 @@ fun ConstraintLayout.setCheckBoxAll(isUsed: Boolean = false) {
     cbAgreeItem05.setOnCheckedChangeListener { _, state ->
         cbAgreeItem06.isChecked = state
         checkItemState(cbAgreeAll, cbAgreeItem01, cbAgreeItem02, cbAgreeItem03, cbAgreeItem04, cbAgreeItem05, state)
+    }
+
+    btnNext.setOnClickListener {
+        viewModel.navigateToJoinPhone()
     }
 }
 
@@ -108,6 +118,16 @@ fun checkItemLastOne(
     if (cb05.isChecked) checkCount = checkCount.plus(1)
 
     return checkCount
+}
+
+fun checkItemEssential(
+        cb01: AppCompatCheckBox,
+        cb02: AppCompatCheckBox,
+        cb03: AppCompatCheckBox,
+        btnNext: AppCompatButton) {
+    val isVerify = cb01.isChecked && cb02.isChecked && cb03.isChecked
+    btnNext.isSelected = isVerify
+    btnNext.isEnabled = isVerify
 }
 
 @SuppressLint("UseCompatLoadingForDrawables")
@@ -221,7 +241,7 @@ fun ConstraintLayout.setTitleIndex(index: Int, isShowRightBtn: Boolean = false) 
         1 -> llIndex02.visible()
         2 -> llIndex03.visible()
         3 -> llIndex04.visible()
-        4 -> llIndex05.visible()
+        else -> llIndex05.visible()
     }
 }
 
@@ -419,6 +439,11 @@ fun ConstraintLayout.setCheckUserInfo(viewModel: MemberViewModel) {
     val tvBirth = this.tv_join_user_info_birth
     val tvGender = this.tv_join_user_info_gender
 
+    btnNext.setOnClickListener {
+        Preference.userName = etName.text.toString()
+        viewModel.navigateToJoinSuccess()
+    }
+
     etName.addTextChangedListener(object : TextWatcher {
         override fun afterTextChanged(s: Editable?) {}
         override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -451,6 +476,15 @@ fun ConstraintLayout.setCheckUserInfo(viewModel: MemberViewModel) {
                 }
 
                 if (tvRule01.isSelected && tvRule02.isSelected) {
+                    tvBirth.apply {
+                        background = if (isSelected) context.getDrawable(R.drawable.selector_btn_radius08_gray400_n_gray700)
+                                    else context.getDrawable(R.drawable.common_box_radius08_white_border_red500)
+                    }
+                    tvGender.apply {
+                        background = if (isSelected) context.getDrawable(R.drawable.selector_btn_radius08_gray400_n_gray700)
+                        else context.getDrawable(R.drawable.common_box_radius08_white_border_red500)
+                    }
+
                     if (tvBirth.isSelected && tvGender.isSelected) {
                         btnNext.isSelected = true
                         btnNext.isEnabled = true
@@ -471,4 +505,9 @@ fun ConstraintLayout.setCheckUserInfo(viewModel: MemberViewModel) {
 fun setErrorMsg(view: AppCompatTextView, msg: String) {
     view.text = msg
     view.visible()
+}
+
+@BindingAdapter("setTextColorSpannableStart", "setTextColorSpannableEnd")
+fun AppCompatTextView.setTextColorSpannableStart(start: Int, end: Int) {
+    ViewUtil.setTextColorSpannable(this, context.getColor(R.color.color_common_violet500), this.text.toString(), start, end)
 }

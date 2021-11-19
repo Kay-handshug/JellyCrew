@@ -86,8 +86,22 @@
     <string name="join_user_info_birth_hint">생년월일 입력</string>
     <string name="join_user_info_gender_hint">성별 입력</string>
     <string name="join_user_info_gender_noti">성별을 선택해 주세요.</string>
-    <string name="join_user_info_gender_male">남성</string>
     <string name="join_user_info_gender_female">여성</string>
+    <string name="join_user_info_gender_male">남성</string>
+    <string name="join_user_info_gender_etc">제3의 성</string>
     <string name="join_confirm">가입완료</string>
+
+    // Join Success
+    <string name="join_success_sub_title_01">가입완료 :)</string>
+    <string name="join_success_sub_title_02">님과 젤리크루, 오늘부터 1일</string>
+    <string name="join_success_sub_title_03">함께하게 되어 기쁜 마음에\n웰컴 기프트를 보내드려요!</string>
+    <string name="join_success_benefits_01">웰컴 젤리캐쉬</string>
+    <string name="join_success_benefits_02">웰컴 크루 전용</string>
+    <string name="join_success_benefits_03">평생회원 전환</string>
+    <string name="join_success_benefits_01_value">3,000 원</string>
+    <string name="join_success_benefits_02_value">50% 특가전</string>
+    <string name="join_success_benefits_03_value">1,000 원</string>
+    <string name="join_success_benefits_noti">※ 웰컴 기프트는 오늘부터 1달 안에 사용해주세요!</string>
+    <string name="join_success_confirm">Go, 젤리크루!</string>
 
 </resources>
