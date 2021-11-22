@@ -15,6 +15,8 @@ import handshug.jellycrew.member.view.dialog.MemberDialog
 import handshug.jellycrew.member.viewModel.MemberViewModel
 import handshug.jellycrew.utils.FormatterUtil
 import handshug.jellycrew.utils.ViewUtil
+import handshug.jellycrew.utils.gone
+import handshug.jellycrew.utils.visible
 import org.koin.androidx.viewmodel.ext.android.getViewModel
 
 
@@ -41,6 +43,10 @@ class JoinUserInfoFragment : BindingFragment<FragmentJoinUserInfoBinding>() {
 
         viewModel.toastMessage.observe(viewLifecycleOwner, {
             toast(it)
+        })
+
+        viewModel.hideKeyboard.observe(viewLifecycleOwner, {
+            hideKeyboard(it)
         })
 
         viewModel.selectedGender.observe(viewLifecycleOwner, { index ->
@@ -78,19 +84,26 @@ class JoinUserInfoFragment : BindingFragment<FragmentJoinUserInfoBinding>() {
                         val picker = builder.build().apply {
                             addOnNegativeButtonClickListener { dismiss() }
                             addOnPositiveButtonClickListener { date ->
-                                val dateString = FormatterUtil.getDateTimestamp(date)
-                                binding.tvJoinUserInfoBirth.text = dateString
-                                binding.tvJoinUserInfoBirth.isSelected = true
-                                binding.ivJoinUserInfoBirthDropDown.isSelected = true
-                                ViewUtil.setBackgroundDrawable(binding.tvJoinUserInfoBirth, R.drawable.selector_btn_radius08_gray400_n_gray700)
 
-                                isVerifyAllOk(
-                                        binding.btnJoinUserInfoNext,
-                                        binding.tvJoinUserInfoRule01,
-                                        binding.tvJoinUserInfoRule02,
-                                        binding.tvJoinUserInfoBirth,
-                                        binding.tvJoinUserInfoGender
-                                )
+                                if(!FormatterUtil.isOver14YearsOld(date)) {
+                                    binding.tvJoinUserInfoBirthErrorMsg.visible()
+                                }
+                                else {
+                                    binding.tvJoinUserInfoBirthErrorMsg.gone()
+                                    val dateString = FormatterUtil.getDateTimestamp(date)
+                                    binding.tvJoinUserInfoBirth.text = dateString
+                                    binding.tvJoinUserInfoBirth.isSelected = true
+                                    binding.ivJoinUserInfoBirthDropDown.isSelected = true
+                                    ViewUtil.setBackgroundDrawable(binding.tvJoinUserInfoBirth, R.drawable.selector_btn_radius08_gray400_n_gray700)
+
+                                    isVerifyAllOk(
+                                            binding.btnJoinUserInfoNext,
+                                            binding.tvJoinUserInfoRule01,
+                                            binding.tvJoinUserInfoRule02,
+                                            binding.tvJoinUserInfoBirth,
+                                            binding.tvJoinUserInfoGender
+                                    )
+                                }
                             }
                         }
 

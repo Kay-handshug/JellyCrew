@@ -76,6 +76,7 @@
             android:layout_marginEnd="16dp"
             android:text="@string/join_terms_agree_view_detail"
             android:textColor="@drawable/selector_color_gray500_n_white"
+            android:onClick="@{() -> viewModel.showDialogTermsDetail01()}"
             app:layout_constraintBaseline_toBaselineOf="@+id/cb_join_terms_agree_item_02"
             app:layout_constraintEnd_toEndOf="@+id/v_blank"
             app:layout_constraintTop_toBottomOf="@+id/cb_join_terms_agree_item_01" />
@@ -101,6 +102,7 @@
             android:text="@string/join_terms_agree_view_detail"
             android:textColor="@drawable/selector_color_gray500_n_white"
             android:layout_marginStart="16sp"
+            android:onClick="@{() -> viewModel.showDialogTermsDetail02()}"
             app:layout_constraintTop_toBottomOf="@+id/cb_join_terms_agree_item_02"
             app:layout_constraintEnd_toEndOf="@+id/v_blank"
             app:layout_constraintBaseline_toBaselineOf="@+id/cb_join_terms_agree_item_03" />

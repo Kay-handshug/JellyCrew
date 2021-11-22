@@ -31,6 +31,10 @@ class JoinEmailFragment : BindingFragment<FragmentJoinEmailBinding>() {
             toast(it)
         })
 
+        viewModel.hideKeyboard.observe(viewLifecycleOwner, {
+            hideKeyboard(it)
+        })
+
         viewModel.viewEvent.observe(viewLifecycleOwner, {
             it.getContentIfNotHandled()?.let { event ->
                 when (event) {

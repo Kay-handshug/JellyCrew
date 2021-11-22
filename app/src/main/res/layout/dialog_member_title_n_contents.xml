@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable name="viewModel" type="handshug.jellycrew.member.viewModel.MemberViewModel" />
+        <variable name="dialog" type="com.google.android.material.bottomsheet.BottomSheetDialog" />
+        <variable name="title" type="String" />
+        <variable name="contents" type="String" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="16dp"
+        android:orientation="vertical"
+        android:background="@drawable/common_box_radius16_white">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="12dp"
+            android:layout_marginEnd="10dp"
+            android:onClick="@{() -> dialog.dismiss()}"
+            app:srcCompat="@drawable/close_btn_img_black"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_join_dialog_title"
+            style="@style/style_common_title"
+            android:padding="12dp"
+            android:text="@{title}"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="제목"/>
+
+        <View
+            android:id="@+id/v_stroke"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/color_common_bg_gray500"
+            app:layout_constraintTop_toBottomOf="@+id/tv_join_dialog_title"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            style="@style/style_common_sub_title"
+            android:layout_marginTop="10dp"
+            android:padding="12dp"
+            android:text="@{contents}"
+            app:layout_constraintTop_toBottomOf="@+id/v_stroke"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="내용"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

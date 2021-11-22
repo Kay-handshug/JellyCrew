@@ -8,7 +8,9 @@ import handshug.jellycrew.base.BindingActivity
 import handshug.jellycrew.databinding.ActivityJoinBinding
 import handshug.jellycrew.member.MemberContract.Companion.ACTIVITY_CLOSE
 import handshug.jellycrew.member.MemberContract.Companion.ACTIVITY_JOIN_SUCCESS
+import handshug.jellycrew.member.MemberContract.Companion.SHOW_DIALOG_FINISH
 import handshug.jellycrew.member.view.adapter.JoinPagerAdapter
+import handshug.jellycrew.member.view.dialog.MemberDialog
 import handshug.jellycrew.member.viewModel.MemberViewModel
 import org.koin.androidx.viewmodel.ext.android.getViewModel
 
@@ -27,6 +29,9 @@ class JoinActivity : BindingActivity<ActivityJoinBinding>() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
+        val dialog = MemberDialog(this, viewModel)
+        val showFinishDialog = dialog.showLoginFinishDialog()
+
         val pagerAdapter = JoinPagerAdapter(this)
 
         viewPager = binding.vpJoin
@@ -42,10 +47,14 @@ class JoinActivity : BindingActivity<ActivityJoinBinding>() {
 
         viewModel.viewEvent.observe(this, {
             it.getContentIfNotHandled()?.let { event ->
-                val currentIndex = binding.vpJoin.currentItem
                 when (event) {
-                    ACTIVITY_CLOSE -> onBackPressed()
+                    ACTIVITY_CLOSE -> {
+                        showFinishDialog.dismiss()
+                        startActivity(LoginActivity::class.java)
+                        finish()
+                    }
                     ACTIVITY_JOIN_SUCCESS -> this.finish()
+                    SHOW_DIALOG_FINISH -> showFinishDialog.show()
                 }
             }
         })

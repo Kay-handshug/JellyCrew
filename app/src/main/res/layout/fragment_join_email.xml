@@ -42,6 +42,18 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_join_email_input_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@+id/et_join_email_input"
+            app:layout_constraintEnd_toEndOf="@+id/et_join_email_input"
+            app:layout_constraintTop_toTopOf="@+id/et_join_email_input"
+            app:srcCompat="@drawable/com_facebook_tooltip_black_xout"
+            tools:visibility="visible" />
+
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_join_email_input_error_msg"
             style="@style/style_common_text"

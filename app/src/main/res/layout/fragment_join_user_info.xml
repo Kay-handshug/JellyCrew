@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
         <variable name="viewModel" type="handshug.jellycrew.member.viewModel.MemberViewModel" />
@@ -40,6 +41,18 @@
             app:layout_constraintTop_toBottomOf="@+id/tv_join_user_info_sub_title"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_join_user_info_name_input_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@+id/et_join_user_info_name_input"
+            app:layout_constraintEnd_toEndOf="@+id/et_join_user_info_name_input"
+            app:layout_constraintTop_toTopOf="@+id/et_join_user_info_name_input"
+            app:srcCompat="@drawable/com_facebook_tooltip_black_xout"
+            tools:visibility="visible" />
 
         <LinearLayout
             android:id="@+id/ll_join_user_info_name_input_rule"
@@ -91,6 +104,18 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ll_join_user_info_name_input_rule" />
 
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_join_user_info_birth_error_msg"
+            style="@style/style_common_text"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="10dp"
+            android:text="@string/join_user_info_birth_error_msg"
+            android:textColor="@color/color_common_red500"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@+id/tv_join_user_info_birth"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:visibility="visible"/>
+
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/iv_join_user_info_birth_drop_down"
             android:layout_width="wrap_content"
@@ -116,7 +141,7 @@
             android:textColor="@drawable/selector_color_gray500_n_gray800"
             android:background="@drawable/selector_btn_radius08_gray400_n_gray700"
             android:onClick="@{() -> viewModel.showDialogGender()}"
-            app:layout_constraintTop_toBottomOf="@+id/tv_join_user_info_birth"
+            app:layout_constraintTop_toBottomOf="@+id/tv_join_user_info_birth_error_msg"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 

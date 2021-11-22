@@ -149,6 +149,17 @@ object FormatterUtil {
         return String.format("%,.${digit}f", price)
     }
 
+    fun getDateYear(time: Long): Int {
+        return SimpleDateFormat("yyyy", Locale.getDefault()).format(Date(time)).toInt()
+    }
+
+    fun isOver14YearsOld(time: Long): Boolean {
+        val birth = getDateYear(time)
+        val current = getDateYear(Date().time)
+
+        return (current.minus(birth) > 14)
+    }
+
     fun getDateTimestamp(timestamp: Long): String {
         return SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date(timestamp))
     }
