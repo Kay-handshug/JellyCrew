@@ -21,7 +21,7 @@
             android:id="@+id/iv_login_title_close"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="10dp"
+            android:padding="12dp"
             android:onClick="@{() -> viewModel.activityClose()}"
             app:srcCompat="@drawable/ic_icon_arrow_left"
             app:layout_constraintStart_toStartOf="parent"
@@ -30,7 +30,7 @@
         <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="10dp"
+            android:padding="12dp"
             android:onClick="@{() -> viewModel.navigateToLoginHome()}"
             app:srcCompat="@drawable/ic_icon_home"
             app:layout_constraintStart_toEndOf="@+id/iv_login_title_close"

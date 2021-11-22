@@ -12,10 +12,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:layout_margin="50dp"
         android:padding="10dp"
         android:orientation="vertical"
-        android:background="@color/black">
+        android:background="@color/color_common_text_gray900">
 
         <androidx.appcompat.widget.AppCompatTextView
             style="@style/style_common_text"

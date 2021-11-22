@@ -1,19 +1,31 @@
 package handshug.jellycrew.member.view.dialog
 
 import android.app.Activity
+import androidx.appcompat.app.AlertDialog
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import handshug.jellycrew.R
 import handshug.jellycrew.base.BaseDialog
 import handshug.jellycrew.base.BindingDialog
-import handshug.jellycrew.databinding.DialogMemberGenderBinding
-import handshug.jellycrew.databinding.DialogMemberToastBinding
-import handshug.jellycrew.databinding.DialogMemberUserInfoValidityPeriodBinding
+import handshug.jellycrew.databinding.*
 import handshug.jellycrew.member.viewModel.MemberViewModel
 
 class MemberDialog(
     private val activity: Activity,
     private val viewModel: MemberViewModel
 ) : BaseDialog() {
+
+    fun showLoginFinishDialog(): AlertDialog {
+        val dialogBinding =
+                BindingDialog<DialogMemberFinishBinding>(
+                        activity,
+                        R.layout.dialog_member_finish
+                )
+
+        val dialog = dialogBinding.getAlertDialog()
+        dialogBinding.binding.viewModel = viewModel
+        dialogBinding.binding.dialog = dialog
+        return dialog
+    }
 
     fun showUserinfoNotiDialog(): BottomSheetDialog {
         val dialogBinding =
@@ -63,5 +75,22 @@ class MemberDialog(
         }
 
         return dialog
+    }
+
+    fun showDialogTitleContents(title: String, contents: String) {
+        val dialogBinding = BindingDialog<DialogMemberTitleNContentsBinding>(
+                activity,
+                R.layout.dialog_member_title_n_contents
+        )
+
+        val dialog = dialogBinding.getBottomSheetDialog()
+        dialogBinding.apply {
+            binding.viewModel = viewModel
+            binding.dialog = dialog
+            binding.title = title
+            binding.contents = contents
+        }
+
+        dialog.show()
     }
 }

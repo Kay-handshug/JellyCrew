@@ -1,6 +1,7 @@
 package handshug.jellycrew.member
 
 import android.annotation.SuppressLint
+import android.os.Handler
 import android.text.Editable
 import android.text.TextWatcher
 import android.text.method.HideReturnsTransformationMethod
@@ -9,13 +10,12 @@ import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.AppCompatCheckBox
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.view.isVisible
 import androidx.databinding.BindingAdapter
 import handshug.jellycrew.Preference
 import handshug.jellycrew.R
 import handshug.jellycrew.member.viewModel.MemberViewModel
-import handshug.jellycrew.utils.ViewUtil
-import handshug.jellycrew.utils.gone
-import handshug.jellycrew.utils.visible
+import handshug.jellycrew.utils.*
 import kotlinx.android.synthetic.main.common_title_join.view.*
 import kotlinx.android.synthetic.main.fragment_join_email.view.*
 import kotlinx.android.synthetic.main.fragment_join_password.view.*
@@ -133,6 +133,7 @@ fun checkItemEssential(
 @SuppressLint("UseCompatLoadingForDrawables")
 @BindingAdapter("setCheckClickEvent")
 fun ConstraintLayout.setCheckClickEvent(viewModel: MemberViewModel) {
+    val btnPhoneInputDelete = this.iv_join_phone_input_delete
     val btnReqVerify = this.btn_join_phone_request_verify
     val btnNext = this.btn_join_phone_next
 
@@ -142,14 +143,24 @@ fun ConstraintLayout.setCheckClickEvent(viewModel: MemberViewModel) {
     val tvInputVerifyCountDown = this.tv_join_phone_input_verify_number_countdown
     val tvInputErrorMsg = this.tv_join_phone_input_error_msg
 
+    this.setOnClickListener {
+        viewModel.hideKeyboard(it)
+    }
+
+    btnPhoneInputDelete.setOnClickListener {
+        etInputPhoneNumber.text?.clear()
+    }
+
     btnReqVerify.setOnClickListener {
         etInputPhoneNumber.isSelected = false
         btnReqVerify.isSelected = false
         btnReqVerify.text = context.getString(R.string.join_phone_request_verify_retry)
 
         viewModel.showDialogToastSend()
+        etInputVerifyCode.text?.clear()
         etInputVerifyCode.visible()
         tvInputVerifyCountDown.visible()
+        tvInputErrorMsg.gone()
         viewModel.countDownTimerStart()
     }
 
@@ -159,14 +170,29 @@ fun ConstraintLayout.setCheckClickEvent(viewModel: MemberViewModel) {
         viewModel.navigateToJoinEmail()
     }
 
+    etInputPhoneNumber.setOnFocusChangeListener { view, state ->
+        if (state) {
+            // lose focus recheck
+            Handler().postDelayed({
+                view.requestFocus()
+            }, 500L)
+        }
+    }
+
     etInputPhoneNumber.addTextChangedListener(object : TextWatcher {
         override fun afterTextChanged(s: Editable?) {}
         override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
         override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
             val cnt = s.toString().length
 
-            etInputPhoneNumber.isSelected = cnt != 0
-            etInputPhoneNumber.setSelection(cnt)
+            if (cnt == 0) {
+                btnPhoneInputDelete.invisible()
+                etInputPhoneNumber.isSelected = false
+            }
+            else {
+                btnPhoneInputDelete.visible()
+                etInputPhoneNumber.isSelected = true
+            }
 
             var bg = context.getDrawable(R.drawable.common_box_radius08_white_border_red500)
             if (cnt < 1) {
@@ -183,6 +209,7 @@ fun ConstraintLayout.setCheckClickEvent(viewModel: MemberViewModel) {
                 bg = context.getDrawable(R.drawable.selector_btn_radius08_gray400_n_gray700)
             }
             etInputPhoneNumber.background = bg
+            etInputPhoneNumber.setSelection(cnt)
         }
     })
 
@@ -248,10 +275,19 @@ fun ConstraintLayout.setTitleIndex(index: Int, isShowRightBtn: Boolean = false) 
 @SuppressLint("UseCompatLoadingForDrawables")
 @BindingAdapter("setCheckEmail")
 fun ConstraintLayout.setCheckEmail(viewModel: MemberViewModel) {
+    val btnEmailInputDelete = this.iv_join_email_input_delete
     val btnNext = this.btn_join_email_next
 
     val etEmailInput = this.et_join_email_input
     val tvInputErrorMsg = this.tv_join_email_input_error_msg
+
+    this.setOnClickListener {
+        viewModel.hideKeyboard(it)
+    }
+
+    btnEmailInputDelete.setOnClickListener {
+        etEmailInput.text?.clear()
+    }
 
     btnNext.setOnClickListener {
         viewModel.navigateToJoinPassword()
@@ -262,7 +298,16 @@ fun ConstraintLayout.setCheckEmail(viewModel: MemberViewModel) {
         override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
         override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
             val cnt = s.toString().length
-            etEmailInput.isSelected = cnt != 0
+
+            if (cnt == 0) {
+                btnEmailInputDelete.invisible()
+                etEmailInput.isSelected = false
+            }
+            else {
+                btnEmailInputDelete.visible()
+                etEmailInput.isSelected = true
+            }
+
             etEmailInput.setSelection(cnt)
             etEmailInput.background = context.getDrawable(R.drawable.common_box_radius08_white_border_red500)
 
@@ -286,6 +331,8 @@ fun ConstraintLayout.setCheckEmail(viewModel: MemberViewModel) {
 @SuppressLint("UseCompatLoadingForDrawables")
 @BindingAdapter("setCheckPassword")
 fun ConstraintLayout.setCheckPassword(viewModel: MemberViewModel) {
+    val btnPasswordDelete01 = this.iv_join_password_input_delete_01
+    val btnPasswordDelete02 = this.iv_join_password_input_delete_02
     val btnNext = this.btn_join_password_next
     val btnPasswordView01 = this.ibtn_join_password_input_view
     val btnPasswordView02 = this.ibtn_join_password_input_view_same_check
@@ -298,6 +345,18 @@ fun ConstraintLayout.setCheckPassword(viewModel: MemberViewModel) {
     val tvRule02 = llRuleLayout.tv_join_password_rule_02
     val tvRule03 = llRuleLayout.tv_join_password_rule_03
     val tvSameCheckHint = this.tv_join_password_input_same_check_hint
+
+    this.setOnClickListener {
+        viewModel.hideKeyboard(it)
+    }
+
+    btnPasswordDelete01.setOnClickListener {
+        etInputPassword01.text?.clear()
+    }
+
+    btnPasswordDelete02.setOnClickListener {
+        etInputPassword02.text?.clear()
+    }
 
     btnPasswordView01.setOnClickListener {
         it.isSelected = !it.isSelected
@@ -363,7 +422,14 @@ fun ConstraintLayout.setCheckPassword(viewModel: MemberViewModel) {
                 }
             }
 
-            etInputPassword01.isSelected = cnt != 0
+            if (cnt == 0) {
+                btnPasswordDelete01.invisible()
+                etInputPassword01.isSelected = false
+            }
+            else {
+                btnPasswordDelete01.visible()
+                etInputPassword01.isSelected = true
+            }
             etInputPassword01.setSelection(cnt)
 
             btnNext.isSelected = false
@@ -392,7 +458,14 @@ fun ConstraintLayout.setCheckPassword(viewModel: MemberViewModel) {
         override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
         override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
             val cnt = s.toString().length
-            etInputPassword02.isSelected = cnt != 0
+            if (cnt == 0) {
+                btnPasswordDelete02.invisible()
+                etInputPassword02.isSelected = false
+            }
+            else {
+                btnPasswordDelete02.visible()
+                etInputPassword02.isSelected = true
+            }
 
             btnNext.isSelected = false
             btnNext.isEnabled = false
@@ -428,6 +501,7 @@ fun ConstraintLayout.setCheckPassword(viewModel: MemberViewModel) {
 @SuppressLint("UseCompatLoadingForDrawables")
 @BindingAdapter("setCheckUserInfo")
 fun ConstraintLayout.setCheckUserInfo(viewModel: MemberViewModel) {
+    val btnNameInputDelete = this.iv_join_user_info_name_input_delete
     val btnNext = this.btn_join_user_info_next
 
     val etName = this.et_join_user_info_name_input
@@ -438,6 +512,14 @@ fun ConstraintLayout.setCheckUserInfo(viewModel: MemberViewModel) {
 
     val tvBirth = this.tv_join_user_info_birth
     val tvGender = this.tv_join_user_info_gender
+
+    this.setOnClickListener {
+        viewModel.hideKeyboard(it)
+    }
+
+    btnNameInputDelete.setOnClickListener {
+        etName.text?.clear()
+    }
 
     btnNext.setOnClickListener {
         Preference.userName = etName.text.toString()
@@ -496,7 +578,14 @@ fun ConstraintLayout.setCheckUserInfo(viewModel: MemberViewModel) {
                 }
             }
 
-            etName.isSelected = cnt != 0
+            if (cnt == 0) {
+                btnNameInputDelete.invisible()
+                etName.isSelected = false
+            }
+            else {
+                btnNameInputDelete.visible()
+                etName.isSelected = true
+            }
             etName.setSelection(cnt)
         }
     })
