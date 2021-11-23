@@ -93,4 +93,18 @@ class MemberDialog(
 
         dialog.show()
     }
+
+    fun showDialogAlreadyJoinUser(): BottomSheetDialog {
+        val dialogBinding = BindingDialog<DialogMemberAlreadyJoinBinding>(
+                activity,
+                R.layout.dialog_member_already_join
+        )
+
+        val dialog = dialogBinding.getBottomSheetDialog()
+        dialogBinding.apply {
+            binding.viewModel = viewModel
+        }
+
+        return dialog
+    }
 }

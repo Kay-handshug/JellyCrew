@@ -49,6 +49,7 @@ class JoinPhoneFragment : BindingFragment<FragmentJoinPhoneBinding>() {
         val dialog = MemberDialog(requireActivity(), viewModel)
         val dialogVerifySend = dialog.showToastDialog(getString(R.string.join_phone_verify_number_send))
         val dialogVerifyFail = dialog.showToastDialog(getString(R.string.join_phone_error_request_verify_fail))
+        val dialogAlreadyJoinUser = dialog.showDialogAlreadyJoinUser()
 
         viewModel.toastMessage.observe(viewLifecycleOwner, {
             toast(it)
