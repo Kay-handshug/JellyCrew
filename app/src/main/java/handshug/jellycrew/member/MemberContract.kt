@@ -22,7 +22,6 @@ interface MemberContract {
         const val SHOW_DIALOG_FINISH = 1300
         const val SHOW_DIALOG_USER_INFO_NOTI = 1301
         const val SHOW_DIALOG_TOAST_VERIFY_SEND = 1302
-        const val SHOW_DIALOG_TOAST_VERIFY_FAIL = 1303
         const val SHOW_DIALOG_DATE_PICKER = 1304
         const val SHOW_DIALOG_GENDER = 1305
         const val SHOW_DIALOG_TERMS_DETAIL_01 = 1306

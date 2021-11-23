@@ -1,9 +1,11 @@
 package handshug.jellycrew.modules
 
-import handshug.jellycrew.utils.NetworkConnectionInterceptor
 import com.google.gson.GsonBuilder
 import handshug.jellycrew.BuildConfig
 import handshug.jellycrew.Preference
+import handshug.jellycrew.modules.ApiContract.Companion.BASE_URL
+import handshug.jellycrew.modules.ApiContract.Companion.BASE_URL_DEV
+import handshug.jellycrew.utils.NetworkConnectionInterceptor
 import okhttp3.Cache
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -33,10 +35,10 @@ val networkModule = module {
             })
             addInterceptor{ chain ->
                 val builder = chain.request().newBuilder()
-                val loginKey = Preference.loginKey
-                if (loginKey.isNotEmpty()) {
-                    builder.addHeader("loginKey", loginKey)
-                }
+//                val loginKey = Preference.loginKey
+//                if (loginKey.isNotEmpty()) {
+//                    builder.addHeader("loginKey", loginKey)
+//                }
 
                 chain.proceed(builder.build())
             }
@@ -46,9 +48,9 @@ val networkModule = module {
     single {
         val baseUrl: String = if(BuildConfig.DEBUG) {
             // 추후 QA서버로 변경
-            "http://www.naver.com"
+            BASE_URL_DEV
         } else {
-            "http://www.naver.com"
+            BASE_URL
         }
 
         Retrofit.Builder()

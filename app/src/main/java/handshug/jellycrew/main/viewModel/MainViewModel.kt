@@ -6,7 +6,7 @@ import handshug.jellycrew.main.MainContract.Companion.ACTIVITY_MAIN
 import handshug.jellycrew.main.MainContract.Companion.DRAWER_MENU_OPEN
 import handshug.jellycrew.main.model.MainApi
 
-class MainViewModel(private val mainApi: MainApi) : BaseViewModel(mainApi), MainContract {
+class MainViewModel(private val mainApi: MainApi) : BaseViewModel(), MainContract {
 //    private val _versionData: MutableLiveData<VersionData> = MutableLiveData()
 //    val versionData: LiveData<VersionData>
 //        get() = _versionData

@@ -7,11 +7,13 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import handshug.jellycrew.utils.ResponseCode.SUCCESS
-import kotlinx.coroutines.*
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 import org.koin.core.context.GlobalContext
 import java.util.regex.Pattern
 
-open class BaseViewModel(private val baseApi: BaseApi?) : ViewModel() {
+open class BaseViewModel : ViewModel() {
+
     companion object {
         // 최소 8 자, 최소 하나의 문자, 하나의 숫자 및 하나의 특수 문자
         const val REGEX_PATTERN_PASSWORD = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[\$@\$!%*#?&])[A-Za-z\\d\$@\$!%*#?&]{8,}\$"
@@ -75,7 +77,7 @@ open class BaseViewModel(private val baseApi: BaseApi?) : ViewModel() {
     protected val exceptionHandler = BaseCoroutine.exceptionHandler
 
     // ViewModel 에서 자주 사용하는 함수들
-    fun checkSuccess(resultCode: Int): Boolean {
+    fun checkSuccess(resultCode: String): Boolean {
         return resultCode == SUCCESS
     }
 

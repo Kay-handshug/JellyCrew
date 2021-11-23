@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import handshug.jellycrew.base.BaseViewModel
+import handshug.jellycrew.home.HomeContract
 import handshug.jellycrew.home.HomeContract.Companion.START_PAYMENT_01
 import handshug.jellycrew.home.HomeContract.Companion.START_PAYMENT_02
 import handshug.jellycrew.home.HomeContract.Companion.START_PAYMENT_03
@@ -21,7 +22,7 @@ import kr.co.bootpay.enums.UX
 import kr.co.bootpay.model.BootExtra
 import kr.co.bootpay.model.BootUser
 
-class HomeViewModel(private val homeApi: HomeApi) : BaseViewModel(homeApi) {
+class HomeViewModel(private val homeApi: HomeApi) : BaseViewModel(), HomeContract {
     private val _selectedTabPosition = MutableLiveData<Int>()
     val selectedTabPosition: LiveData<Int>
         get() = _selectedTabPosition

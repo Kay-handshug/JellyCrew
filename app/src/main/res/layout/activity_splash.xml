@@ -5,6 +5,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".main.view.SplashActivity">
 
+    <data>
+        <variable name="viewModel" type="handshug.jellycrew.main.viewModel.MainViewModel" />
+    </data>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"

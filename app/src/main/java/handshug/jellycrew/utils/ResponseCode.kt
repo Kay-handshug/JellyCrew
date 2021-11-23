@@ -1,8 +1,12 @@
 package handshug.jellycrew.utils
 
 object ResponseCode {
-        const val SUCCESS =  1
-        const val FAILURE = 0
+        const val FAILURE = 400
+        const val UNAUTHORIZED = 401
+        const val FORBIDDEN = 403
+        const val NOT_FOUND = 404
+
+        const val SUCCESS = "0001"      // 200
 
         const val INTERNAL_SERVER_ERROR = 500
 

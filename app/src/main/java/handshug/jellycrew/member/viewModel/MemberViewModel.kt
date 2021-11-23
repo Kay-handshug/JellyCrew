@@ -6,15 +6,15 @@ import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import handshug.jellycrew.R
 import handshug.jellycrew.base.BaseViewModel
-import handshug.jellycrew.main.MainContract
-import handshug.jellycrew.main.MainContract.Companion.ACTIVITY_MAIN
-import handshug.jellycrew.main.model.MainApi
+import handshug.jellycrew.member.MemberContract
 import handshug.jellycrew.member.MemberContract.Companion.ACTIVITY_CLOSE
 import handshug.jellycrew.member.MemberContract.Companion.ACTIVITY_JOIN_CONFIRM
 import handshug.jellycrew.member.MemberContract.Companion.ACTIVITY_JOIN_SUCCESS
 import handshug.jellycrew.member.MemberContract.Companion.ACTIVITY_LOGIN_HOME
+import handshug.jellycrew.member.MemberContract.Companion.ACTIVITY_MAIN
 import handshug.jellycrew.member.MemberContract.Companion.ACTIVITY_PAST_ORDERS
 import handshug.jellycrew.member.MemberContract.Companion.COUNT_DOWN_TIMER_START
 import handshug.jellycrew.member.MemberContract.Companion.COUNT_DOWN_TIMER_STOP
@@ -29,15 +29,22 @@ import handshug.jellycrew.member.MemberContract.Companion.SHOW_DIALOG_GENDER
 import handshug.jellycrew.member.MemberContract.Companion.SHOW_DIALOG_REQUEST_VERIFY_SEND_FAIL
 import handshug.jellycrew.member.MemberContract.Companion.SHOW_DIALOG_TERMS_DETAIL_01
 import handshug.jellycrew.member.MemberContract.Companion.SHOW_DIALOG_TERMS_DETAIL_02
-import handshug.jellycrew.member.MemberContract.Companion.SHOW_DIALOG_TOAST_VERIFY_FAIL
 import handshug.jellycrew.member.MemberContract.Companion.SHOW_DIALOG_TOAST_VERIFY_SEND
 import handshug.jellycrew.member.MemberContract.Companion.SHOW_DIALOG_USER_INFO_NOTI
 import handshug.jellycrew.member.MemberContract.Companion.START_LOGIN_FACEBOOK
 import handshug.jellycrew.member.MemberContract.Companion.START_LOGIN_KAKAO
 import handshug.jellycrew.member.MemberContract.Companion.START_LOGIN_NAVER
+import handshug.jellycrew.member.model.MemberApi
+import handshug.jellycrew.utils.ErrorHandler
+import handshug.jellycrew.utils.ResponseCode.SUCCESS
 import handshug.jellycrew.utils.visible
+import kotlinx.coroutines.launch
 
-class MemberViewModel(private val mainApi: MainApi) : BaseViewModel(mainApi), MainContract {
+class MemberViewModel(private val memberApi: MemberApi) : BaseViewModel(), MemberContract {
+
+    private val _isPhoneVerifySuccess: MutableLiveData<Boolean> = MutableLiveData()
+    val isPhoneVerifySuccess: LiveData<Boolean>
+        get() = _isPhoneVerifySuccess
 
     val selectedGender: MutableLiveData<Int> = MutableLiveData()
 
@@ -61,7 +68,6 @@ class MemberViewModel(private val mainApi: MainApi) : BaseViewModel(mainApi), Ma
     fun showDialogFinish() = viewEvent(SHOW_DIALOG_FINISH)
     fun showDialogUserInfoNoti() = viewEvent(SHOW_DIALOG_USER_INFO_NOTI)
     fun showDialogToastSend() = viewEvent(SHOW_DIALOG_TOAST_VERIFY_SEND)
-    fun showDialogToastFail() = viewEvent(SHOW_DIALOG_TOAST_VERIFY_FAIL)
     fun showDialogDatePicker() = viewEvent(SHOW_DIALOG_DATE_PICKER)
     fun showDialogGender() = viewEvent(SHOW_DIALOG_GENDER)
     fun showDialogTermsDetail01() = viewEvent(SHOW_DIALOG_TERMS_DETAIL_01)
@@ -81,6 +87,18 @@ class MemberViewModel(private val mainApi: MainApi) : BaseViewModel(mainApi), Ma
     fun verifyPasswordSpecialCharacters(password: String) = regexPattern(REGEX_PATTERN_SPECIAL_CHARACTERS, password)
 
     fun verifyName(name: String) = regexPattern(REGEX_PATTERN_TEXT, name)
+
+    fun phoneVerifyStart(phoneNumber: String) {
+        viewModelScope.launch(exceptionHandler) {
+            try {
+                memberApi.phoneVerifyStart(phoneNumber).apply {
+                    _isPhoneVerifySuccess.value = this.resultCode == SUCCESS
+                }
+            } catch (throwable: Throwable) {
+                ErrorHandler.errorHandle(throwable)
+            }
+        }
+    }
 
     fun countDownTimer(textView: AppCompatTextView, errorMsg: AppCompatTextView,
                        btnRequestVerify: AppCompatButton, btnNext: AppCompatButton): CountDownTimer {

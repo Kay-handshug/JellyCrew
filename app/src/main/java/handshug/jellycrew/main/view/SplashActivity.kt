@@ -1,31 +1,18 @@
 package handshug.jellycrew.main.view
 
-import android.Manifest
-import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
-import com.karumi.dexter.Dexter
-import com.karumi.dexter.MultiplePermissionsReport
-import com.karumi.dexter.PermissionToken
-import com.karumi.dexter.listener.PermissionRequest
-import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import handshug.jellycrew.Preference
 import handshug.jellycrew.R
 import handshug.jellycrew.databinding.ActivitySplashBinding
-import handshug.jellycrew.main.MainContract.Companion.RESULT_REQ_MULTIPLE_PERMISSIONS
 import handshug.jellycrew.main.viewModel.MainViewModel
 import handshug.jellycrew.member.view.LoginActivity
 import handshug.jellycrew.utils.ActivityUtil
 import handshug.jellycrew.utils.DialogUtil
-import handshug.jellycrew.utils.Log
 import org.koin.androidx.viewmodel.ext.android.getViewModel
 
 class SplashActivity : AppCompatActivity() {
@@ -37,6 +24,7 @@ class SplashActivity : AppCompatActivity() {
         val binding: ActivitySplashBinding = DataBindingUtil.setContentView(this, R.layout.activity_splash)
         val viewModel: MainViewModel = getViewModel()
 
+        binding.viewModel = viewModel
         binding.lifecycleOwner = this
         Preference.loginKey = ""
 
