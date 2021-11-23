@@ -7,8 +7,14 @@ interface MemberApi {
 
     // 폰인증 시작 요청
     @POST("/api/phone/v1/start")
-    suspend fun phoneVerifyStart(
+    suspend fun phoneVerifySend(
             @Query("mobile") mobile: String
-    ): MemberPhoneVerifyResponse
+    ): MemberPhoneVerifySendResponse
 
+    // 폰인증 요청
+    @POST("/api/phone/v1/verify")
+    suspend fun phoneVerifyConfirm(
+        @Query("mobile") mobile: String,
+        @Query("number") number: String
+    ): MemberPhoneVerifyConfirmResponse
 }

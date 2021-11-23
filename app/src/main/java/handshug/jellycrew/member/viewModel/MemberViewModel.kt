@@ -23,6 +23,7 @@ import handshug.jellycrew.member.MemberContract.Companion.FRAGMENT_JOIN_PASSWORD
 import handshug.jellycrew.member.MemberContract.Companion.FRAGMENT_JOIN_PHONE
 import handshug.jellycrew.member.MemberContract.Companion.FRAGMENT_JOIN_TERMS
 import handshug.jellycrew.member.MemberContract.Companion.FRAGMENT_JOIN_USER_INFO
+import handshug.jellycrew.member.MemberContract.Companion.REQ_PHONE_VERIFY_CONFIRM
 import handshug.jellycrew.member.MemberContract.Companion.SHOW_DIALOG_DATE_PICKER
 import handshug.jellycrew.member.MemberContract.Companion.SHOW_DIALOG_FINISH
 import handshug.jellycrew.member.MemberContract.Companion.SHOW_DIALOG_GENDER
@@ -35,16 +36,19 @@ import handshug.jellycrew.member.MemberContract.Companion.START_LOGIN_FACEBOOK
 import handshug.jellycrew.member.MemberContract.Companion.START_LOGIN_KAKAO
 import handshug.jellycrew.member.MemberContract.Companion.START_LOGIN_NAVER
 import handshug.jellycrew.member.model.MemberApi
-import handshug.jellycrew.utils.ErrorHandler
 import handshug.jellycrew.utils.ResponseCode.SUCCESS
 import handshug.jellycrew.utils.visible
 import kotlinx.coroutines.launch
 
 class MemberViewModel(private val memberApi: MemberApi) : BaseViewModel(), MemberContract {
 
-    private val _isPhoneVerifySuccess: MutableLiveData<Boolean> = MutableLiveData()
-    val isPhoneVerifySuccess: LiveData<Boolean>
-        get() = _isPhoneVerifySuccess
+    private val _isPhoneVerifySendSuccess: MutableLiveData<Boolean> = MutableLiveData()
+    val isPhoneVerifySendSuccess: LiveData<Boolean>
+        get() = _isPhoneVerifySendSuccess
+
+    private val _isPhoneVerifyConfirmSuccess: MutableLiveData<Boolean> = MutableLiveData()
+    val isPhoneVerifyConfirmSuccess: LiveData<Boolean>
+        get() = _isPhoneVerifyConfirmSuccess
 
     val selectedGender: MutableLiveData<Int> = MutableLiveData()
 
@@ -64,6 +68,8 @@ class MemberViewModel(private val memberApi: MemberApi) : BaseViewModel(), Membe
     fun startLoginKakao() = viewEvent(START_LOGIN_KAKAO)
     fun startLoginNaver() = viewEvent(START_LOGIN_NAVER)
     fun startLoginFacebook() = viewEvent(START_LOGIN_FACEBOOK)
+
+    fun reqPhoneVerifyConfirm() = viewEvent(REQ_PHONE_VERIFY_CONFIRM)
 
     fun showDialogFinish() = viewEvent(SHOW_DIALOG_FINISH)
     fun showDialogUserInfoNoti() = viewEvent(SHOW_DIALOG_USER_INFO_NOTI)
@@ -88,14 +94,18 @@ class MemberViewModel(private val memberApi: MemberApi) : BaseViewModel(), Membe
 
     fun verifyName(name: String) = regexPattern(REGEX_PATTERN_TEXT, name)
 
-    fun phoneVerifyStart(phoneNumber: String) {
+    fun phoneVerifySend(phoneNumber: String) {
         viewModelScope.launch(exceptionHandler) {
-            try {
-                memberApi.phoneVerifyStart(phoneNumber).apply {
-                    _isPhoneVerifySuccess.value = this.resultCode == SUCCESS
-                }
-            } catch (throwable: Throwable) {
-                ErrorHandler.errorHandle(throwable)
+            memberApi.phoneVerifySend(phoneNumber).apply {
+                _isPhoneVerifySendSuccess.value = this.resultCode == SUCCESS
+            }
+        }
+    }
+
+    fun phoneVerifyConfirm(phoneNumber: String, verifyCode: String) {
+        viewModelScope.launch(exceptionHandler) {
+            memberApi.phoneVerifyConfirm(phoneNumber, verifyCode).apply {
+                _isPhoneVerifyConfirmSuccess.value = this.resultCode == SUCCESS
             }
         }
     }

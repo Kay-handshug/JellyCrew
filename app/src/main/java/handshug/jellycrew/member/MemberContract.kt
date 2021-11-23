@@ -19,6 +19,8 @@ interface MemberContract {
         const val FRAGMENT_JOIN_PASSWORD = 1204
         const val FRAGMENT_JOIN_USER_INFO = 1205
 
+        const val REQ_PHONE_VERIFY_CONFIRM = 1250
+
         const val SHOW_DIALOG_FINISH = 1300
         const val SHOW_DIALOG_USER_INFO_NOTI = 1301
         const val SHOW_DIALOG_TOAST_VERIFY_SEND = 1302

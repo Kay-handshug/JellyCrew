@@ -165,9 +165,7 @@ fun ConstraintLayout.setCheckClickEvent(viewModel: MemberViewModel) {
     }
 
     btnNext.setOnClickListener {
-        tvInputVerifyCountDown.gone()
-        viewModel.countDownTimerStop()
-        viewModel.navigateToJoinEmail()
+        viewModel.reqPhoneVerifyConfirm()
     }
 
     etInputPhoneNumber.setOnFocusChangeListener { view, state ->
