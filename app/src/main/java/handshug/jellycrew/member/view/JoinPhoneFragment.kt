@@ -9,6 +9,7 @@ import handshug.jellycrew.R
 import handshug.jellycrew.base.BindingFragment
 import handshug.jellycrew.databinding.FragmentJoinPhoneBinding
 import handshug.jellycrew.member.MemberContract
+import handshug.jellycrew.member.MemberContract.Companion.ACTIVITY_LOGIN
 import handshug.jellycrew.member.MemberContract.Companion.COUNT_DOWN_TIMER_START
 import handshug.jellycrew.member.MemberContract.Companion.COUNT_DOWN_TIMER_STOP
 import handshug.jellycrew.member.MemberContract.Companion.FRAGMENT_JOIN_EMAIL
@@ -115,6 +116,7 @@ class JoinPhoneFragment : BindingFragment<FragmentJoinPhoneBinding>() {
         viewModel.viewEvent.observe(viewLifecycleOwner, {
             it.getContentIfNotHandled()?.let { event ->
                 when (event) {
+                    ACTIVITY_LOGIN -> (activity as JoinActivity).goToLogin()
                     FRAGMENT_JOIN_EMAIL -> goToJoinEmail()
                     REQ_PHONE_VERIFY_CONFIRM -> {
                         val phoneNumber = binding.etJoinPhoneInput.text.toString()

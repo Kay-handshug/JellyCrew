@@ -5,6 +5,7 @@ interface MemberContract {
     companion object {
         const val ACTIVITY_CLOSE = 1000
         const val ACTIVITY_MAIN = 1010
+        const val ACTIVITY_LOGIN = 1014
         const val ACTIVITY_LOGIN_HOME = 1015
         const val ACTIVITY_JOIN_SUCCESS = 1020
         const val ACTIVITY_JOIN_CONFIRM = 1021

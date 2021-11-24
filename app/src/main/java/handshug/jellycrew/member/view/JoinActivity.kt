@@ -8,6 +8,7 @@ import handshug.jellycrew.base.BindingActivity
 import handshug.jellycrew.databinding.ActivityJoinBinding
 import handshug.jellycrew.member.MemberContract.Companion.ACTIVITY_CLOSE
 import handshug.jellycrew.member.MemberContract.Companion.ACTIVITY_JOIN_SUCCESS
+import handshug.jellycrew.member.MemberContract.Companion.ACTIVITY_LOGIN
 import handshug.jellycrew.member.MemberContract.Companion.SHOW_DIALOG_FINISH
 import handshug.jellycrew.member.view.adapter.JoinPagerAdapter
 import handshug.jellycrew.member.view.dialog.MemberDialog
@@ -53,6 +54,7 @@ class JoinActivity : BindingActivity<ActivityJoinBinding>() {
                         startActivity(LoginActivity::class.java)
                         finish()
                     }
+                    ACTIVITY_LOGIN -> goToLogin()
                     ACTIVITY_JOIN_SUCCESS -> this.finish()
                     SHOW_DIALOG_FINISH -> showFinishDialog.show()
                 }
@@ -64,11 +66,15 @@ class JoinActivity : BindingActivity<ActivityJoinBinding>() {
         viewPager.setCurrentItem(position, true)
     }
 
+    fun goToLogin() {
+        startActivity(LoginActivity::class.java)
+        finish()
+    }
+
     override fun onBackPressed() {
         val currentIndex = binding.vpJoin.currentItem
         if (currentIndex == 0) {
-            startActivity(LoginActivity::class.java)
-            finish()
+            goToLogin()
         } else {
             moveChangePosition(currentIndex - 1)
         }

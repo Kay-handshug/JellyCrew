@@ -14,6 +14,7 @@ import handshug.jellycrew.member.MemberContract
 import handshug.jellycrew.member.MemberContract.Companion.ACTIVITY_CLOSE
 import handshug.jellycrew.member.MemberContract.Companion.ACTIVITY_JOIN_CONFIRM
 import handshug.jellycrew.member.MemberContract.Companion.ACTIVITY_JOIN_SUCCESS
+import handshug.jellycrew.member.MemberContract.Companion.ACTIVITY_LOGIN
 import handshug.jellycrew.member.MemberContract.Companion.ACTIVITY_LOGIN_HOME
 import handshug.jellycrew.member.MemberContract.Companion.ACTIVITY_MAIN
 import handshug.jellycrew.member.MemberContract.Companion.ACTIVITY_PAST_ORDERS
@@ -59,6 +60,7 @@ class MemberViewModel(private val memberApi: MemberApi) : BaseViewModel(), Membe
 
     fun activityClose() = viewEvent(ACTIVITY_CLOSE)
     fun navigateToMain() = viewEvent(ACTIVITY_MAIN)
+    fun navigateToLogin() = viewEvent(ACTIVITY_LOGIN)
     fun navigateToLoginHome() = viewEvent(ACTIVITY_LOGIN_HOME)
     fun navigateToJoinSuccess() = viewEvent(ACTIVITY_JOIN_SUCCESS)
     fun navigateToJoinConfirm() = viewEvent(ACTIVITY_JOIN_CONFIRM)

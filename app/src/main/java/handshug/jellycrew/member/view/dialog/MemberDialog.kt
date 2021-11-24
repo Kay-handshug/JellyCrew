@@ -113,6 +113,11 @@ class MemberDialog(
                 socialsType.append(it.socialType).append(",")
             }
             binding.socialsType = socialsType.toString()
+
+            binding.btnJoinAlreadyLogin.setOnClickListener {
+                viewModel.navigateToLogin()
+                dialog.dismiss()
+            }
         }
 
         dialog.show()
