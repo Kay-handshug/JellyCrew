@@ -203,9 +203,8 @@ fun ConstraintLayout.setCheckClickEvent(viewModel: MemberViewModel) {
             if (cnt < 1) {
                 tvRule01.setTextColor(textColorRed)
                 tvRule02.setTextColor(textColorRed)
-//                ViewUtil.setTextColor(tvRule01, R.color.color_common_text_gray500)
 
-                etName.background = context.getDrawable(R.drawable.common_box_radius08_white_border_red500)
+                ViewUtil.setBackgroundDrawable(etName, R.drawable.common_box_radius08_white_border_red500)
             }
             else {
                 val textColorGreen = context.getColor(R.color.color_common_green400)
@@ -225,10 +224,10 @@ fun ConstraintLayout.setCheckClickEvent(viewModel: MemberViewModel) {
                         btnReqVerify.isSelected = true
                         btnReqVerify.isEnabled = true
                     }
-                    etName.background = context.getDrawable(R.drawable.selector_btn_radius08_gray400_n_gray700)
+                    ViewUtil.setBackgroundDrawable(etName, R.drawable.selector_btn_radius08_gray400_n_gray700)
                 }
                 else {
-                    etName.background = context.getDrawable(R.drawable.common_box_radius08_white_border_red500)
+                    ViewUtil.setBackgroundDrawable(etName, R.drawable.common_box_radius08_white_border_red500)
                 }
             }
 
@@ -259,7 +258,7 @@ fun ConstraintLayout.setCheckClickEvent(viewModel: MemberViewModel) {
                 etInputPhoneNumber.isSelected = true
             }
 
-            var bg = context.getDrawable(R.drawable.common_box_radius08_white_border_red500)
+            ViewUtil.setBackgroundDrawable(etInputPhoneNumber, R.drawable.common_box_radius08_white_border_red500)
             if (cnt < 1) {
                 setErrorMsg(tvInputErrorMsg, context.getString(R.string.join_phone_error_01))
             }
@@ -271,15 +270,14 @@ fun ConstraintLayout.setCheckClickEvent(viewModel: MemberViewModel) {
                     btnReqVerify.isSelected = true
                     btnReqVerify.isEnabled = true
 
-                    etName.background = context.getDrawable(R.drawable.selector_btn_radius08_gray400_n_gray700)
+                    ViewUtil.setBackgroundDrawable(etName, R.drawable.selector_btn_radius08_gray400_n_gray700)
                 }
                 else {
-                    etName.background = context.getDrawable(R.drawable.common_box_radius08_white_border_red500)
+                    ViewUtil.setBackgroundDrawable(etName, R.drawable.common_box_radius08_white_border_red500)
                 }
                 tvInputErrorMsg.gone()
-                bg = context.getDrawable(R.drawable.selector_btn_radius08_gray400_n_gray700)
+                ViewUtil.setBackgroundDrawable(etInputPhoneNumber, R.drawable.selector_btn_radius08_gray400_n_gray700)
             }
-            etInputPhoneNumber.background = bg
             etInputPhoneNumber.setSelection(cnt)
         }
     })
@@ -293,7 +291,7 @@ fun ConstraintLayout.setCheckClickEvent(viewModel: MemberViewModel) {
             etInputVerifyCode.isSelected = cnt != 0
             etInputVerifyCode.setSelection(cnt)
 
-            var bg = context.getDrawable(R.drawable.common_box_radius08_white_border_red500)
+            ViewUtil.setBackgroundDrawable(etInputVerifyCode, R.drawable.common_box_radius08_white_border_red500)
             if (cnt < 1) {
                 setErrorMsg(tvInputErrorMsg, context.getString(R.string.join_phone_error_03))
             }
@@ -308,9 +306,8 @@ fun ConstraintLayout.setCheckClickEvent(viewModel: MemberViewModel) {
                 btnNext.isEnabled = true
 
                 tvInputErrorMsg.gone()
-                bg = context.getDrawable(R.drawable.selector_btn_radius08_gray400_n_gray700)
+                ViewUtil.setBackgroundDrawable(etInputVerifyCode, R.drawable.selector_btn_radius08_gray400_n_gray700)
             }
-            etInputVerifyCode.background = bg
         }
     })
 }
@@ -388,9 +385,7 @@ fun ConstraintLayout.setCheckEmail(viewModel: MemberViewModel) {
                 etEmailInput.isSelected = true
             }
 
-            etEmailInput.setSelection(cnt)
-            etEmailInput.background = context.getDrawable(R.drawable.common_box_radius08_white_border_red500)
-
+            ViewUtil.setBackgroundDrawable(etEmailInput, R.drawable.common_box_radius08_white_border_red500)
             if (cnt < 1) {
                 setErrorMsg(tvInputErrorMsg, context.getString(R.string.join_email_input_empty))
             }
@@ -402,8 +397,9 @@ fun ConstraintLayout.setCheckEmail(viewModel: MemberViewModel) {
                 btnNext.isEnabled = true
 
                 tvInputErrorMsg.gone()
-                etEmailInput.background = context.getDrawable(R.drawable.selector_btn_radius08_gray400_n_gray700)
+                ViewUtil.setBackgroundDrawable(etEmailInput, R.drawable.selector_btn_radius08_gray400_n_gray700)
             }
+            etEmailInput.setSelection(cnt)
         }
     })
 }
@@ -466,12 +462,10 @@ fun ConstraintLayout.setCheckPassword(viewModel: MemberViewModel) {
             if (cnt < 1) {
                 btnPasswordView01.gone()
 
-                val textColor = context.getColor(R.color.color_common_text_gray500)
-                tvRule01.setTextColor(textColor)
-                tvRule02.setTextColor(textColor)
-                tvRule03.setTextColor(textColor)
-
-                etInputPassword01.background = context.getDrawable(R.drawable.selector_btn_radius08_gray400_n_gray700)
+                ViewUtil.setTextColor(tvRule01, R.color.color_common_text_gray500)
+                ViewUtil.setTextColor(tvRule02, R.color.color_common_text_gray500)
+                ViewUtil.setTextColor(tvRule03, R.color.color_common_text_gray500)
+                ViewUtil.setBackgroundDrawable(etInputPassword01, R.drawable.selector_btn_radius08_gray400_n_gray700)
             }
             else {
                 btnPasswordView01.visible()
@@ -495,10 +489,10 @@ fun ConstraintLayout.setCheckPassword(viewModel: MemberViewModel) {
                 }
 
                 if (tvRule01.isSelected && tvRule02.isSelected && tvRule03.isSelected) {
-                    etInputPassword01.background = context.getDrawable(R.drawable.selector_btn_radius08_gray400_n_gray700)
+                    ViewUtil.setBackgroundDrawable(etInputPassword01, R.drawable.selector_btn_radius08_gray400_n_gray700)
                 }
                 else {
-                    etInputPassword01.background = context.getDrawable(R.drawable.common_box_radius08_white_border_red500)
+                    ViewUtil.setBackgroundDrawable(etInputPassword01, R.drawable.common_box_radius08_white_border_red500)
                 }
             }
 
@@ -515,12 +509,12 @@ fun ConstraintLayout.setCheckPassword(viewModel: MemberViewModel) {
             btnNext.isSelected = false
             btnNext.isEnabled = false
 
-            etInputPassword02.background = context.getDrawable(R.drawable.selector_btn_radius08_gray400_n_gray700)
+            ViewUtil.setBackgroundDrawable(etInputPassword02, R.drawable.selector_btn_radius08_gray400_n_gray700)
             val password02Text = etInputPassword02.text.toString()
             if (password02Text.isNotEmpty() && text != password02Text) {
                 tvSameCheckHint.text = context.getString(R.string.join_password_same_check_error)
-                tvSameCheckHint.setTextColor(context.getColor(R.color.color_common_red500))
-                etInputPassword02.background = context.getDrawable(R.drawable.common_box_radius08_white_border_red500)
+                ViewUtil.setTextColor(tvSameCheckHint, R.color.color_common_red500)
+                ViewUtil.setBackgroundDrawable(etInputPassword02, R.drawable.common_box_radius08_white_border_red500)
             }
             else if (text.isNotEmpty() && text == password02Text) {
                 val isVerify = tvRule01.isSelected && tvRule02.isSelected && tvRule03.isSelected
@@ -528,7 +522,7 @@ fun ConstraintLayout.setCheckPassword(viewModel: MemberViewModel) {
                 btnNext.isEnabled = isVerify
 
                 tvSameCheckHint.text = context.getString(R.string.join_password_same_check)
-                tvSameCheckHint.setTextColor(context.getColor(R.color.color_common_green400))
+                ViewUtil.setTextColor(tvSameCheckHint, R.color.color_common_green400)
             }
         }
     })
@@ -550,28 +544,28 @@ fun ConstraintLayout.setCheckPassword(viewModel: MemberViewModel) {
             btnNext.isSelected = false
             btnNext.isEnabled = false
 
-            tvSameCheckHint.setTextColor(context.getColor(R.color.color_common_text_gray500))
             tvSameCheckHint.text = context.getString(R.string.join_password_same_check)
+            ViewUtil.setTextColor(tvSameCheckHint, R.color.color_common_text_gray500)
 
             btnPasswordView02.visible()
             etInputPassword02.setSelection(cnt)
-            etInputPassword02.background = context.getDrawable(R.drawable.selector_btn_radius08_gray400_n_gray700)
+            ViewUtil.setBackgroundDrawable(etInputPassword02, R.drawable.selector_btn_radius08_gray400_n_gray700)
 
             when {
                 cnt < 1 -> {
                     btnPasswordView02.gone()
                 }
                 etInputPassword01.text.toString() != s.toString() -> {
-                    tvSameCheckHint.setTextColor(context.getColor(R.color.color_common_red500))
                     tvSameCheckHint.text = context.getString(R.string.join_password_same_check_error)
-                    etInputPassword02.background = context.getDrawable(R.drawable.common_box_radius08_white_border_red500)
+                    ViewUtil.setTextColor(tvSameCheckHint, R.color.color_common_red500)
+                    ViewUtil.setBackgroundDrawable(etInputPassword02, R.drawable.common_box_radius08_white_border_red500)
                 }
                 else -> {
                     val isVerify = tvRule01.isSelected && tvRule02.isSelected && tvRule03.isSelected
                     btnNext.isSelected = isVerify
                     btnNext.isEnabled = isVerify
 
-                    tvSameCheckHint.setTextColor(context.getColor(R.color.color_common_green400))
+                    ViewUtil.setTextColor(tvSameCheckHint, R.color.color_common_green400)
                 }
             }
         }

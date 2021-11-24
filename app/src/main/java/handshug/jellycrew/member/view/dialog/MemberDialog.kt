@@ -106,17 +106,13 @@ class MemberDialog(
         val dialog = dialogBinding.getBottomSheetDialog()
         dialogBinding.apply {
             binding.viewModel = viewModel
-            if (account != null) {
-                binding.email = account.email
-            }
+            binding.email = account?.email?: ""
 
-            if (!socials.isNullOrEmpty()) {
-                val socialsType: StringBuilder = StringBuilder()
-                socials.forEach {
-                    socialsType.append(it.socialType).append(",")
-                }
-                binding.socialsType = socialsType.toString()
+            val socialsType: StringBuilder = StringBuilder()
+            socials?.forEach {
+                socialsType.append(it.socialType).append(",")
             }
+            binding.socialsType = socialsType.toString()
 
             binding.btnJoinAlreadyLogin.setOnClickListener {
                 viewModel.navigateToLogin()

@@ -2,6 +2,7 @@ package handshug.jellycrew.member.view
 
 import android.os.Bundle
 import androidx.annotation.LayoutRes
+import androidx.appcompat.app.AlertDialog
 import androidx.viewpager2.widget.ViewPager2
 import handshug.jellycrew.R
 import handshug.jellycrew.base.BindingActivity
@@ -18,6 +19,7 @@ import org.koin.androidx.viewmodel.ext.android.getViewModel
 class JoinActivity : BindingActivity<ActivityJoinBinding>() {
 
     lateinit var viewPager: ViewPager2
+    lateinit var showFinishDialog: AlertDialog
 
     @LayoutRes
     override fun getLayoutResId() = R.layout.activity_join
@@ -31,7 +33,7 @@ class JoinActivity : BindingActivity<ActivityJoinBinding>() {
         binding.lifecycleOwner = this
 
         val dialog = MemberDialog(this, viewModel)
-        val showFinishDialog = dialog.showLoginFinishDialog()
+        showFinishDialog = dialog.showLoginFinishDialog()
 
         val pagerAdapter = JoinPagerAdapter(this)
 
@@ -72,11 +74,13 @@ class JoinActivity : BindingActivity<ActivityJoinBinding>() {
     }
 
     override fun onBackPressed() {
-        val currentIndex = binding.vpJoin.currentItem
-        if (currentIndex == 0) {
-            goToLogin()
-        } else {
-            moveChangePosition(currentIndex - 1)
-        }
+//        val currentIndex = binding.vpJoin.currentItem
+//        if (currentIndex == 0) {
+//            goToLogin()
+//        } else {
+//            moveChangePosition(currentIndex - 1)
+//        }
+
+        showFinishDialog.show()
     }
 }

@@ -156,7 +156,15 @@ class MemberViewModel(private val memberApi: MemberApi) : BaseViewModel(), Membe
 
     fun joinConfirm() {
         viewModelScope.launch(exceptionHandler) {
-            memberApi.joinConfirm(getJoinUserInfoParams()).apply {
+            memberApi.joinConfirm(
+                    Preference.userEmail,
+                    Preference.userPassword,
+                    Preference.userPhoneNumber,
+                    Preference.userBirth,
+                    Preference.userGender,
+                    Preference.userName,
+                    "DIRECT"
+            ).apply {
                 _isJoinSuccess.value = this.code == SUCCESS
             }
         }

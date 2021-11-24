@@ -37,8 +37,14 @@ interface MemberApi {
     ): JellyCrewAPIPostResponse<MemberPhoneCheckMigrationResponse>
 
     // 회원가입
-    @POST("/api//account/v1/create")
+    @POST("/api/account/v1/create")
     suspend fun joinConfirm(
-        @Body params: MutableMap<String, Any>
+        @Query("email") email: String,
+        @Query("password") password: String,
+        @Query("mobile") mobile: String,
+        @Query("birth") birth: String,
+        @Query("genderType") genderType: String,
+        @Query("name") name: String,
+        @Query("accountReferType") accountReferType: String
     ): JellyCrewAPIPostResponse<MemberJoinSuccessResponse>
 }
