@@ -1,7 +1,7 @@
-package handshug.jellycrew.member.model
+package handshug.jellycrew.api.member
 
 import com.google.gson.annotations.SerializedName
-import handshug.jellycrew.member.model.scheme.MemberUserData
+import handshug.jellycrew.api.member.scheme.MemberUserData
 
 data class MemberUserResponse(
     @SerializedName("resultCode") val resultCode: Int,

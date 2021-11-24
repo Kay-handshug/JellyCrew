@@ -33,10 +33,74 @@
             app:layout_constraintTop_toBottomOf="@+id/tv_join_phone_sub_title" />
 
         <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/et_join_phone_name_input"
+            style="@style/style_common_text"
+            android:layout_width="0dp"
+            android:layout_height="45dp"
+            android:background="@drawable/selector_btn_radius08_gray400_n_gray700"
+            android:hint="@string/join_user_info_name_hint"
+            android:inputType="text"
+            android:maxLength="30"
+            android:layout_marginTop="24dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:textColorHint="@color/color_common_text_gray500"
+            app:layout_constraintTop_toBottomOf="@+id/tv_join_phone_sub_title_hint"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_join_phone_name_input_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@+id/et_join_phone_name_input"
+            app:layout_constraintEnd_toEndOf="@+id/et_join_phone_name_input"
+            app:layout_constraintTop_toTopOf="@+id/et_join_phone_name_input"
+            app:srcCompat="@drawable/com_facebook_tooltip_black_xout"
+            tools:visibility="visible" />
+
+        <LinearLayout
+            android:id="@+id/ll_join_phone_name_input_rule"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="16dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/et_join_phone_name_input" >
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_join_phone_name_rule_01"
+                style="@style/style_common_text"
+                android:textColor="@drawable/color_drawable_gray500"
+                android:text="@string/join_user_info_name_rule_01" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="10dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:background="@drawable/color_drawable_gray500" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_join_phone_name_rule_02"
+                style="@style/style_common_text"
+                android:textColor="@drawable/color_drawable_gray500"
+                android:text="@string/join_user_info_name_rule_02" />
+
+        </LinearLayout>
+
+        <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/et_join_phone_input"
             style="@style/style_common_text"
             android:layout_width="0dp"
             android:layout_height="45dp"
+            android:layout_marginTop="16dp"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
             android:background="@drawable/selector_btn_radius08_gray400_n_gray700"
@@ -48,7 +112,7 @@
             android:textColorHint="@color/color_common_text_gray500"
             app:layout_constraintEnd_toStartOf="@+id/btn_join_phone_request_verify"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_join_phone_sub_title_hint" />
+            app:layout_constraintTop_toBottomOf="@+id/ll_join_phone_name_input_rule" />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/iv_join_phone_input_delete"
@@ -58,7 +122,7 @@
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="@+id/et_join_phone_input"
             app:layout_constraintEnd_toEndOf="@+id/et_join_phone_input"
-            app:layout_constraintTop_toBottomOf="@+id/tv_join_phone_sub_title_hint"
+            app:layout_constraintTop_toTopOf="@+id/et_join_phone_input"
             app:srcCompat="@drawable/com_facebook_tooltip_black_xout"
             tools:visibility="visible" />
 
@@ -67,12 +131,13 @@
             style="@style/style_common_button_bold"
             android:layout_width="100dp"
             android:layout_height="45dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:text="@string/join_phone_request_verify"
             android:enabled="false"
             android:background="@drawable/selector_btn_radius08_white_n_violet500"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_join_phone_sub_title_hint" />
+            app:layout_constraintTop_toBottomOf="@+id/ll_join_phone_name_input_rule" />
 
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/et_join_phone_input_verify_code"

@@ -6,13 +6,12 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
+import android.view.View
 import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.AppCompatCheckBox
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.view.isVisible
 import androidx.databinding.BindingAdapter
-import handshug.jellycrew.Preference
 import handshug.jellycrew.R
 import handshug.jellycrew.member.viewModel.MemberViewModel
 import handshug.jellycrew.utils.*
@@ -133,18 +132,28 @@ fun checkItemEssential(
 @SuppressLint("UseCompatLoadingForDrawables")
 @BindingAdapter("setCheckClickEvent")
 fun ConstraintLayout.setCheckClickEvent(viewModel: MemberViewModel) {
+    val btnNameInputDelete = this.iv_join_phone_name_input_delete
     val btnPhoneInputDelete = this.iv_join_phone_input_delete
     val btnReqVerify = this.btn_join_phone_request_verify
     val btnNext = this.btn_join_phone_next
 
+    val etName = this.et_join_phone_name_input
     val etInputPhoneNumber = this.et_join_phone_input
     val etInputVerifyCode = this.et_join_phone_input_verify_code
+
+    val llNameRule = this.ll_join_phone_name_input_rule
+    val tvRule01 = llNameRule.tv_join_phone_name_rule_01
+    val tvRule02 = llNameRule.tv_join_phone_name_rule_02
 
     val tvInputVerifyCountDown = this.tv_join_phone_input_verify_number_countdown
     val tvInputErrorMsg = this.tv_join_phone_input_error_msg
 
     this.setOnClickListener {
         viewModel.hideKeyboard(it)
+    }
+
+    btnNameInputDelete.setOnClickListener {
+        etName.text?.clear()
     }
 
     btnPhoneInputDelete.setOnClickListener {
@@ -168,14 +177,71 @@ fun ConstraintLayout.setCheckClickEvent(viewModel: MemberViewModel) {
         viewModel.reqPhoneVerifyConfirm()
     }
 
-    etInputPhoneNumber.setOnFocusChangeListener { view, state ->
-        if (state) {
-            // lose focus recheck
-            Handler().postDelayed({
-                view.requestFocus()
-            }, 500L)
-        }
+    etName.setOnFocusChangeListener { view, state ->
+        loseFocusRecheck(view, state)
     }
+
+    etInputPhoneNumber.setOnFocusChangeListener { view, state ->
+        loseFocusRecheck(view, state)
+    }
+
+    etName.addTextChangedListener(object : TextWatcher {
+        override fun afterTextChanged(s: Editable?) {}
+        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            val text = s.toString()
+            val cnt = text.length
+
+            btnNext.isSelected = false
+            btnNext.isEnabled = false
+
+            btnReqVerify.isSelected = false
+            btnReqVerify.isEnabled = false
+
+            val textColorRed = context.getColor(R.color.color_common_red500)
+            if (cnt < 1) {
+                tvRule01.setTextColor(textColorRed)
+                tvRule02.setTextColor(textColorRed)
+//                ViewUtil.setTextColor(tvRule01, R.color.color_common_text_gray500)
+
+                etName.background = context.getDrawable(R.drawable.common_box_radius08_white_border_red500)
+            }
+            else {
+                val textColorGreen = context.getColor(R.color.color_common_green400)
+                tvRule01.apply {
+                    val isVerify = viewModel.verifyName(text)
+                    setTextColor(if(isVerify) textColorGreen else textColorRed)
+                    this.isSelected = isVerify
+                }
+                tvRule02.apply {
+                    val isVerify = cnt > 1
+                    setTextColor(if(isVerify) textColorGreen else textColorRed)
+                    this.isSelected = isVerify
+                }
+
+                if (tvRule01.isSelected && tvRule02.isSelected) {
+                    if(etInputPhoneNumber.length() > 9 || viewModel.verifyPhoneNumber(etInputPhoneNumber.text.toString())) {
+                        btnReqVerify.isSelected = true
+                        btnReqVerify.isEnabled = true
+                    }
+                    etName.background = context.getDrawable(R.drawable.selector_btn_radius08_gray400_n_gray700)
+                }
+                else {
+                    etName.background = context.getDrawable(R.drawable.common_box_radius08_white_border_red500)
+                }
+            }
+
+            if (cnt == 0) {
+                btnNameInputDelete.invisible()
+                etName.isSelected = false
+            }
+            else {
+                btnNameInputDelete.visible()
+                etName.isSelected = true
+            }
+            etName.setSelection(cnt)
+        }
+    })
 
     etInputPhoneNumber.addTextChangedListener(object : TextWatcher {
         override fun afterTextChanged(s: Editable?) {}
@@ -200,9 +266,15 @@ fun ConstraintLayout.setCheckClickEvent(viewModel: MemberViewModel) {
                 setErrorMsg(tvInputErrorMsg, context.getString(R.string.join_phone_error_02))
             }
             else {
-                btnReqVerify.isSelected = true
-                btnReqVerify.isEnabled = true
+                if (tvRule01.isSelected && tvRule02.isSelected) {
+                    btnReqVerify.isSelected = true
+                    btnReqVerify.isEnabled = true
 
+                    etName.background = context.getDrawable(R.drawable.selector_btn_radius08_gray400_n_gray700)
+                }
+                else {
+                    etName.background = context.getDrawable(R.drawable.common_box_radius08_white_border_red500)
+                }
                 tvInputErrorMsg.gone()
                 bg = context.getDrawable(R.drawable.selector_btn_radius08_gray400_n_gray700)
             }
@@ -240,6 +312,15 @@ fun ConstraintLayout.setCheckClickEvent(viewModel: MemberViewModel) {
             etInputVerifyCode.background = bg
         }
     })
+}
+
+fun loseFocusRecheck(view: View, state: Boolean) {
+    if (state) {
+        // lose focus recheck
+        Handler().postDelayed({
+            view.requestFocus()
+        }, 500L)
+    }
 }
 
 @BindingAdapter("setTitleIndex", "isShowRightBtn")
@@ -499,94 +580,15 @@ fun ConstraintLayout.setCheckPassword(viewModel: MemberViewModel) {
 @SuppressLint("UseCompatLoadingForDrawables")
 @BindingAdapter("setCheckUserInfo")
 fun ConstraintLayout.setCheckUserInfo(viewModel: MemberViewModel) {
-    val btnNameInputDelete = this.iv_join_user_info_name_input_delete
     val btnNext = this.btn_join_user_info_next
-
-    val etName = this.et_join_user_info_name_input
-
-    val llNameRule = this.ll_join_user_info_name_input_rule
-    val tvRule01 = llNameRule.tv_join_user_info_rule_01
-    val tvRule02 = llNameRule.tv_join_user_info_rule_02
-
-    val tvBirth = this.tv_join_user_info_birth
-    val tvGender = this.tv_join_user_info_gender
 
     this.setOnClickListener {
         viewModel.hideKeyboard(it)
     }
 
-    btnNameInputDelete.setOnClickListener {
-        etName.text?.clear()
-    }
-
     btnNext.setOnClickListener {
-        Preference.userName = etName.text.toString()
         viewModel.navigateToJoinSuccess()
     }
-
-    etName.addTextChangedListener(object : TextWatcher {
-        override fun afterTextChanged(s: Editable?) {}
-        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-            val text = s.toString()
-            val cnt = text.length
-
-            btnNext.isSelected = false
-            btnNext.isEnabled = false
-
-            if (cnt < 1) {
-                val textColor = context.getColor(R.color.color_common_text_gray500)
-                tvRule01.setTextColor(textColor)
-                tvRule02.setTextColor(textColor)
-
-                etName.background = context.getDrawable(R.drawable.selector_btn_radius08_gray400_n_gray700)
-            }
-            else {
-                val textColorRed = context.getColor(R.color.color_common_red500)
-                val textColorGreen = context.getColor(R.color.color_common_green400)
-                tvRule01.apply {
-                    val isVerify = viewModel.verifyName(text)
-                    setTextColor(if(isVerify) textColorGreen else textColorRed)
-                    this.isSelected = isVerify
-                }
-                tvRule02.apply {
-                    val isVerify = cnt > 1
-                    setTextColor(if(isVerify) textColorGreen else textColorRed)
-                    this.isSelected = isVerify
-                }
-
-                if (tvRule01.isSelected && tvRule02.isSelected) {
-                    tvBirth.apply {
-                        background = if (isSelected) context.getDrawable(R.drawable.selector_btn_radius08_gray400_n_gray700)
-                                    else context.getDrawable(R.drawable.common_box_radius08_white_border_red500)
-                    }
-                    tvGender.apply {
-                        background = if (isSelected) context.getDrawable(R.drawable.selector_btn_radius08_gray400_n_gray700)
-                        else context.getDrawable(R.drawable.common_box_radius08_white_border_red500)
-                    }
-
-                    if (tvBirth.isSelected && tvGender.isSelected) {
-                        btnNext.isSelected = true
-                        btnNext.isEnabled = true
-                    }
-                    etName.background = context.getDrawable(R.drawable.selector_btn_radius08_gray400_n_gray700)
-                }
-                else {
-                    etName.background = context.getDrawable(R.drawable.common_box_radius08_white_border_red500)
-                }
-            }
-
-            if (cnt == 0) {
-                btnNameInputDelete.invisible()
-                etName.isSelected = false
-            }
-            else {
-                btnNameInputDelete.visible()
-                etName.isSelected = true
-            }
-            etName.setSelection(cnt)
-        }
-    })
 }
 
 fun setErrorMsg(view: AppCompatTextView, msg: String) {

@@ -70,24 +70,15 @@ class MainActivity : BindingActivity<ActivityMainBinding>() {
         val homeFragment = HomeFragment.newInstance()
         replaceFragment(homeFragment)
 
-//        requestPermission(RUNTIME_PERMISSION_LOCATION, RUNTIME_CODE_LOCATION)
-//        runtimePermissionEvent.observe(this, {
-//            it.getContentIfNotHandled()?.let { event ->
-//                when (event) {
-////                    RUNTIME_EVENT_LOCATION ->
-//                    RUNTIME_EVENT_NONE -> toast("RUNTIME_EVENT_NONE")
-//                }
+//        requestPermissions(this) { state ->
+//            if (state) {
+//                Toast.makeText(this, "# permission : checked", Toast.LENGTH_SHORT).show()
 //            }
-//        })
-        requestPermissions(this) { state ->
-            if (state) {
-                Toast.makeText(this, "# permission : checked", Toast.LENGTH_SHORT).show()
-            }
-            else {
-                Toast.makeText(this, "# permission : fail", Toast.LENGTH_SHORT).show()
-                showPermissionsSettingDialog(this)
-            }
-        }
+//            else {
+//                Toast.makeText(this, "# permission : fail", Toast.LENGTH_SHORT).show()
+//                showPermissionsSettingDialog(this)
+//            }
+//        }
     }
 
     // 뒤로가기 2회 클릭 시 종료

@@ -1,5 +1,8 @@
 package handshug.jellycrew.member.model
 
+import handshug.jellycrew.api.JellyCrewAPIPostResponse
+import handshug.jellycrew.api.member.MemberPhoneCheckMigrationResponse
+import handshug.jellycrew.api.member.scheme.MemberPhoneVerifyData
 import retrofit2.http.POST
 import retrofit2.http.Query
 
@@ -9,12 +12,24 @@ interface MemberApi {
     @POST("/api/phone/v1/start")
     suspend fun phoneVerifySend(
             @Query("mobile") mobile: String
-    ): MemberPhoneVerifySendResponse
+    ): JellyCrewAPIPostResponse<String>
 
     // 폰인증 요청
     @POST("/api/phone/v1/verify")
     suspend fun phoneVerifyConfirm(
         @Query("mobile") mobile: String,
         @Query("number") number: String
-    ): MemberPhoneVerifyConfirmResponse
+    ): JellyCrewAPIPostResponse<MemberPhoneVerifyData>
+
+    // 기존 이메일 사용 여부 확인
+
+    // 기존 회원 여부 확인
+    @POST("/account/v1/check-migration")
+    suspend fun checkMigration(
+        @Query("mobile") mobile: String,
+        @Query("name") name: String
+    ): JellyCrewAPIPostResponse<MemberPhoneCheckMigrationResponse>
+
+    // 회원가입
+
 }

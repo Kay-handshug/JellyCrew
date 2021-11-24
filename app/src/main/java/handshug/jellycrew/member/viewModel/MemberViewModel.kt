@@ -97,7 +97,7 @@ class MemberViewModel(private val memberApi: MemberApi) : BaseViewModel(), Membe
     fun phoneVerifySend(phoneNumber: String) {
         viewModelScope.launch(exceptionHandler) {
             memberApi.phoneVerifySend(phoneNumber).apply {
-                _isPhoneVerifySendSuccess.value = this.resultCode == SUCCESS
+                _isPhoneVerifySendSuccess.value = this.code == SUCCESS
             }
         }
     }
@@ -105,7 +105,7 @@ class MemberViewModel(private val memberApi: MemberApi) : BaseViewModel(), Membe
     fun phoneVerifyConfirm(phoneNumber: String, verifyCode: String) {
         viewModelScope.launch(exceptionHandler) {
             memberApi.phoneVerifyConfirm(phoneNumber, verifyCode).apply {
-                _isPhoneVerifyConfirmSuccess.value = this.resultCode == SUCCESS
+                _isPhoneVerifyConfirmSuccess.value = this.code == SUCCESS
             }
         }
     }

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.os.CountDownTimer
 import android.os.Handler
 import androidx.annotation.LayoutRes
+import handshug.jellycrew.Preference
 import handshug.jellycrew.R
 import handshug.jellycrew.base.BindingFragment
 import handshug.jellycrew.databinding.FragmentJoinPhoneBinding
@@ -83,6 +84,7 @@ class JoinPhoneFragment : BindingFragment<FragmentJoinPhoneBinding>() {
 
         viewModel.isPhoneVerifyConfirmSuccess.observe(viewLifecycleOwner, { isSuccess ->
             if (isSuccess) {
+                Preference.userName = binding.etJoinPhoneNameInput.text.toString()
                 binding.tvJoinPhoneInputVerifyNumberCountdown.gone()
                 viewModel.countDownTimerStop()
                 viewModel.navigateToJoinEmail()

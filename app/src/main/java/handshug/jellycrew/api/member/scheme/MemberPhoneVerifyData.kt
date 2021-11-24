@@ -1,4 +1,4 @@
-package handshug.jellycrew.member.model.scheme
+package handshug.jellycrew.api.member.scheme
 
 import com.google.gson.annotations.SerializedName
 

@@ -63,8 +63,6 @@ class JoinUserInfoFragment : BindingFragment<FragmentJoinUserInfoBinding>() {
 
                 isVerifyAllOk(
                         binding.btnJoinUserInfoNext,
-                        binding.tvJoinUserInfoRule01,
-                        binding.tvJoinUserInfoRule02,
                         binding.tvJoinUserInfoBirth,
                         binding.tvJoinUserInfoGender
                 )
@@ -98,8 +96,6 @@ class JoinUserInfoFragment : BindingFragment<FragmentJoinUserInfoBinding>() {
 
                                     isVerifyAllOk(
                                             binding.btnJoinUserInfoNext,
-                                            binding.tvJoinUserInfoRule01,
-                                            binding.tvJoinUserInfoRule02,
                                             binding.tvJoinUserInfoBirth,
                                             binding.tvJoinUserInfoGender
                                     )
@@ -119,11 +115,9 @@ class JoinUserInfoFragment : BindingFragment<FragmentJoinUserInfoBinding>() {
 
     private fun isVerifyAllOk(
             btnNext: AppCompatButton,
-            tvRule01: AppCompatTextView,
-            tvRule02: AppCompatTextView,
             tvBirth: AppCompatTextView,
             tvGender: AppCompatTextView) {
-        val isVerify = tvRule01.isSelected && tvRule02.isSelected && tvBirth.isSelected && tvGender.isSelected
+        val isVerify = tvBirth.isSelected && tvGender.isSelected
         btnNext.isSelected = isVerify
         btnNext.isEnabled = isVerify
     }

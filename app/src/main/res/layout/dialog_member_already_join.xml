@@ -29,22 +29,12 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_join_already_title_02"
-            style="@style/style_common_text_bold"
-            android:layout_marginTop="10dp"
-            android:textSize="16sp"
-            android:text="@string/join_already_title_02"
-            android:textColor="@color/color_common_text_gray800"
-            app:layout_constraintTop_toBottomOf="@+id/tv_join_already_title_01"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_join_already_title_03"
             style="@style/style_common_text"
             android:layout_marginTop="10dp"
             android:textSize="14sp"
-            android:text="@string/join_already_title_03"
+            android:text="@string/join_already_title_02"
             android:textColor="@color/color_common_text_gray700"
-            app:layout_constraintTop_toBottomOf="@+id/tv_join_already_title_02"
+            app:layout_constraintTop_toBottomOf="@+id/tv_join_already_title_01"
             app:layout_constraintStart_toStartOf="parent" />
 
         <LinearLayout
@@ -56,7 +46,7 @@
             android:layout_marginTop="32dp"
             android:orientation="vertical"
             android:background="@drawable/common_box_radius08_gray100"
-            app:layout_constraintTop_toBottomOf="@+id/tv_join_already_title_03"
+            app:layout_constraintTop_toBottomOf="@+id/tv_join_already_title_02"
             app:layout_constraintStart_toStartOf="parent" >
 
             <androidx.appcompat.widget.AppCompatTextView
@@ -130,17 +120,6 @@
             android:background="@drawable/selector_btn_radius08_violet500_n_gray200"
             app:layout_constraintTop_toBottomOf="@+id/ll_join_already_id_hint"
             app:layout_constraintStart_toStartOf="parent" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            style="@style/style_common_text_bold"
-            android:text="@string/join_already_continue"
-            android:textSize="14sp"
-            android:textColor="@color/color_common_text_gray700"
-            android:layout_marginTop="24dp"
-            app:underline="@{true}"
-            app:layout_constraintTop_toBottomOf="@+id/btn_join_already_login"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

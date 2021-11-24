@@ -43,7 +43,7 @@
     <string name="join_terms_test_contents_l">개인정보수집 및 이용동의</string>
 
     // join phone
-    <string name="join_phone_sub_title">휴대폰 번호를 알려주세요 :)</string>
+    <string name="join_phone_sub_title">이름과\n휴대폰 번호를 알려주세요 :)</string>
     <string name="join_phone_sub_title_hint">입력하신 번호로 인증번호를 보내드려요.</string>
     <string name="join_phone_input_hint">휴대폰 번호 (- 제외)</string>
     <string name="join_phone_request_verify">인증 요청</string>
@@ -65,13 +65,11 @@
     <string name="join_phone_error_request_verify_fail_notice_07">로 문의해 주세요.</string>
 
     // Join Already
-    <string name="join_already_title_01">오랜만이에요!</string>
-    <string name="join_already_title_02">해당 번호로 이미\n젤리크루에 가입되어 있어요! :)</string>
-    <string name="join_already_title_03">아래 힌트를 보시고, 로그인 해 주세요.</string>
+    <string name="join_already_title_01">이미 가입을 하셨네요! :)</string>
+    <string name="join_already_title_02">아래 힌트를 보시고, 로그인 해 주세요.</string>
     <string name="join_already_email">이메일</string>
     <string name="join_already_sns">소셜 계정 연동</string>
     <string name="join_already_login">로그인</string>
-    <string name="join_already_continue">다른 이메일 주소로 가입할래요.</string>
 
     // Join Email
     <string name="join_email_sub_title">아이디가 될\n이메일 주소를 입력해 주세요 :)</string>
