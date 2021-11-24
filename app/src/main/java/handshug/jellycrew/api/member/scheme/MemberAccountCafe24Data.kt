@@ -2,7 +2,7 @@ package handshug.jellycrew.api.member.scheme
 
 import com.google.gson.annotations.SerializedName
 
-data class MemberAcountCafe24Data(
+data class MemberAccountCafe24Data(
     @SerializedName("id") val id: String,
     @SerializedName("email") val email: String,
     @SerializedName("mobile") val mobile: String,

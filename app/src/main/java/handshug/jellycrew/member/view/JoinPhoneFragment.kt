@@ -50,7 +50,6 @@ class JoinPhoneFragment : BindingFragment<FragmentJoinPhoneBinding>() {
         val dialog = MemberDialog(requireActivity(), viewModel)
         val dialogVerifySend = dialog.showToastDialog(getString(R.string.join_phone_verify_number_send))
         val dialogVerifyFail = dialog.showToastDialog(getString(R.string.join_phone_error_request_verify_fail))
-        val dialogAlreadyJoinUser = dialog.showDialogAlreadyJoinUser()
 
         viewModel.toastMessage.observe(viewLifecycleOwner, {
             toast(it)
@@ -84,10 +83,12 @@ class JoinPhoneFragment : BindingFragment<FragmentJoinPhoneBinding>() {
 
         viewModel.isPhoneVerifyConfirmSuccess.observe(viewLifecycleOwner, { isSuccess ->
             if (isSuccess) {
-                Preference.userName = binding.etJoinPhoneNameInput.text.toString()
                 binding.tvJoinPhoneInputVerifyNumberCountdown.gone()
                 viewModel.countDownTimerStop()
-                viewModel.navigateToJoinEmail()
+
+                val phoneNumber = binding.etJoinPhoneInput.text.toString()
+                val userName = binding.etJoinPhoneNameInput.text.toString()
+                viewModel.alreadyJoinCheckMigration(phoneNumber, userName)
             }
             else {
                 dialogVerifyFail.apply {
@@ -99,10 +100,22 @@ class JoinPhoneFragment : BindingFragment<FragmentJoinPhoneBinding>() {
             }
         })
 
+        viewModel.alreadyJoinData.observe(viewLifecycleOwner, { data ->
+            val account = data.account
+            val socials = data.accountSocials
+
+            if (account.email.isNotEmpty() || !socials.isNullOrEmpty()) {
+                dialog.showDialogAlreadyJoinUser(account, socials)
+            }
+            else {
+                goToJoinEmail()
+            }
+        })
+
         viewModel.viewEvent.observe(viewLifecycleOwner, {
             it.getContentIfNotHandled()?.let { event ->
                 when (event) {
-                    FRAGMENT_JOIN_EMAIL -> (activity as JoinActivity).moveChangePosition(2)
+                    FRAGMENT_JOIN_EMAIL -> goToJoinEmail()
                     REQ_PHONE_VERIFY_CONFIRM -> {
                         val phoneNumber = binding.etJoinPhoneInput.text.toString()
                         val verifyCode = binding.etJoinPhoneInputVerifyCode.text.toString()
@@ -123,6 +136,11 @@ class JoinPhoneFragment : BindingFragment<FragmentJoinPhoneBinding>() {
                 }
             }
         })
+    }
+
+    private fun goToJoinEmail() {
+        Preference.userName = binding.etJoinPhoneNameInput.text.toString()
+        (activity as JoinActivity).moveChangePosition(2)
     }
 
     override fun onDestroy() {

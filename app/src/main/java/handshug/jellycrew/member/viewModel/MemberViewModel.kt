@@ -8,6 +8,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import handshug.jellycrew.R
+import handshug.jellycrew.api.member.MemberPhoneCheckMigrationResponse
 import handshug.jellycrew.base.BaseViewModel
 import handshug.jellycrew.member.MemberContract
 import handshug.jellycrew.member.MemberContract.Companion.ACTIVITY_CLOSE
@@ -50,6 +51,10 @@ class MemberViewModel(private val memberApi: MemberApi) : BaseViewModel(), Membe
     val isPhoneVerifyConfirmSuccess: LiveData<Boolean>
         get() = _isPhoneVerifyConfirmSuccess
 
+    private val _alreadyJoinData: MutableLiveData<MemberPhoneCheckMigrationResponse> = MutableLiveData()
+    val alreadyJoinData: LiveData<MemberPhoneCheckMigrationResponse>
+        get() = _alreadyJoinData
+
     val selectedGender: MutableLiveData<Int> = MutableLiveData()
 
     fun activityClose() = viewEvent(ACTIVITY_CLOSE)
@@ -61,7 +66,6 @@ class MemberViewModel(private val memberApi: MemberApi) : BaseViewModel(), Membe
 
     fun navigateToJoinTerms() = viewEvent(FRAGMENT_JOIN_TERMS)
     fun navigateToJoinPhone() = viewEvent(FRAGMENT_JOIN_PHONE)
-    fun navigateToJoinEmail() = viewEvent(FRAGMENT_JOIN_EMAIL)
     fun navigateToJoinPassword() = viewEvent(FRAGMENT_JOIN_PASSWORD)
     fun navigateToJoinUserInfo() = viewEvent(FRAGMENT_JOIN_USER_INFO)
 
@@ -106,6 +110,21 @@ class MemberViewModel(private val memberApi: MemberApi) : BaseViewModel(), Membe
         viewModelScope.launch(exceptionHandler) {
             memberApi.phoneVerifyConfirm(phoneNumber, verifyCode).apply {
                 _isPhoneVerifyConfirmSuccess.value = this.code == SUCCESS
+            }
+        }
+    }
+
+    fun alreadyJoinCheckMigration(phoneNumber: String, userName: String) {
+        viewModelScope.launch(exceptionHandler) {
+            memberApi.checkMigration(phoneNumber, userName).apply {
+                if (this.code == SUCCESS) {
+                    // 기회원 -> dialog show
+                    _alreadyJoinData.value = this.data
+                }
+                else {
+                    // 미가입 회원 -> 계속 가입 진행
+                    viewEvent(FRAGMENT_JOIN_EMAIL)
+                }
             }
         }
     }

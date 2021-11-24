@@ -16,6 +16,7 @@ import handshug.jellycrew.R
 import handshug.jellycrew.member.viewModel.MemberViewModel
 import handshug.jellycrew.utils.*
 import kotlinx.android.synthetic.main.common_title_join.view.*
+import kotlinx.android.synthetic.main.dialog_member_already_join.view.*
 import kotlinx.android.synthetic.main.fragment_join_email.view.*
 import kotlinx.android.synthetic.main.fragment_join_password.view.*
 import kotlinx.android.synthetic.main.fragment_join_phone.view.*
@@ -599,4 +600,26 @@ fun setErrorMsg(view: AppCompatTextView, msg: String) {
 @BindingAdapter("setTextColorSpannableStart", "setTextColorSpannableEnd")
 fun AppCompatTextView.setTextColorSpannableStart(start: Int, end: Int) {
     ViewUtil.setTextColorSpannable(this, context.getColor(R.color.color_common_violet500), this.text.toString(), start, end)
+}
+
+@BindingAdapter("setAlreadyJoinUser", "setSocialsType")
+fun ConstraintLayout.setAlreadyJoinUser(email:String, socialsType: String) {
+    val llJoinHint = this.ll_join_already_id_hint
+    val llJoinSocialsHint = llJoinHint.ll_join_already_socials_hint
+
+    val tvEmail = llJoinHint.tv_join_already_email_hint
+    val ivKakao = llJoinSocialsHint.iv_join_already_sns_kakao
+    val ivNaver = llJoinSocialsHint.iv_join_already_sns_naver
+    val ivFacebook = llJoinSocialsHint.iv_join_already_sns_facebook
+
+    tvEmail.text = email
+
+    val sns = socialsType.split(",")
+    sns.forEach {
+        when (it) {
+            "KAKAO" -> ivKakao.visible()
+            "NAVER" -> ivNaver.visible()
+            "FACEBOOK" -> ivFacebook.visible()
+        }
+    }
 }

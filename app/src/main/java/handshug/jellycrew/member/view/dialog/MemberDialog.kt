@@ -4,10 +4,13 @@ import android.app.Activity
 import androidx.appcompat.app.AlertDialog
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import handshug.jellycrew.R
+import handshug.jellycrew.api.member.scheme.MemberAccountData
+import handshug.jellycrew.api.member.scheme.MemberAccountSocialsData
 import handshug.jellycrew.base.BaseDialog
 import handshug.jellycrew.base.BindingDialog
 import handshug.jellycrew.databinding.*
 import handshug.jellycrew.member.viewModel.MemberViewModel
+import kotlin.text.StringBuilder
 
 class MemberDialog(
     private val activity: Activity,
@@ -94,7 +97,7 @@ class MemberDialog(
         dialog.show()
     }
 
-    fun showDialogAlreadyJoinUser(): BottomSheetDialog {
+    fun showDialogAlreadyJoinUser(account: MemberAccountData, socials: List<MemberAccountSocialsData>) {
         val dialogBinding = BindingDialog<DialogMemberAlreadyJoinBinding>(
                 activity,
                 R.layout.dialog_member_already_join
@@ -103,8 +106,15 @@ class MemberDialog(
         val dialog = dialogBinding.getBottomSheetDialog()
         dialogBinding.apply {
             binding.viewModel = viewModel
+            binding.email = account.email
+
+            val socialsType: StringBuilder = StringBuilder()
+            socials.forEach {
+                socialsType.append(it.socialType).append(",")
+            }
+            binding.socialsType = socialsType.toString()
         }
 
-        return dialog
+        dialog.show()
     }
 }
