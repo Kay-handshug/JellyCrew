@@ -1,8 +1,10 @@
 package handshug.jellycrew.member.model
 
 import handshug.jellycrew.api.JellyCrewAPIPostResponse
+import handshug.jellycrew.api.member.MemberJoinSuccessResponse
 import handshug.jellycrew.api.member.MemberPhoneCheckMigrationResponse
 import handshug.jellycrew.api.member.scheme.MemberPhoneVerifyData
+import retrofit2.http.Body
 import retrofit2.http.POST
 import retrofit2.http.Query
 
@@ -35,5 +37,8 @@ interface MemberApi {
     ): JellyCrewAPIPostResponse<MemberPhoneCheckMigrationResponse>
 
     // 회원가입
-
+    @POST("/api//account/v1/create")
+    suspend fun joinConfirm(
+        @Body params: MutableMap<String, Any>
+    ): JellyCrewAPIPostResponse<MemberJoinSuccessResponse>
 }

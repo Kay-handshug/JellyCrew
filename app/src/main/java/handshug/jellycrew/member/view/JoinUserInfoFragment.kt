@@ -5,18 +5,16 @@ import androidx.annotation.LayoutRes
 import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.AppCompatTextView
 import com.google.android.material.datepicker.MaterialDatePicker
+import handshug.jellycrew.Preference
 import handshug.jellycrew.R
 import handshug.jellycrew.base.BindingFragment
 import handshug.jellycrew.databinding.FragmentJoinUserInfoBinding
-import handshug.jellycrew.member.MemberContract.Companion.ACTIVITY_JOIN_SUCCESS
+import handshug.jellycrew.member.MemberContract.Companion.ACTIVITY_JOIN_CONFIRM
 import handshug.jellycrew.member.MemberContract.Companion.SHOW_DIALOG_DATE_PICKER
 import handshug.jellycrew.member.MemberContract.Companion.SHOW_DIALOG_GENDER
 import handshug.jellycrew.member.view.dialog.MemberDialog
 import handshug.jellycrew.member.viewModel.MemberViewModel
-import handshug.jellycrew.utils.FormatterUtil
-import handshug.jellycrew.utils.ViewUtil
-import handshug.jellycrew.utils.gone
-import handshug.jellycrew.utils.visible
+import handshug.jellycrew.utils.*
 import org.koin.androidx.viewmodel.ext.android.getViewModel
 
 
@@ -69,12 +67,26 @@ class JoinUserInfoFragment : BindingFragment<FragmentJoinUserInfoBinding>() {
             }
         })
 
+        viewModel.isJoinSuccess.observe(viewLifecycleOwner, { state ->
+            if (state) {
+                goToJoinSuccess()
+            }
+            else {
+                toast(getString(R.string.toast_request_join_fail))
+            }
+        })
+
         viewModel.viewEvent.observe(viewLifecycleOwner, { it ->
             it.getContentIfNotHandled()?.let { event ->
                 when (event) {
-                    ACTIVITY_JOIN_SUCCESS -> {
-                        startActivity(JoinSuccessActivity::class.java)
-                        activity?.finish()
+                    ACTIVITY_JOIN_CONFIRM -> {
+                        val birth = binding.tvJoinUserInfoBirth.text.toString()
+                        val gender = viewModel.selectedGender.value?: 0
+
+                        Preference.userBirth = birth
+                        Preference.userGender = EtcUtil.getGenderType(gender)
+
+                        viewModel.joinConfirm()
                     }
                     SHOW_DIALOG_DATE_PICKER -> {
                         val builder = MaterialDatePicker.Builder.datePicker()
@@ -120,5 +132,10 @@ class JoinUserInfoFragment : BindingFragment<FragmentJoinUserInfoBinding>() {
         val isVerify = tvBirth.isSelected && tvGender.isSelected
         btnNext.isSelected = isVerify
         btnNext.isEnabled = isVerify
+    }
+
+    private fun goToJoinSuccess() {
+        startActivity(JoinSuccessActivity::class.java)
+        activity?.finish()
     }
 }

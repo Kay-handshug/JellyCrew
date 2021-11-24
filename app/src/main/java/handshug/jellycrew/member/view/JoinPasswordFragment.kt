@@ -2,6 +2,7 @@ package handshug.jellycrew.member.view
 
 import android.os.Bundle
 import androidx.annotation.LayoutRes
+import handshug.jellycrew.Preference
 import handshug.jellycrew.R
 import handshug.jellycrew.base.BindingFragment
 import handshug.jellycrew.databinding.FragmentJoinPasswordBinding
@@ -38,9 +39,15 @@ class JoinPasswordFragment : BindingFragment<FragmentJoinPasswordBinding>() {
         viewModel.viewEvent.observe(viewLifecycleOwner, {
             it.getContentIfNotHandled()?.let { event ->
                 when (event) {
-                    FRAGMENT_JOIN_USER_INFO -> (activity as JoinActivity).moveChangePosition(4)
+                    FRAGMENT_JOIN_USER_INFO -> goToUserInfo()
                 }
             }
         })
+    }
+
+    private fun goToUserInfo() {
+        val userPassword = binding.etJoinPasswordInput.text.toString()
+        Preference.userPassword = userPassword
+        (activity as JoinActivity).moveChangePosition(4)
     }
 }

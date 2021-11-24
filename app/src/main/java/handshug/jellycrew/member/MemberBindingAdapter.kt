@@ -583,12 +583,15 @@ fun ConstraintLayout.setCheckPassword(viewModel: MemberViewModel) {
 fun ConstraintLayout.setCheckUserInfo(viewModel: MemberViewModel) {
     val btnNext = this.btn_join_user_info_next
 
+    val tvBirth = this.tv_join_user_info_birth
+    val tvGender = this.tv_join_user_info_gender
+
     this.setOnClickListener {
         viewModel.hideKeyboard(it)
     }
 
     btnNext.setOnClickListener {
-        viewModel.navigateToJoinSuccess()
+        viewModel.navigateToJoinConfirm()
     }
 }
 

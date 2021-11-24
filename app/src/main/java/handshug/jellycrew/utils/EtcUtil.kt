@@ -4,6 +4,7 @@ import android.telephony.SmsManager
 import android.util.Base64
 import com.google.gson.*
 import com.google.gson.reflect.TypeToken
+import handshug.jellycrew.Preference
 import handshug.jellycrew.TimeSynchronizer
 import java.nio.ByteBuffer
 import java.time.LocalDate
@@ -27,32 +28,8 @@ object EtcUtil {
         } catch (e: Exception) { }
     }
 
-    fun LocalDate.toLocalDateTime(): LocalDateTime {
-        return LocalDateTime.of(this, LocalTime.MIN)
-    }
-
     fun getDateTime(): LocalDateTime {
         return TimeSynchronizer.getSyncedLocalDateTime()
-    }
-
-    fun getDateTimeFromTicks(ticks: Long): LocalDateTime {
-        return LocalDateTime.of(1970,1,1,9,0).plusSeconds(ticks)
-    }
-
-    fun getDate(): LocalDate {
-        return getDateTime().toLocalDate()
-    }
-
-    fun getMinDateTime(): LocalDateTime {
-        return LocalDateTime.of(2020,1,1,0,0,0,0)
-    }
-
-    fun getCurrentTimeMinuteTicks(): Long {
-        return ChronoUnit.MINUTES.between(LocalDateTime.of(1970, 1, 1, 9, 0), getDateTime())
-    }
-
-    fun getCurrentTimeMSTicks(): Long {
-        return ChronoUnit.MILLIS.between(LocalDateTime.of(1970, 1, 1, 9, 0), getDateTime())
     }
 
     fun getBase64UrlSafeEncodedLongValue(l: Long): String {
@@ -70,5 +47,23 @@ object EtcUtil {
     fun getBase64EncodedNid(nid: Long): String {
         val base64EncodedValue = getBase64UrlSafeEncodedLongValue(nid)
         return base64EncodedValue.substring(0, base64EncodedValue.length -1)
+    }
+
+    fun getGenderType(gender: Int): String {
+        return when(gender) {
+            0 -> "W"
+            1 -> "M"
+            else -> "N"
+        }
+    }
+
+    fun logout() {
+        Preference.isLogin = false
+        Preference.userPassword = ""
+        Preference.userSocialEmail = ""
+        Preference.userSocialId = ""
+        Preference.userSocialId = ""
+        Preference.accessToken = ""
+        Preference.refreshToken = ""
     }
 }

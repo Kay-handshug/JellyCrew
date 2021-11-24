@@ -7,6 +7,7 @@ import androidx.appcompat.widget.AppCompatTextView
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import handshug.jellycrew.Preference
 import handshug.jellycrew.R
 import handshug.jellycrew.api.member.MemberPhoneCheckMigrationResponse
 import handshug.jellycrew.base.BaseViewModel
@@ -38,6 +39,7 @@ import handshug.jellycrew.member.MemberContract.Companion.START_LOGIN_FACEBOOK
 import handshug.jellycrew.member.MemberContract.Companion.START_LOGIN_KAKAO
 import handshug.jellycrew.member.MemberContract.Companion.START_LOGIN_NAVER
 import handshug.jellycrew.member.model.MemberApi
+import handshug.jellycrew.utils.EtcUtil
 import handshug.jellycrew.utils.ResponseCode.SUCCESS
 import handshug.jellycrew.utils.visible
 import kotlinx.coroutines.launch
@@ -60,14 +62,18 @@ class MemberViewModel(private val memberApi: MemberApi) : BaseViewModel(), Membe
     val sameCheckEmail: LiveData<Boolean>
         get() = _sameCheckEmail
 
+    private val _isJoinSuccess: MutableLiveData<Boolean> = MutableLiveData()
+    val isJoinSuccess: LiveData<Boolean>
+        get() = _isJoinSuccess
+
     val selectedGender: MutableLiveData<Int> = MutableLiveData()
 
     fun activityClose() = viewEvent(ACTIVITY_CLOSE)
     fun navigateToMain() = viewEvent(ACTIVITY_MAIN)
     fun navigateToLogin() = viewEvent(ACTIVITY_LOGIN)
     fun navigateToLoginHome() = viewEvent(ACTIVITY_LOGIN_HOME)
-    fun navigateToJoinSuccess() = viewEvent(ACTIVITY_JOIN_SUCCESS)
     fun navigateToJoinConfirm() = viewEvent(ACTIVITY_JOIN_CONFIRM)
+    fun navigateToJoinSuccess() = viewEvent(ACTIVITY_JOIN_SUCCESS)
     fun navigateToPastOrders() = viewEvent(ACTIVITY_PAST_ORDERS)
 
     fun navigateToJoinTerms() = viewEvent(FRAGMENT_JOIN_TERMS)
@@ -146,6 +152,33 @@ class MemberViewModel(private val memberApi: MemberApi) : BaseViewModel(), Membe
                 }
             }
         }
+    }
+
+    fun joinConfirm() {
+        viewModelScope.launch(exceptionHandler) {
+            memberApi.joinConfirm(getJoinUserInfoParams()).apply {
+                _isJoinSuccess.value = this.code == SUCCESS
+            }
+        }
+    }
+
+    private fun getJoinUserInfoParams() = mutableMapOf<String, Any>().apply {
+        this["email"] = Preference.userEmail
+        this["password"] = Preference.userPassword
+        this["mobile"] = Preference.userPhoneNumber
+        this["birth"] = Preference.userBirth
+        this["genderType"] = Preference.userGender
+        this["name"] = Preference.userName
+        this["accountReferType"] = "DIRECT"
+        this["nickname"] = Preference.userNickname
+        this["recommendFriend"] = Preference.userFriend
+        this["marketingAgreement"] = Preference.isMarketingAgree
+        this["lifeTimeMember"] = Preference.isLifeTimeMember
+        this["socialType"] = Preference.userSocialType
+        this["socialId"] = Preference.userSocialId
+        this["socialEmail"] = Preference.userSocialEmail
+        this["accessToken"] = ""
+        this["refreshToken"] = ""
     }
 
     fun countDownTimer(textView: AppCompatTextView, errorMsg: AppCompatTextView,

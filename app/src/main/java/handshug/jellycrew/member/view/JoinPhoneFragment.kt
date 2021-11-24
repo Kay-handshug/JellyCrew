@@ -141,7 +141,10 @@ class JoinPhoneFragment : BindingFragment<FragmentJoinPhoneBinding>() {
     }
 
     private fun goToJoinEmail() {
-        Preference.userName = binding.etJoinPhoneNameInput.text.toString()
+        val userName = binding.etJoinPhoneNameInput.text.toString()
+        val userPhoneNumber = binding.etJoinPhoneInput.text.toString()
+        Preference.userName = userName
+        Preference.userPhoneNumber = userPhoneNumber
         (activity as JoinActivity).moveChangePosition(2)
     }
 

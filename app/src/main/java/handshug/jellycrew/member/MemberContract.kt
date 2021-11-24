@@ -7,8 +7,8 @@ interface MemberContract {
         const val ACTIVITY_MAIN = 1010
         const val ACTIVITY_LOGIN = 1014
         const val ACTIVITY_LOGIN_HOME = 1015
-        const val ACTIVITY_JOIN_SUCCESS = 1020
-        const val ACTIVITY_JOIN_CONFIRM = 1021
+        const val ACTIVITY_JOIN_CONFIRM = 1020
+        const val ACTIVITY_JOIN_SUCCESS = 1021
 
         const val ACTIVITY_FIND_EMAIL = 1030
         const val ACTIVITY_FIND_PASSWORD = 1040

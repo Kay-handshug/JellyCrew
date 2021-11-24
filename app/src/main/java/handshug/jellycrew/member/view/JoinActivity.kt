@@ -7,7 +7,7 @@ import handshug.jellycrew.R
 import handshug.jellycrew.base.BindingActivity
 import handshug.jellycrew.databinding.ActivityJoinBinding
 import handshug.jellycrew.member.MemberContract.Companion.ACTIVITY_CLOSE
-import handshug.jellycrew.member.MemberContract.Companion.ACTIVITY_JOIN_SUCCESS
+import handshug.jellycrew.member.MemberContract.Companion.ACTIVITY_JOIN_CONFIRM
 import handshug.jellycrew.member.MemberContract.Companion.ACTIVITY_LOGIN
 import handshug.jellycrew.member.MemberContract.Companion.SHOW_DIALOG_FINISH
 import handshug.jellycrew.member.view.adapter.JoinPagerAdapter
@@ -55,7 +55,7 @@ class JoinActivity : BindingActivity<ActivityJoinBinding>() {
                         finish()
                     }
                     ACTIVITY_LOGIN -> goToLogin()
-                    ACTIVITY_JOIN_SUCCESS -> this.finish()
+                    ACTIVITY_JOIN_CONFIRM -> this.finish()
                     SHOW_DIALOG_FINISH -> showFinishDialog.show()
                 }
             }

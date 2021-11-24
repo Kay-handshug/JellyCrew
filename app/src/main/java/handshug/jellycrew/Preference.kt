@@ -32,6 +32,11 @@ object Preference {
             sharedPreference.edit().putString("deviceUUID", uuid).apply()
         }
 
+
+    /**
+     * User Info ############################# Start
+     */
+
     var userPhoneNumber: String
         get() = sharedPreference.getString("userPhoneNumber", "").toString()
         set(userPhoneNumber) {
@@ -57,8 +62,80 @@ object Preference {
         }
 
     var userName: String
-        get() = sharedPreference.getString("userName", "영웅").toString()
+        get() = sharedPreference.getString("userName", "").toString()
         set(userName) {
             sharedPreference.edit().putString("userName", userName).apply()
         }
+
+    var userBirth: String
+        get() = sharedPreference.getString("userBirth", "").toString()
+        set(userBirth) {
+            sharedPreference.edit().putString("userBirth", userBirth).apply()
+        }
+
+    // W: female, M: male, N:3rd(제3의 성)
+    var userGender: String
+        get() = sharedPreference.getString("userGender", "W").toString()
+        set(userGender) {
+            sharedPreference.edit().putString("userGender", userGender).apply()
+        }
+
+    var userNickname: String
+        get() = sharedPreference.getString("userNickname", "").toString()
+        set(userNickname) {
+            sharedPreference.edit().putString("userNickname", userNickname).apply()
+        }
+
+    var userFriend: String
+        get() = sharedPreference.getString("userFriend", "").toString()
+        set(userFriend) {
+            sharedPreference.edit().putString("userFriend", userFriend).apply()
+        }
+
+    var isMarketingAgree: Boolean
+        get() = sharedPreference.getBoolean("isMarketingAgree", true)
+        set(isMarketingAgree) {
+            sharedPreference.edit().putBoolean("isMarketingAgree", isMarketingAgree).apply()
+        }
+
+    var isLifeTimeMember: Boolean
+        get() = sharedPreference.getBoolean("isLifeTimeMember", true)
+        set(isLifeTimeMember) {
+            sharedPreference.edit().putBoolean("isLifeTimeMember", isLifeTimeMember).apply()
+        }
+
+    var userSocialType: String
+        get() = sharedPreference.getString("userSocialType", "").toString()
+        set(userSocialType) {
+            sharedPreference.edit().putString("userSocialType", userSocialType).apply()
+        }
+
+    var userSocialId: String
+        get() = sharedPreference.getString("userSocialId", "").toString()
+        set(userSocialId) {
+            sharedPreference.edit().putString("userSocialId", userSocialId).apply()
+        }
+
+    var userSocialEmail: String
+        get() = sharedPreference.getString("userSocialEmail", "").toString()
+        set(userSocialEmail) {
+            sharedPreference.edit().putString("userSocialEmail", userSocialEmail).apply()
+        }
+
+
+    var accessToken: String
+        get() = sharedPreference.getString("accessToken", "").toString()
+        set(accessToken) {
+            sharedPreference.edit().putString("accessToken", accessToken).apply()
+        }
+
+    var refreshToken: String
+        get() = sharedPreference.getString("refreshToken", "").toString()
+        set(refreshToken) {
+            sharedPreference.edit().putString("refreshToken", refreshToken).apply()
+        }
+
+    /**
+     * User Info ############################# End
+     */
 }

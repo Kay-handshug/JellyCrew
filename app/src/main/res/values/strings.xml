@@ -17,6 +17,7 @@
     // toast
     <string name="toast_app_finish">뒤로 가기를 한 번 더 누를 시 앱이 종료됩니다.</string>
     <string name="toast_payment_request_token">이 로직은 서버사이드에서 먼저 수행되어야 합니다.</string>
+    <string name="toast_request_join_fail">지금은 회원 가입이 안되요. 잠시 뒤 다시 시도해 주세요 :(</string>
 
     // login
     <string name="login_title">JELLY CREW</string>

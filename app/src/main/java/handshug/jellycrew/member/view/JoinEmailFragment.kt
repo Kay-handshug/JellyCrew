@@ -2,6 +2,7 @@ package handshug.jellycrew.member.view
 
 import android.os.Bundle
 import androidx.annotation.LayoutRes
+import handshug.jellycrew.Preference
 import handshug.jellycrew.R
 import handshug.jellycrew.base.BindingFragment
 import handshug.jellycrew.databinding.FragmentJoinEmailBinding
@@ -57,6 +58,8 @@ class JoinEmailFragment : BindingFragment<FragmentJoinEmailBinding>() {
     }
 
     private fun goToPassword() {
+        val userEmail = binding.etJoinEmailInput.text.toString()
+        Preference.userEmail = userEmail
         (activity as JoinActivity).moveChangePosition(3)
     }
 }

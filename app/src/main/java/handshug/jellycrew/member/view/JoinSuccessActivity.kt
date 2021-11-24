@@ -10,7 +10,7 @@ import handshug.jellycrew.base.BindingActivity
 import handshug.jellycrew.databinding.ActivityJoinSuccessBinding
 import handshug.jellycrew.main.view.MainActivity
 import handshug.jellycrew.member.MemberContract.Companion.ACTIVITY_CLOSE
-import handshug.jellycrew.member.MemberContract.Companion.ACTIVITY_JOIN_CONFIRM
+import handshug.jellycrew.member.MemberContract.Companion.ACTIVITY_JOIN_SUCCESS
 import handshug.jellycrew.member.viewModel.MemberViewModel
 import handshug.jellycrew.utils.ActivityUtil
 import org.koin.androidx.viewmodel.ext.android.getViewModel
@@ -39,7 +39,7 @@ class JoinSuccessActivity : BindingActivity<ActivityJoinSuccessBinding>() {
             it.getContentIfNotHandled()?.let { event ->
                 when (event) {
                     ACTIVITY_CLOSE -> finish()
-                    ACTIVITY_JOIN_CONFIRM -> goToMainActivity()
+                    ACTIVITY_JOIN_SUCCESS -> goToMainActivity()
                 }
             }
         })
