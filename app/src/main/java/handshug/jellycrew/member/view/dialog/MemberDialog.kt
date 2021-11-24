@@ -97,7 +97,7 @@ class MemberDialog(
         dialog.show()
     }
 
-    fun showDialogAlreadyJoinUser(account: MemberAccountData, socials: List<MemberAccountSocialsData>) {
+    fun showDialogAlreadyJoinUser(account: MemberAccountData?, socials: List<MemberAccountSocialsData>?) {
         val dialogBinding = BindingDialog<DialogMemberAlreadyJoinBinding>(
                 activity,
                 R.layout.dialog_member_already_join
@@ -106,13 +106,17 @@ class MemberDialog(
         val dialog = dialogBinding.getBottomSheetDialog()
         dialogBinding.apply {
             binding.viewModel = viewModel
-            binding.email = account.email
-
-            val socialsType: StringBuilder = StringBuilder()
-            socials.forEach {
-                socialsType.append(it.socialType).append(",")
+            if (account != null) {
+                binding.email = account.email
             }
-            binding.socialsType = socialsType.toString()
+
+            if (!socials.isNullOrEmpty()) {
+                val socialsType: StringBuilder = StringBuilder()
+                socials.forEach {
+                    socialsType.append(it.socialType).append(",")
+                }
+                binding.socialsType = socialsType.toString()
+            }
 
             binding.btnJoinAlreadyLogin.setOnClickListener {
                 viewModel.navigateToLogin()

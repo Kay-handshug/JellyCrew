@@ -56,6 +56,10 @@ class MemberViewModel(private val memberApi: MemberApi) : BaseViewModel(), Membe
     val alreadyJoinData: LiveData<MemberPhoneCheckMigrationResponse>
         get() = _alreadyJoinData
 
+    private val _sameCheckEmail: MutableLiveData<Boolean> = MutableLiveData()
+    val sameCheckEmail: LiveData<Boolean>
+        get() = _sameCheckEmail
+
     val selectedGender: MutableLiveData<Int> = MutableLiveData()
 
     fun activityClose() = viewEvent(ACTIVITY_CLOSE)
@@ -126,6 +130,19 @@ class MemberViewModel(private val memberApi: MemberApi) : BaseViewModel(), Membe
                 else {
                     // 미가입 회원 -> 계속 가입 진행
                     viewEvent(FRAGMENT_JOIN_EMAIL)
+                }
+            }
+        }
+    }
+
+    fun sameCheckEmail(email: String) {
+        viewModelScope.launch(exceptionHandler) {
+            memberApi.checkEmail(email).apply {
+                if (this.code == SUCCESS) {
+                    _sameCheckEmail.value = this.data
+                }
+                else {
+                    _sameCheckEmail.value = true
                 }
             }
         }

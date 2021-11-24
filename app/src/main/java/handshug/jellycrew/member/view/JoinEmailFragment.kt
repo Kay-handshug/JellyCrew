@@ -7,6 +7,7 @@ import handshug.jellycrew.base.BindingFragment
 import handshug.jellycrew.databinding.FragmentJoinEmailBinding
 import handshug.jellycrew.member.MemberContract.Companion.FRAGMENT_JOIN_PASSWORD
 import handshug.jellycrew.member.viewModel.MemberViewModel
+import handshug.jellycrew.utils.visible
 import org.koin.androidx.viewmodel.ext.android.getViewModel
 
 
@@ -35,12 +36,27 @@ class JoinEmailFragment : BindingFragment<FragmentJoinEmailBinding>() {
             hideKeyboard(it)
         })
 
+        viewModel.sameCheckEmail.observe(viewLifecycleOwner, { state ->
+            if (!state) {
+                goToPassword()
+            }
+            else {
+                val tvErrorMsg = binding.tvJoinEmailInputErrorMsg
+                tvErrorMsg.visible()
+                tvErrorMsg.text = getString(R.string.join_email_already_use)
+            }
+        })
+
         viewModel.viewEvent.observe(viewLifecycleOwner, {
             it.getContentIfNotHandled()?.let { event ->
                 when (event) {
-                    FRAGMENT_JOIN_PASSWORD -> (activity as JoinActivity).moveChangePosition(3)
+                    FRAGMENT_JOIN_PASSWORD -> viewModel.sameCheckEmail(binding.etJoinEmailInput.text.toString())
                 }
             }
         })
+    }
+
+    private fun goToPassword() {
+        (activity as JoinActivity).moveChangePosition(3)
     }
 }

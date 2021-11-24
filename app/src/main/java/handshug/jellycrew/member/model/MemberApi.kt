@@ -22,9 +22,13 @@ interface MemberApi {
     ): JellyCrewAPIPostResponse<MemberPhoneVerifyData>
 
     // 기존 이메일 사용 여부 확인
+    @POST("/api/account/v1/check-email")
+    suspend fun checkEmail(
+            @Query("email") email: String
+    ): JellyCrewAPIPostResponse<Boolean>
 
     // 기존 회원 여부 확인
-    @POST("/account/v1/check-migration")
+    @POST("/api/account/v1/check-migration")
     suspend fun checkMigration(
         @Query("mobile") mobile: String,
         @Query("name") name: String

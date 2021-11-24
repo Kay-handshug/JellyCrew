@@ -105,7 +105,7 @@ class JoinPhoneFragment : BindingFragment<FragmentJoinPhoneBinding>() {
             val account = data.account
             val socials = data.accountSocials
 
-            if (account.email.isNotEmpty() || !socials.isNullOrEmpty()) {
+            if ((account != null && account.email.isNotEmpty()) || !socials.isNullOrEmpty()) {
                 dialog.showDialogAlreadyJoinUser(account, socials)
             }
             else {

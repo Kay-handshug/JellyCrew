@@ -76,6 +76,7 @@
     <string name="join_email_input_hint">이메일 주소 입력</string>
     <string name="join_email_input_empty">이메일 주소를 입력해 주세요 :)</string>
     <string name="join_email_input_error">이메일 주소가 올바르지 않아요. (메일아이디@메일도메인)</string>
+    <string name="join_email_already_use">사용할 수 없는 이메일이에요. 다른 주소를 입력해 주세요.</string>
 
     // Join Password
     <string name="join_password_sub_title">비밀번호를 만들어주세요 :)</string>

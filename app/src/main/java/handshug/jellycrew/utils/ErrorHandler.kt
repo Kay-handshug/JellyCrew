@@ -12,7 +12,7 @@ object ErrorHandler {
 
     val context: Context = get().koin.get()
 
-    fun errorHandle(throwable: Throwable): Int {
+    fun errorHandle(throwable: Throwable): String {
         when (throwable) {
             is NetworkConnectionInterceptor.NoConnectivityException -> {
                 toast("popupCheckNetworkStatus")
@@ -22,7 +22,7 @@ object ErrorHandler {
             }
             is HttpException -> {
                 val errorResponse = getErrorResponse(throwable)
-                val resultCode = errorResponse?.resultCode ?: -1
+                val resultCode = errorResponse?.code ?: ""
                 when (resultCode) {
                     INTERNAL_SERVER_ERROR -> toast("500 Error")
                 }
@@ -31,7 +31,7 @@ object ErrorHandler {
             }
         }
 
-        return -1
+        return ""
     }
 
     private fun getErrorResponse(throwable: Throwable): ErrorResponse? {
@@ -50,9 +50,8 @@ object ErrorHandler {
     }
 
     data class ErrorResponse(
-        @SerializedName("resultCode") val resultCode: Int,
+        @SerializedName("code") val code: String,
         @SerializedName("message") val message: String,
-        @SerializedName("totalCount") val totalCount: Int?,
         @SerializedName("data") val data: Any?
     )
 }
