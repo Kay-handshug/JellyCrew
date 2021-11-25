@@ -6,6 +6,7 @@
     <data>
         <variable name="viewModel" type="handshug.jellycrew.member.viewModel.MemberViewModel" />
         <variable name="titleIndex" type="int" />
+        <variable name="title" type="String" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -16,11 +17,12 @@
 
         <include
             android:id="@+id/ic_common_title_join"
-            layout="@layout/common_title_join"
+            layout="@layout/activity_member_title"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:viewModel="@{viewModel}"
-            app:index="@{titleIndex}" />
+            app:index="@{titleIndex}"
+            app:title="@{title}"/>
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/vp_join"

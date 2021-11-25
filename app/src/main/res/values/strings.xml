@@ -20,11 +20,21 @@
     <string name="toast_request_join_fail">지금은 회원 가입이 안되요. 잠시 뒤 다시 시도해 주세요 :(</string>
 
     // login
+    <string name="login">로그인</string>
     <string name="login_title">JELLY CREW</string>
     <string name="login_sub_title">크리에이터와 나를 잇는 쇼핑플랫폼</string>
     <string name="login_email">이메일 로그인</string>
     <string name="login_email_join">이메일로 가입</string>
     <string name="login_old_order_list_view">2022년 09월 이전 주문조회</string>
+
+    // login email
+    <string name="login_email_title">이메일과 비밀번호를\n입력해주세요 :)</string>
+    <string name="login_email_btn_find">이메일 찾기</string>
+    <string name="login_email_btn_reset_password">비밀번호 재설정</string>
+
+    // login not found
+    <string name="login_not_found_title">젤리크루에는\n입력하신 이메일로\n가입된 계정이 없네요.</string>
+    <string name="login_not_found_noti">혹시 이메일 주소 또는 비밀번호 입력\n오류일 수 있으니 확인 부탁드려요.\n\n그래도 동일한 안내가 계속 나온다면\n이메일 찾기 또는 회원가입을 진행해 주세요 :)</string>
 
     // join terms
     <string name="join_title">회원가입</string>

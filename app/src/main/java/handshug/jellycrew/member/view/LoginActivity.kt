@@ -21,6 +21,7 @@ import handshug.jellycrew.base.BindingActivity
 import handshug.jellycrew.databinding.ActivityLoginBinding
 import handshug.jellycrew.main.view.MainActivity
 import handshug.jellycrew.member.MemberContract.Companion.ACTIVITY_CLOSE
+import handshug.jellycrew.member.MemberContract.Companion.ACTIVITY_LOGIN_EMAIL
 import handshug.jellycrew.member.MemberContract.Companion.FRAGMENT_JOIN_TERMS
 import handshug.jellycrew.member.MemberContract.Companion.ACTIVITY_LOGIN_HOME
 import handshug.jellycrew.member.MemberContract.Companion.ACTIVITY_MAIN
@@ -61,9 +62,10 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>() {
                     ACTIVITY_CLOSE -> finish()
                     ACTIVITY_MAIN -> goToMainActivity()
                     ACTIVITY_LOGIN_HOME -> goToMainActivity()
+                    ACTIVITY_LOGIN_EMAIL -> goToLoginEmail()
                     ACTIVITY_PAST_ORDERS -> goToPastOrders()
                     FRAGMENT_JOIN_TERMS -> goToJoinTerms()
-                    START_LOGIN_KAKAO -> startLoginKakao()
+                    START_LOGIN_KAKAO -> startLoginKakao(viewModel)
                     START_LOGIN_NAVER -> startLoginNaver()
                     START_LOGIN_FACEBOOK -> startLoginFacebook()
                     LOGIN_SUCCESS -> goToMainActivity()
@@ -72,7 +74,7 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>() {
         })
     }
 
-    private fun startLoginKakao() {
+    private fun startLoginKakao(viewModel: MemberViewModel) {
         val callback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
             var logMsg = ""
             if(error != null) {
@@ -83,6 +85,8 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>() {
                 Preference.loginType = 1
                 logMsg = "# Login kakao success : ${token.accessToken}"
                 Log.msg(logMsg)
+
+//                viewModel.loginSocial(token.accessToken, "KAKAO")
 
                 goToMainActivity()
             }
@@ -168,6 +172,15 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>() {
 
     private fun goToJoinTerms() {
         Intent(this, JoinActivity::class.java).apply {
+            startActivity(this)
+            overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+        }
+        ActivityUtil.removeActivity(this)
+        finish()
+    }
+    
+    private fun goToLoginEmail() {
+        Intent(this, LoginEmailActivity::class.java).apply {
             startActivity(this)
             overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
         }

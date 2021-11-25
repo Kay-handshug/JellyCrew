@@ -2,6 +2,7 @@ package handshug.jellycrew.member.model
 
 import handshug.jellycrew.api.JellyCrewAPIPostResponse
 import handshug.jellycrew.api.member.MemberJoinSuccessResponse
+import handshug.jellycrew.api.member.MemberLoginEmailResponse
 import handshug.jellycrew.api.member.MemberPhoneCheckMigrationResponse
 import handshug.jellycrew.api.member.scheme.MemberPhoneVerifyData
 import retrofit2.http.Body
@@ -26,7 +27,7 @@ interface MemberApi {
     // 기존 이메일 사용 여부 확인
     @POST("/api/account/v1/check-email")
     suspend fun checkEmail(
-            @Query("email") email: String
+        @Query("email") email: String
     ): JellyCrewAPIPostResponse<Boolean>
 
     // 기존 회원 여부 확인
@@ -47,4 +48,15 @@ interface MemberApi {
         @Query("name") name: String,
         @Query("accountReferType") accountReferType: String
     ): JellyCrewAPIPostResponse<MemberJoinSuccessResponse>
+
+    @POST("/api/account/v1/login")
+    suspend fun loginEmail(
+            @Body params: MutableMap<String, Any>
+    ): JellyCrewAPIPostResponse<MemberLoginEmailResponse>
+
+    // Social Login ///// http://10.3.63.70:5000
+    @POST("/api/swagger-ui.html#/account-controller/loginSocialAccountUsingPOST")
+    suspend fun loginSocial(
+            @Body  params: MutableMap<String, Any>
+    ): JellyCrewAPIPostResponse<String>
 }

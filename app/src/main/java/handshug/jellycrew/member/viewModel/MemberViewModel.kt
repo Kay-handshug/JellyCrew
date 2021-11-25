@@ -13,12 +13,15 @@ import handshug.jellycrew.api.member.MemberPhoneCheckMigrationResponse
 import handshug.jellycrew.base.BaseViewModel
 import handshug.jellycrew.member.MemberContract
 import handshug.jellycrew.member.MemberContract.Companion.ACTIVITY_CLOSE
+import handshug.jellycrew.member.MemberContract.Companion.ACTIVITY_FIND_EMAIL
 import handshug.jellycrew.member.MemberContract.Companion.ACTIVITY_JOIN_CONFIRM
 import handshug.jellycrew.member.MemberContract.Companion.ACTIVITY_JOIN_SUCCESS
 import handshug.jellycrew.member.MemberContract.Companion.ACTIVITY_LOGIN
+import handshug.jellycrew.member.MemberContract.Companion.ACTIVITY_LOGIN_EMAIL
 import handshug.jellycrew.member.MemberContract.Companion.ACTIVITY_LOGIN_HOME
 import handshug.jellycrew.member.MemberContract.Companion.ACTIVITY_MAIN
 import handshug.jellycrew.member.MemberContract.Companion.ACTIVITY_PAST_ORDERS
+import handshug.jellycrew.member.MemberContract.Companion.ACTIVITY_RESET_PASSWORD
 import handshug.jellycrew.member.MemberContract.Companion.COUNT_DOWN_TIMER_START
 import handshug.jellycrew.member.MemberContract.Companion.COUNT_DOWN_TIMER_STOP
 import handshug.jellycrew.member.MemberContract.Companion.FRAGMENT_JOIN_EMAIL
@@ -26,6 +29,7 @@ import handshug.jellycrew.member.MemberContract.Companion.FRAGMENT_JOIN_PASSWORD
 import handshug.jellycrew.member.MemberContract.Companion.FRAGMENT_JOIN_PHONE
 import handshug.jellycrew.member.MemberContract.Companion.FRAGMENT_JOIN_TERMS
 import handshug.jellycrew.member.MemberContract.Companion.FRAGMENT_JOIN_USER_INFO
+import handshug.jellycrew.member.MemberContract.Companion.MEMBER_LOGIN
 import handshug.jellycrew.member.MemberContract.Companion.REQ_PHONE_VERIFY_CONFIRM
 import handshug.jellycrew.member.MemberContract.Companion.SHOW_DIALOG_DATE_PICKER
 import handshug.jellycrew.member.MemberContract.Companion.SHOW_DIALOG_FINISH
@@ -68,10 +72,15 @@ class MemberViewModel(private val memberApi: MemberApi) : BaseViewModel(), Membe
 
     val selectedGender: MutableLiveData<Int> = MutableLiveData()
 
+    fun memberLogin() = viewEvent(MEMBER_LOGIN)
     fun activityClose() = viewEvent(ACTIVITY_CLOSE)
     fun navigateToMain() = viewEvent(ACTIVITY_MAIN)
     fun navigateToLogin() = viewEvent(ACTIVITY_LOGIN)
     fun navigateToLoginHome() = viewEvent(ACTIVITY_LOGIN_HOME)
+    fun navigateToLoginEmail() = viewEvent(ACTIVITY_LOGIN_EMAIL)
+    fun navigateToLoginFindEmail() = viewEvent(ACTIVITY_FIND_EMAIL)
+    fun navigateToLoginResetPassword() = viewEvent(ACTIVITY_RESET_PASSWORD)
+
     fun navigateToJoinConfirm() = viewEvent(ACTIVITY_JOIN_CONFIRM)
     fun navigateToJoinSuccess() = viewEvent(ACTIVITY_JOIN_SUCCESS)
     fun navigateToPastOrders() = viewEvent(ACTIVITY_PAST_ORDERS)
@@ -168,6 +177,34 @@ class MemberViewModel(private val memberApi: MemberApi) : BaseViewModel(), Membe
                 _isJoinSuccess.value = this.code == SUCCESS
             }
         }
+    }
+
+    fun loginEmail() {
+        viewModelScope.launch(exceptionHandler) {
+            memberApi.loginEmail(setLoginEmailParams()).apply {
+                // todo live data check
+            }
+        }
+    }
+
+    fun loginSocial(accessToken: String, socialType: String) {
+        viewModelScope.launch(exceptionHandler) {
+            memberApi.loginSocial(setLoginSocialParams(accessToken, socialType)).apply {
+                toast(this.message)
+            }
+        }
+    }
+
+    private fun setLoginEmailParams() = mutableMapOf<String, Any>().apply {
+        this["email"] = Preference.userEmail
+        this["password"] = Preference.userPassword
+    }
+
+    private fun setLoginSocialParams(accessToken: String, socialType: String) = mutableMapOf<String, Any>().apply {
+        this["appType"] = "AOS"
+        this["socialId"] = "aaa"
+        this["socialType"] = socialType
+        this["token"] = accessToken
     }
 
     private fun getJoinUserInfoParams() = mutableMapOf<String, Any>().apply {

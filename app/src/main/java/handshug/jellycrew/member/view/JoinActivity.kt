@@ -40,6 +40,7 @@ class JoinActivity : BindingActivity<ActivityJoinBinding>() {
         viewPager = binding.vpJoin
         viewPager.adapter = pagerAdapter
         binding.vpJoin.isUserInputEnabled = false
+        binding.title = ""
 
         binding.vpJoin.registerOnPageChangeCallback(object: ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {

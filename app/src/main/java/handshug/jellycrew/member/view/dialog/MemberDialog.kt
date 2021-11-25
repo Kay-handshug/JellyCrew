@@ -122,4 +122,18 @@ class MemberDialog(
 
         dialog.show()
     }
+
+    fun showDialogLoginNotFound() {
+        val dialogBinding = BindingDialog<DialogMemberNotFoundBinding>(
+                activity,
+                R.layout.dialog_member_not_found
+        )
+
+        val dialog = dialogBinding.getBottomSheetDialog()
+        dialogBinding.apply {
+            binding.viewModel = viewModel
+        }
+
+        dialog.show()
+    }
 }

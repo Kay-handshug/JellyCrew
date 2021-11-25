@@ -48,6 +48,7 @@ val networkModule = module {
     single {
         val baseUrl: String = if(BuildConfig.DEBUG) {
             // 추후 QA서버로 변경
+            //            "http://10.3.63.70:5000"
             BASE_URL_DEV
         } else {
             BASE_URL

@@ -45,6 +45,11 @@
             android:screenOrientation="portrait" />
 
         <activity
+            android:name=".member.view.LoginEmailActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+
+        <activity
             android:name=".member.view.JoinActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />

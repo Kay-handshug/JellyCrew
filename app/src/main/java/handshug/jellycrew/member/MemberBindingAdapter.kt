@@ -15,7 +15,8 @@ import androidx.databinding.BindingAdapter
 import handshug.jellycrew.R
 import handshug.jellycrew.member.viewModel.MemberViewModel
 import handshug.jellycrew.utils.*
-import kotlinx.android.synthetic.main.common_title_join.view.*
+import kotlinx.android.synthetic.main.activity_login_email.view.*
+import kotlinx.android.synthetic.main.activity_member_title.view.*
 import kotlinx.android.synthetic.main.dialog_member_already_join.view.*
 import kotlinx.android.synthetic.main.fragment_join_email.view.*
 import kotlinx.android.synthetic.main.fragment_join_password.view.*
@@ -23,6 +24,149 @@ import kotlinx.android.synthetic.main.fragment_join_phone.view.*
 import kotlinx.android.synthetic.main.fragment_join_terms.view.*
 import kotlinx.android.synthetic.main.fragment_join_user_info.view.*
 
+
+@BindingAdapter("setCheckLogin")
+fun ConstraintLayout.setCheckLogin(viewModel: MemberViewModel) {
+    val btnEmailDelete = this.iv_login_email_input_delete
+    val btnPasswordDelete = this.iv_login_password_input_delete
+    val btnPasswordView = this.ibtn_login_password_input_view
+    val btnLogin = this.btn_login
+
+    val etEmailInput = this.et_login_email_input
+    val etPasswordInput = this.et_login_password_input
+
+    val tvEmailErrorMsg = this.tv_login_email_input_error_msg
+
+    val llPasswordRule = this.ll_login_password_input_rule
+    val tvRule01 = llPasswordRule.tv_login_password_rule_01
+    val tvRule02 = llPasswordRule.tv_login_password_rule_02
+    val tvRule03 = llPasswordRule.tv_login_password_rule_03
+
+    this.setOnClickListener {
+        viewModel.hideKeyboard(it)
+    }
+
+    btnEmailDelete.setOnClickListener {
+        etEmailInput.text?.clear()
+    }
+
+    btnPasswordDelete.setOnClickListener {
+        etPasswordInput.text?.clear()
+    }
+
+    btnPasswordView.setOnClickListener {
+        it.isSelected = !it.isSelected
+
+        if (it.isSelected) etPasswordInput.transformationMethod = HideReturnsTransformationMethod.getInstance()
+        else etPasswordInput.transformationMethod = PasswordTransformationMethod.getInstance()
+    }
+
+    btnLogin.setOnClickListener {
+        viewModel.memberLogin()
+    }
+
+    etEmailInput.addTextChangedListener(object : TextWatcher {
+        override fun afterTextChanged(s: Editable?) {}
+        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            val cnt = s.toString().length
+
+            btnLogin.isSelected = false
+            btnLogin.isEnabled = false
+
+            ViewUtil.setBackgroundDrawable(etEmailInput, R.drawable.common_box_radius08_white_border_red500)
+            if (cnt < 1) {
+                setErrorMsg(tvEmailErrorMsg, context.getString(R.string.join_email_input_empty))
+            }
+            else if (!viewModel.verifyEmail(s.toString())) {
+                setErrorMsg(tvEmailErrorMsg, context.getString(R.string.join_email_input_error))
+            }
+            else {
+                if (tvRule01.isSelected && tvRule02.isSelected && tvRule03.isSelected) {
+                    btnLogin.isSelected = true
+                    btnLogin.isEnabled = true
+                }
+                tvEmailErrorMsg.gone()
+                ViewUtil.setBackgroundDrawable(etEmailInput, R.drawable.selector_btn_radius08_gray400_n_gray700)
+            }
+
+            if (cnt == 0) {
+                btnEmailDelete.invisible()
+                etEmailInput.isSelected = false
+            }
+            else {
+                btnEmailDelete.visible()
+                etEmailInput.isSelected = true
+            }
+
+            etEmailInput.setSelection(cnt)
+        }
+    })
+
+    etPasswordInput.addTextChangedListener(object : TextWatcher {
+        override fun afterTextChanged(s: Editable?) {}
+        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            val text = s.toString()
+            val cnt = text.length
+
+            btnLogin.isSelected = false
+            btnLogin.isEnabled = false
+
+            if (cnt < 1) {
+                btnPasswordView.gone()
+
+                ViewUtil.setTextColor(tvRule01, R.color.color_common_text_gray500)
+                ViewUtil.setTextColor(tvRule02, R.color.color_common_text_gray500)
+                ViewUtil.setTextColor(tvRule03, R.color.color_common_text_gray500)
+                ViewUtil.setBackgroundDrawable(etPasswordInput, R.drawable.selector_btn_radius08_gray400_n_gray700)
+            }
+            else {
+                btnPasswordView.visible()
+
+                val textColorRed = context.getColor(R.color.color_common_red500)
+                val textColorGreen = context.getColor(R.color.color_common_green400)
+                tvRule01.apply {
+                    val isVerify = viewModel.verifyPasswordAlphabet(text)
+                    setTextColor(if(isVerify) textColorGreen else textColorRed)
+                    this.isSelected = isVerify
+                }
+                tvRule02.apply {
+                    val isVerify = (viewModel.verifyPasswordNumber(text) || viewModel.verifyPasswordSpecialCharacters(text))
+                    setTextColor(if(isVerify) textColorGreen else textColorRed)
+                    this.isSelected = isVerify
+                }
+                tvRule03.apply {
+                    val isVerify = cnt > 5
+                    setTextColor(if(isVerify) textColorGreen else textColorRed)
+                    this.isSelected = isVerify
+                }
+
+                if (tvRule01.isSelected && tvRule02.isSelected && tvRule03.isSelected) {
+                    val emailText = etEmailInput.text.toString()
+                    if (emailText.length > 1 && viewModel.verifyEmail(emailText)) {
+                        btnLogin.isSelected = true
+                        btnLogin.isEnabled = true
+                    }
+                    ViewUtil.setBackgroundDrawable(etPasswordInput, R.drawable.selector_btn_radius08_gray400_n_gray700)
+                }
+                else {
+                    ViewUtil.setBackgroundDrawable(etPasswordInput, R.drawable.common_box_radius08_white_border_red500)
+                }
+            }
+
+            if (cnt == 0) {
+                btnPasswordDelete.invisible()
+                etPasswordInput.isSelected = false
+            }
+            else {
+                btnPasswordDelete.visible()
+                etPasswordInput.isSelected = true
+            }
+            etPasswordInput.setSelection(cnt)
+        }
+    })
+}
 
 @BindingAdapter("setCheckTerms")
 fun ConstraintLayout.setCheckTerms(viewModel: MemberViewModel) {
@@ -131,8 +275,8 @@ fun checkItemEssential(
 }
 
 @SuppressLint("UseCompatLoadingForDrawables")
-@BindingAdapter("setCheckClickEvent")
-fun ConstraintLayout.setCheckClickEvent(viewModel: MemberViewModel) {
+@BindingAdapter("setCheckPhoneVerify")
+fun ConstraintLayout.setCheckPhoneVerify(viewModel: MemberViewModel) {
     val btnNameInputDelete = this.iv_join_phone_name_input_delete
     val btnPhoneInputDelete = this.iv_join_phone_input_delete
     val btnReqVerify = this.btn_join_phone_request_verify
@@ -321,9 +465,10 @@ fun loseFocusRecheck(view: View, state: Boolean) {
     }
 }
 
-@BindingAdapter("setTitleIndex", "isShowRightBtn")
-fun ConstraintLayout.setTitleIndex(index: Int, isShowRightBtn: Boolean = false) {
+@BindingAdapter("setTitleIndex", "setIndex", "isShowRightBtn", "setTitle")
+fun ConstraintLayout.setTitleIndex(viewModel: MemberViewModel, index: Int, isShowRightBtn: Boolean = false, title: String) {
     val btnRight = this.btn_title_close
+    val btnLeft = this.btn_title_back
 
     val llIndex01 = this.ll_index_01
     val llIndex02 = this.ll_index_02
@@ -331,8 +476,16 @@ fun ConstraintLayout.setTitleIndex(index: Int, isShowRightBtn: Boolean = false) 
     val llIndex04 = this.ll_index_04
     val llIndex05 = this.ll_index_05
 
+    val tvTitle = this.tv_title
+    tvTitle.text = if(title.isNotEmpty()) title else context.getString(R.string.join_title)
+
     if (isShowRightBtn) btnRight.visible()
     else btnRight.gone()
+
+    btnLeft.setOnClickListener {
+        if(index < 0) viewModel.navigateToLoginHome()
+        else viewModel.activityClose()
+    }
 
     llIndex01.gone()
     llIndex02.gone()
@@ -345,7 +498,7 @@ fun ConstraintLayout.setTitleIndex(index: Int, isShowRightBtn: Boolean = false) 
         1 -> llIndex02.visible()
         2 -> llIndex03.visible()
         3 -> llIndex04.visible()
-        else -> llIndex05.visible()
+        4 -> llIndex05.visible()
     }
 }
 

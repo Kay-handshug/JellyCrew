@@ -7,14 +7,17 @@
     <data>
         <variable name="viewModel" type="handshug.jellycrew.member.viewModel.MemberViewModel" />
         <variable name="index" type="int" />
+        <variable name="title" type="String" />
         <variable name="isShowRightBtn" type="Boolean" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        app:setTitleIndex="@{index}"
-        app:isShowRightBtn="@{isShowRightBtn}">
+        app:setTitleIndex="@{viewModel}"
+        app:setIndex="@{index}"
+        app:isShowRightBtn="@{isShowRightBtn}"
+        app:setTitle="@{title}">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/btn_title_back"
@@ -22,7 +25,6 @@
             android:layout_height="wrap_content"
             android:padding="12dp"
             android:layout_marginStart="16dp"
-            android:onClick="@{() -> viewModel.showDialogFinish()}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
