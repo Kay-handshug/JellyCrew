@@ -44,6 +44,10 @@ class LoginEmailActivity : BindingActivity<ActivityLoginEmailBinding>() {
             toast(it)
         })
 
+        viewModel.hideKeyboard.observe(this, {
+            this.currentFocus?.let { it1 -> hideKeyboard(it1, null) }
+        })
+
         viewModel.isLoginSuccess.observe(this, { state ->
             if (state) goToMainActivity()
             else dialog.showDialogLoginNotFound()
