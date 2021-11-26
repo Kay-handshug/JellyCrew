@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <data>
+        <variable name="viewModel" type="handshug.jellycrew.member.viewModel.MemberViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:padding="16dp"
+        android:orientation="vertical"
+        android:background="@drawable/common_box_top_radius08_white" >
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/btn_title_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="12dp"
+            android:layout_marginStart="16dp"
+            android:onClick="@{() -> viewModel.activityClose()}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_icon_arrow_left" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_title"
+            style="@style/style_common_title"
+            android:gravity="center"
+            android:text="@string/login"
+            android:textSize="16sp"
+            android:padding="12dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_member_not_found_title"
+            style="@style/style_common_text_bold"
+            android:layout_width="0dp"
+            android:layout_marginTop="62dp"
+            android:gravity="center"
+            android:text="@string/login_not_found_title"
+            android:textColor="@color/color_common_text_gray900"
+            android:textSize="22sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_title_back"
+            app:setTextColorSpannableEnd="@{12}"
+            app:setTextColorSpannableStart="@{16}" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_member_not_found_noti"
+            style="@style/style_common_text"
+            android:layout_width="0dp"
+            android:layout_marginTop="24dp"
+            android:gravity="center"
+            android:text="@string/login_not_found_noti"
+            android:textColor="@color/color_common_text_gray700"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_member_not_found_title" />
+
+        <LinearLayout
+            android:id="@+id/ll_join_already_id_hint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="16dp"
+            android:layout_marginTop="24dp"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@+id/tv_member_not_found_noti"
+            app:layout_constraintStart_toStartOf="parent" >
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_member_not_found_find_email"
+                style="@style/style_common_button_bold"
+                android:layout_width="0dp"
+                android:layout_height="45dp"
+                android:layout_weight="1"
+                android:text="@string/login_email_btn_find"
+                android:textColor="@drawable/selector_color_gray500_n_white"
+                android:background="@drawable/selector_btn_radius08_white_n_violet500"
+                app:layout_constraintTop_toBottomOf="@+id/ll_join_already_id_hint"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <Space
+                android:layout_width="10dp"
+                android:layout_height="1dp" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_member_not_found_reset_password"
+                style="@style/style_common_button_bold"
+                android:layout_width="0dp"
+                android:layout_height="45dp"
+                android:layout_weight="1"
+                android:text="@string/join_title"
+                android:onClick="@{() -> viewModel.navigateToJoinTerms()}"
+                android:textColor="@drawable/selector_color_gray500_n_white"
+                android:background="@drawable/selector_btn_radius08_white_n_violet500"
+                app:layout_constraintTop_toBottomOf="@+id/ll_join_already_id_hint"
+                app:layout_constraintStart_toStartOf="parent" />
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

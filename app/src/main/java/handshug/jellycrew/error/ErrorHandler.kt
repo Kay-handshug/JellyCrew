@@ -1,8 +1,12 @@
-package handshug.jellycrew.utils
+package handshug.jellycrew.error
 
 import android.content.Context
+import android.content.Intent
 import android.widget.Toast
 import com.google.gson.annotations.SerializedName
+import handshug.jellycrew.utils.ActivityUtil
+import handshug.jellycrew.utils.NetworkConnectionInterceptor
+import handshug.jellycrew.utils.ResponseCode.ERROR_CODE_2001
 import org.koin.core.context.GlobalContext.get
 import retrofit2.HttpException
 import retrofit2.Retrofit
@@ -22,9 +26,17 @@ object ErrorHandler {
             }
             is HttpException -> {
                 val errorResponse = getErrorResponse(throwable)
-                val resultCode = errorResponse?.code ?: ""
+                val resultCode = errorResponse?.code?: ""
+                val resultMsg = errorResponse?.message?: ""
                 when (resultCode) {
                     INTERNAL_SERVER_ERROR -> toast("500 Error")
+                    ERROR_CODE_2001 -> {
+                        Intent(context, Error2001Activity::class.java).apply {
+                            flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                            context.startActivity(this)
+                        }
+                    }
+                    else -> toast("Error : $resultCode :: $resultMsg")
                 }
 
                 return resultCode

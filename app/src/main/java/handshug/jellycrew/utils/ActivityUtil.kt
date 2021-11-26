@@ -24,16 +24,12 @@ object ActivityUtil {
         }
     }
 
-//    fun shutdown(msg: String) {
-//        while (activityList.count() > 0) {
-//            val activity = activityList[0]
-//            if (activity is MainActivity) {
-//                activity.finish(msg)
-//            } else {
-//                activity.finish()
-//            }
-//        }
-//    }
+    fun shutdown() {
+        while (activityList.count() > 0) {
+            val activity = activityList[0]
+            activity.finish()
+        }
+    }
 
     fun removeAll() {
         while (activityList.count() > 0) {

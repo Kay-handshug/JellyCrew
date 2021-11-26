@@ -59,7 +59,7 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>() {
         viewModel.viewEvent.observe(this, {
             it.getContentIfNotHandled()?.let { event ->
                 when (event) {
-                    ACTIVITY_CLOSE -> finish()
+                    ACTIVITY_CLOSE -> finishAffinity() // finish()
                     ACTIVITY_MAIN -> goToMainActivity()
                     ACTIVITY_LOGIN_HOME -> goToMainActivity()
                     ACTIVITY_LOGIN_EMAIL -> goToLoginEmail()

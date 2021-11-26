@@ -19,6 +19,7 @@ import handshug.jellycrew.member.MemberContract.Companion.MEMBER_LOGIN
 import handshug.jellycrew.member.view.dialog.MemberDialog
 import handshug.jellycrew.member.viewModel.MemberViewModel
 import handshug.jellycrew.utils.ActivityUtil
+import handshug.jellycrew.utils.Log
 import org.koin.androidx.viewmodel.ext.android.getViewModel
 
 
@@ -38,10 +39,14 @@ class LoginEmailActivity : BindingActivity<ActivityLoginEmailBinding>() {
         binding.title = getString(R.string.login)
 
         val dialog = MemberDialog(this, viewModel)
-        dialog.showDialogLoginNotFound()
 
         viewModel.toastMessage.observe(this, {
             toast(it)
+        })
+
+        viewModel.isLoginSuccess.observe(this, { state ->
+            if (state) goToMainActivity()
+            else dialog.showDialogLoginNotFound()
         })
 
         viewModel.viewEvent.observe(this, {

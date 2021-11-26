@@ -85,7 +85,7 @@ class MainActivity : BindingActivity<ActivityMainBinding>() {
     private var appEndFlag = false
     override fun onBackPressed() {
         if(appEndFlag) {
-            super.onBackPressed()
+            finishAffinity()
             return
         }
 

@@ -32,6 +32,30 @@ object Preference {
             sharedPreference.edit().putString("deviceUUID", uuid).apply()
         }
 
+    var accessToken: String
+        get() = sharedPreference.getString("accessToken", "").toString()
+        set(accessToken) {
+            sharedPreference.edit().putString("accessToken", accessToken).apply()
+        }
+
+    var refreshToken: String
+        get() = sharedPreference.getString("refreshToken", "").toString()
+        set(refreshToken) {
+            sharedPreference.edit().putString("refreshToken", refreshToken).apply()
+        }
+
+    var accessTokenExpiredAt: Long
+        get() = sharedPreference.getLong("accessTokenExpiredAt", -1L)
+        set(accessTokenExpiredAt) {
+            sharedPreference.edit().putLong("accessTokenExpiredAt", accessTokenExpiredAt).apply()
+        }
+
+    var refreshTokenExpiredAt: Long
+        get() = sharedPreference.getLong("refreshTokenExpiredAt", -1L)
+        set(refreshTokenExpiredAt) {
+            sharedPreference.edit().putLong("refreshTokenExpiredAt", refreshTokenExpiredAt).apply()
+        }
+
 
     /**
      * User Info ############################# Start
@@ -120,19 +144,6 @@ object Preference {
         get() = sharedPreference.getString("userSocialEmail", "").toString()
         set(userSocialEmail) {
             sharedPreference.edit().putString("userSocialEmail", userSocialEmail).apply()
-        }
-
-
-    var accessToken: String
-        get() = sharedPreference.getString("accessToken", "").toString()
-        set(accessToken) {
-            sharedPreference.edit().putString("accessToken", accessToken).apply()
-        }
-
-    var refreshToken: String
-        get() = sharedPreference.getString("refreshToken", "").toString()
-        set(refreshToken) {
-            sharedPreference.edit().putString("refreshToken", refreshToken).apply()
         }
 
     /**

@@ -484,7 +484,7 @@ fun ConstraintLayout.setTitleIndex(viewModel: MemberViewModel, index: Int, isSho
 
     btnLeft.setOnClickListener {
         if(index < 0) viewModel.navigateToLoginHome()
-        else viewModel.activityClose()
+        else viewModel.showDialogFinish()
     }
 
     llIndex01.gone()

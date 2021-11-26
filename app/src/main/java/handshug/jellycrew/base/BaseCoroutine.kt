@@ -1,6 +1,6 @@
 package handshug.jellycrew.base
 
-import handshug.jellycrew.utils.ErrorHandler
+import handshug.jellycrew.error.ErrorHandler
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Dispatchers
 

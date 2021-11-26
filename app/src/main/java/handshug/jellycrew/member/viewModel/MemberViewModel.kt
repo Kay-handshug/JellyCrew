@@ -44,6 +44,9 @@ import handshug.jellycrew.member.MemberContract.Companion.START_LOGIN_KAKAO
 import handshug.jellycrew.member.MemberContract.Companion.START_LOGIN_NAVER
 import handshug.jellycrew.member.model.MemberApi
 import handshug.jellycrew.utils.EtcUtil
+import handshug.jellycrew.utils.JwtUtil
+import handshug.jellycrew.utils.Log
+import handshug.jellycrew.utils.ResponseCode.ERROR_CODE_2001
 import handshug.jellycrew.utils.ResponseCode.SUCCESS
 import handshug.jellycrew.utils.visible
 import kotlinx.coroutines.launch
@@ -69,6 +72,10 @@ class MemberViewModel(private val memberApi: MemberApi) : BaseViewModel(), Membe
     private val _isJoinSuccess: MutableLiveData<Boolean> = MutableLiveData()
     val isJoinSuccess: LiveData<Boolean>
         get() = _isJoinSuccess
+
+    private val _isLoginSuccess: MutableLiveData<Boolean> = MutableLiveData()
+    val isLoginSuccess: LiveData<Boolean>
+        get() = _isLoginSuccess
 
     val selectedGender: MutableLiveData<Int> = MutableLiveData()
 
@@ -182,7 +189,28 @@ class MemberViewModel(private val memberApi: MemberApi) : BaseViewModel(), Membe
     fun loginEmail() {
         viewModelScope.launch(exceptionHandler) {
             memberApi.loginEmail(setLoginEmailParams()).apply {
-                // todo live data check
+
+                Preference.isLogin = false
+
+                if (this.code == SUCCESS) {
+                    val data = this.data.token
+                    Preference.isLogin = true
+                    Preference.accessToken = data.access_token
+                    Preference.refreshToken = data.refresh_token
+                    Preference.userId = data.accountId
+
+                    Log.msg("# JWT accessToken : ${Preference.accessToken}")
+                    Log.msg("# JWT refreshToken : ${Preference.refreshToken}")
+                    Log.msg("# JWT userId : ${Preference.userId}")
+
+                    JwtUtil.decoded(Preference.accessToken, true)
+                    JwtUtil.decoded(Preference.refreshToken, false)
+
+                    _isLoginSuccess.value = true
+                }
+                else {
+                    toast(this.message)
+                }
             }
         }
     }
