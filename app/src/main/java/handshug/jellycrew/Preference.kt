@@ -56,28 +56,28 @@ object Preference {
             sharedPreference.edit().putLong("refreshTokenExpiredAt", refreshTokenExpiredAt).apply()
         }
 
-    var kakaoAccessToken: String
-        get() = sharedPreference.getString("kakaoAccessToken", "").toString()
-        set(kakaoAccessToken) {
-            sharedPreference.edit().putString("kakaooAccessToken", kakaoAccessToken).apply()
+    var socialAccessToken: String
+        get() = sharedPreference.getString("socialAccessToken", "").toString()
+        set(socialAccessToken) {
+            sharedPreference.edit().putString("socialAccessToken", socialAccessToken).apply()
         }
 
-    var kakaoRefreshToken: String
-        get() = sharedPreference.getString("kakaoRefreshToken", "").toString()
-        set(kakaoRefreshToken) {
-            sharedPreference.edit().putString("kakaoRefreshToken", kakaoRefreshToken).apply()
+    var socialRefreshToken: String
+        get() = sharedPreference.getString("socialRefreshToken", "").toString()
+        set(socialRefreshToken) {
+            sharedPreference.edit().putString("socialRefreshToken", socialRefreshToken).apply()
         }
 
-    var kakaoAccessTokenExpiredAt: Long
-        get() = sharedPreference.getLong("kakaoAccessTokenExpiredAt", -1L)
-        set(kakaoAccessTokenExpiredAt) {
-            sharedPreference.edit().putLong("kakaoAccessTokenExpiredAt", kakaoAccessTokenExpiredAt).apply()
+    var socialAccessTokenExpiredAt: Long
+        get() = sharedPreference.getLong("socialAccessTokenExpiredAt", -1L)
+        set(socialAccessTokenExpiredAt) {
+            sharedPreference.edit().putLong("socialAccessTokenExpiredAt", socialAccessTokenExpiredAt).apply()
         }
 
-    var kakaoRefreshTokenExpiredAt: Long
-        get() = sharedPreference.getLong("kakaoRefreshTokenExpiredAt", -1L)
-        set(kakaoRefreshTokenExpiredAt) {
-            sharedPreference.edit().putLong("kakaoRefreshTokenExpiredAt", kakaoRefreshTokenExpiredAt).apply()
+    var socialRefreshTokenExpiredAt: Long
+        get() = sharedPreference.getLong("socialRefreshTokenExpiredAt", -1L)
+        set(socialRefreshTokenExpiredAt) {
+            sharedPreference.edit().putLong("socialRefreshTokenExpiredAt", socialRefreshTokenExpiredAt).apply()
         }
 
 

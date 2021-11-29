@@ -57,6 +57,15 @@ object EtcUtil {
         }
     }
 
+    fun getUserSocialType(): String {
+        return when(Preference.loginType) {
+            1 -> "KAKAO"
+            2 -> "NAVER"
+            3 -> "FACEBOOK"
+            else -> ""
+        }
+    }
+
     fun logout() {
         Preference.isLogin = false
         Preference.userPassword = ""

@@ -85,6 +85,7 @@ class JoinUserInfoFragment : BindingFragment<FragmentJoinUserInfoBinding>() {
 
                         Preference.userBirth = birth
                         Preference.userGender = EtcUtil.getGenderType(gender)
+                        if (Preference.loginType != 0) Preference.userPassword = ""
 
                         viewModel.joinConfirm()
                     }

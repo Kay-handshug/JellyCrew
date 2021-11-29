@@ -248,11 +248,11 @@ class MemberViewModel(private val memberApi: MemberApi) : BaseViewModel(), Membe
         this["recommendFriend"] = Preference.userFriend
         this["marketingAgreement"] = Preference.isMarketingAgree
         this["lifeTimeMember"] = Preference.isLifeTimeMember
-        this["socialType"] = Preference.userSocialType
+        this["socialType"] = EtcUtil.getUserSocialType()
         this["socialId"] = Preference.userSocialId
         this["socialEmail"] = Preference.userSocialEmail
-        this["accessToken"] = ""
-        this["refreshToken"] = ""
+        this["accessToken"] = Preference.socialAccessToken
+        this["refreshToken"] = Preference.socialRefreshToken
     }
 
     fun countDownTimer(textView: AppCompatTextView, errorMsg: AppCompatTextView,
