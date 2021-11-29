@@ -60,6 +60,6 @@ class JoinEmailFragment : BindingFragment<FragmentJoinEmailBinding>() {
     private fun goToPassword() {
         val userEmail = binding.etJoinEmailInput.text.toString()
         Preference.userEmail = userEmail
-        (activity as JoinActivity).moveChangePosition(3)
+        (activity as JoinActivity).moveChangePosition(if (Preference.loginType ==0) 3 else 2)
     }
 }
