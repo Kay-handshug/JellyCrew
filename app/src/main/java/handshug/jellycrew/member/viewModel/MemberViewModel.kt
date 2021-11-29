@@ -129,7 +129,7 @@ class MemberViewModel(private val memberApi: MemberApi) : BaseViewModel(), Membe
     fun phoneVerifySend(phoneNumber: String) {
         viewModelScope.launch(exceptionHandler) {
             memberApi.phoneVerifySend(phoneNumber).apply {
-                _isPhoneVerifySendSuccess.value = this.code == SUCCESS
+                _isPhoneVerifySendSuccess.value = checkSuccess(this.code)
             }
         }
     }
@@ -137,7 +137,7 @@ class MemberViewModel(private val memberApi: MemberApi) : BaseViewModel(), Membe
     fun phoneVerifyConfirm(phoneNumber: String, verifyCode: String) {
         viewModelScope.launch(exceptionHandler) {
             memberApi.phoneVerifyConfirm(phoneNumber, verifyCode).apply {
-                _isPhoneVerifyConfirmSuccess.value = this.code == SUCCESS
+                _isPhoneVerifyConfirmSuccess.value = checkSuccess(this.code)
             }
         }
     }
@@ -145,7 +145,7 @@ class MemberViewModel(private val memberApi: MemberApi) : BaseViewModel(), Membe
     fun alreadyJoinCheckMigration(phoneNumber: String, userName: String) {
         viewModelScope.launch(exceptionHandler) {
             memberApi.checkMigration(phoneNumber, userName).apply {
-                if (this.code == SUCCESS) {
+                if (checkSuccess(this.code)) {
                     // 기회원 -> dialog show
                     _alreadyJoinData.value = this.data
                 }
@@ -160,7 +160,7 @@ class MemberViewModel(private val memberApi: MemberApi) : BaseViewModel(), Membe
     fun sameCheckEmail(email: String) {
         viewModelScope.launch(exceptionHandler) {
             memberApi.checkEmail(email).apply {
-                if (this.code == SUCCESS) {
+                if (checkSuccess(this.code)) {
                     _sameCheckEmail.value = this.data
                 }
                 else {
@@ -181,7 +181,7 @@ class MemberViewModel(private val memberApi: MemberApi) : BaseViewModel(), Membe
                     Preference.userName,
                     "DIRECT"
             ).apply {
-                _isJoinSuccess.value = this.code == SUCCESS
+                _isJoinSuccess.value = checkSuccess(this.code)
             }
         }
     }
@@ -192,7 +192,7 @@ class MemberViewModel(private val memberApi: MemberApi) : BaseViewModel(), Membe
 
                 Preference.isLogin = false
 
-                if (this.code == SUCCESS) {
+                if (checkSuccess(this.code)) {
                     val data = this.data.token
                     Preference.isLogin = true
                     Preference.accessToken = data.access_token
@@ -218,7 +218,9 @@ class MemberViewModel(private val memberApi: MemberApi) : BaseViewModel(), Membe
     fun loginSocial(accessToken: String, socialType: String) {
         viewModelScope.launch(exceptionHandler) {
             memberApi.loginSocial(setLoginSocialParams(accessToken, socialType)).apply {
-                toast(this.message)
+                if (checkSuccess(this.code)) {
+                    toast(this.message)
+                }
             }
         }
     }
@@ -230,7 +232,6 @@ class MemberViewModel(private val memberApi: MemberApi) : BaseViewModel(), Membe
 
     private fun setLoginSocialParams(accessToken: String, socialType: String) = mutableMapOf<String, Any>().apply {
         this["appType"] = "AOS"
-        this["socialId"] = "aaa"
         this["socialType"] = socialType
         this["token"] = accessToken
     }

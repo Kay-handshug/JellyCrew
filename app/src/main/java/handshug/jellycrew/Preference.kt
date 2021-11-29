@@ -56,6 +56,32 @@ object Preference {
             sharedPreference.edit().putLong("refreshTokenExpiredAt", refreshTokenExpiredAt).apply()
         }
 
+    var kakaoAccessToken: String
+        get() = sharedPreference.getString("kakaoAccessToken", "").toString()
+        set(kakaoAccessToken) {
+            sharedPreference.edit().putString("kakaooAccessToken", kakaoAccessToken).apply()
+        }
+
+    var kakaoRefreshToken: String
+        get() = sharedPreference.getString("kakaoRefreshToken", "").toString()
+        set(kakaoRefreshToken) {
+            sharedPreference.edit().putString("kakaoRefreshToken", kakaoRefreshToken).apply()
+        }
+
+    var kakaoAccessTokenExpiredAt: Long
+        get() = sharedPreference.getLong("kakaoAccessTokenExpiredAt", -1L)
+        set(kakaoAccessTokenExpiredAt) {
+            sharedPreference.edit().putLong("kakaoAccessTokenExpiredAt", kakaoAccessTokenExpiredAt).apply()
+        }
+
+    var kakaoRefreshTokenExpiredAt: Long
+        get() = sharedPreference.getLong("kakaoRefreshTokenExpiredAt", -1L)
+        set(kakaoRefreshTokenExpiredAt) {
+            sharedPreference.edit().putLong("kakaoRefreshTokenExpiredAt", kakaoRefreshTokenExpiredAt).apply()
+        }
+
+
+
 
     /**
      * User Info ############################# Start

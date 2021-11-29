@@ -61,6 +61,7 @@ class LoginEmailActivity : BindingActivity<ActivityLoginEmailBinding>() {
                     ACTIVITY_FIND_EMAIL -> goToFindEmail()
                     ACTIVITY_RESET_PASSWORD -> goToResetPassword()
                     MEMBER_LOGIN -> {
+                        Preference.loginType = 0
                         Preference.userEmail = binding.etLoginEmailInput.text.toString()
                         Preference.userPassword = binding.etLoginPasswordInput.text.toString()
 

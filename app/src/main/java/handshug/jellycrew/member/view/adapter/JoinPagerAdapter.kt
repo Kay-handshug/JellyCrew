@@ -6,7 +6,8 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import handshug.jellycrew.member.view.*
 
 class JoinPagerAdapter(
-    fragmentActivity: FragmentActivity
+        fragmentActivity: FragmentActivity,
+        private val isSocialJoin: Boolean = false
 ) : FragmentStateAdapter(fragmentActivity) {
 
     companion object {
@@ -16,6 +17,11 @@ class JoinPagerAdapter(
         private const val PASSWORD = 3
         private const val USER_INFO = 4
         private const val SUCCESS = 5
+
+        private const val SNS_PHONE = 0
+        private const val SNS_EMAIL = 1
+        private const val SNS_PASSWORD = 2
+        private const val SNS_USER_INFO = 3
     }
 
     private val fragmentsCreators: Map<Int, () -> Fragment?> = mapOf(
@@ -26,11 +32,19 @@ class JoinPagerAdapter(
             USER_INFO to { JoinUserInfoFragment.newInstance() }
     )
 
+    private val fragmentsCreatorsForSocial: Map<Int, () -> Fragment?> = mapOf(
+            SNS_PHONE to { JoinPhoneFragment.newInstance() },
+            SNS_EMAIL to { JoinEmailFragment.newInstance() },
+            SNS_PASSWORD to { JoinPasswordFragment.newInstance() },
+            SNS_USER_INFO to { JoinUserInfoFragment.newInstance() }
+    )
+
     override fun getItemCount(): Int {
-        return fragmentsCreators.size
+        return if (isSocialJoin) fragmentsCreatorsForSocial.size else fragmentsCreators.size
     }
 
     override fun createFragment(position: Int): Fragment {
-        return fragmentsCreators[position]?.invoke() ?: throw IndexOutOfBoundsException()
+        return if (isSocialJoin) fragmentsCreatorsForSocial[position]?.invoke() ?: throw IndexOutOfBoundsException()
+        else fragmentsCreators[position]?.invoke() ?: throw IndexOutOfBoundsException()
     }
 }

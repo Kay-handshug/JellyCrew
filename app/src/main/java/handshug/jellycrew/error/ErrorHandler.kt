@@ -4,6 +4,9 @@ import android.content.Context
 import android.content.Intent
 import android.widget.Toast
 import com.google.gson.annotations.SerializedName
+import handshug.jellycrew.Preference
+import handshug.jellycrew.R
+import handshug.jellycrew.member.view.JoinActivity
 import handshug.jellycrew.utils.ActivityUtil
 import handshug.jellycrew.utils.NetworkConnectionInterceptor
 import handshug.jellycrew.utils.ResponseCode.ERROR_CODE_2001
@@ -31,9 +34,20 @@ object ErrorHandler {
                 when (resultCode) {
                     INTERNAL_SERVER_ERROR -> toast("500 Error")
                     ERROR_CODE_2001 -> {
-                        Intent(context, Error2001Activity::class.java).apply {
-                            flags = Intent.FLAG_ACTIVITY_NEW_TASK
-                            context.startActivity(this)
+                        when (Preference.loginType) {
+                            0 -> {
+                                Intent(context, Error2001Activity::class.java).apply {
+                                    flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                                    context.startActivity(this)
+                                }
+                            }
+                            1, 2, 3 -> {
+                                Intent(context, JoinActivity::class.java).apply {
+                                    flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                                    this.putExtra("isSocialJoin", true)
+                                    context.startActivity(this)
+                                }
+                            }
                         }
                     }
                     else -> toast("Error : $resultCode :: $resultMsg")

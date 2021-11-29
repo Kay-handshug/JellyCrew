@@ -81,14 +81,17 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>() {
                 logMsg = "# Login kakao fail : $error"
                 Log.msg(logMsg)
             }
-            else if(token != null) {
+            else token?.apply {
                 Preference.loginType = 1
+                Preference.accessToken = accessToken
+                Preference.accessTokenExpiredAt = accessTokenExpiresAt.time
+                Preference.refreshToken = refreshToken
+                Preference.refreshTokenExpiredAt = refreshTokenExpiresAt.time
+
                 logMsg = "# Login kakao success : ${token.accessToken}"
                 Log.msg(logMsg)
 
-//                viewModel.loginSocial(token.accessToken, "KAKAO")
-
-                goToMainActivity()
+                viewModel.loginSocial(token.accessToken, "KAKAO")
             }
             toast(logMsg)
         }

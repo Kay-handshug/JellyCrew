@@ -54,8 +54,7 @@ interface MemberApi {
             @Body params: MutableMap<String, Any>
     ): JellyCrewAPIPostResponse<MemberLoginEmailResponse>
 
-    // Social Login ///// http://10.3.63.70:5000
-    @POST("/api/swagger-ui.html#/account-controller/loginSocialAccountUsingPOST")
+    @POST("/api/account/v1/login/social")
     suspend fun loginSocial(
             @Body  params: MutableMap<String, Any>
     ): JellyCrewAPIPostResponse<String>

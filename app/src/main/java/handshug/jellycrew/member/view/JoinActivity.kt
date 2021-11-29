@@ -35,7 +35,8 @@ class JoinActivity : BindingActivity<ActivityJoinBinding>() {
         val dialog = MemberDialog(this, viewModel)
         showFinishDialog = dialog.showLoginFinishDialog()
 
-        val pagerAdapter = JoinPagerAdapter(this)
+        val isSocialJoin = intent.getBooleanExtra("isSocialJoin", false)
+        val pagerAdapter = JoinPagerAdapter(this, isSocialJoin)
 
         viewPager = binding.vpJoin
         viewPager.adapter = pagerAdapter
