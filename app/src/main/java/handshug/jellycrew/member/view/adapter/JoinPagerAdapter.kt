@@ -20,8 +20,7 @@ class JoinPagerAdapter(
 
         private const val SNS_PHONE = 0
         private const val SNS_EMAIL = 1
-        private const val SNS_PASSWORD = 2
-        private const val SNS_USER_INFO = 3
+        private const val SNS_USER_INFO = 2
     }
 
     private val fragmentsCreators: Map<Int, () -> Fragment?> = mapOf(
@@ -35,7 +34,6 @@ class JoinPagerAdapter(
     private val fragmentsCreatorsForSocial: Map<Int, () -> Fragment?> = mapOf(
             SNS_PHONE to { JoinPhoneFragment.newInstance() },
             SNS_EMAIL to { JoinEmailFragment.newInstance() },
-            SNS_PASSWORD to { JoinPasswordFragment.newInstance() },
             SNS_USER_INFO to { JoinUserInfoFragment.newInstance() }
     )
 

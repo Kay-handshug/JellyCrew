@@ -145,7 +145,7 @@ class JoinPhoneFragment : BindingFragment<FragmentJoinPhoneBinding>() {
         val userPhoneNumber = binding.etJoinPhoneInput.text.toString()
         Preference.userName = userName
         Preference.userPhoneNumber = userPhoneNumber
-        (activity as JoinActivity).moveChangePosition(2)
+        (activity as JoinActivity).moveChangePosition(if (Preference.loginType ==0) 2 else 1)
     }
 
     override fun onDestroy() {

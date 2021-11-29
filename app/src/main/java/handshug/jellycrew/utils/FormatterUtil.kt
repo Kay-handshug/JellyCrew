@@ -184,6 +184,16 @@ object FormatterUtil {
         return SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(calendar.time)
     }
 
+    fun getBirthStringFormat(year: String, day: String): String {
+        var result = ""
+        if (year.isNotEmpty() && day.isNotEmpty()) {
+            val subMonth = day.substring(0, 1)
+            val subDay = day.substring(2,3)
+            result = "$year-$subMonth-$subDay"
+        }
+        return result
+    }
+
     fun convertLocalDateToCalendarDay(localDate: LocalDate): CalendarDay {
         return CalendarDay.from(localDate.year, localDate.monthValue, localDate.dayOfMonth)
     }

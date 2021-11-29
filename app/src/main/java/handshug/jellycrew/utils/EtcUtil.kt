@@ -61,8 +61,7 @@ object EtcUtil {
         Preference.isLogin = false
         Preference.userPassword = ""
         Preference.userSocialEmail = ""
-        Preference.userSocialId = ""
-        Preference.userSocialId = ""
+        Preference.userSocialId = -1L
         Preference.accessToken = ""
         Preference.refreshToken = ""
     }

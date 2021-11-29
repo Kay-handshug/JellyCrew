@@ -160,16 +160,46 @@ object Preference {
             sharedPreference.edit().putString("userSocialType", userSocialType).apply()
         }
 
-    var userSocialId: String
-        get() = sharedPreference.getString("userSocialId", "").toString()
+    var userSocialId: Long
+        get() = sharedPreference.getLong("userSocialId", -1L)
         set(userSocialId) {
-            sharedPreference.edit().putString("userSocialId", userSocialId).apply()
+            sharedPreference.edit().putLong("userSocialId", userSocialId).apply()
         }
 
     var userSocialEmail: String
         get() = sharedPreference.getString("userSocialEmail", "").toString()
         set(userSocialEmail) {
             sharedPreference.edit().putString("userSocialEmail", userSocialEmail).apply()
+        }
+
+    var userSocialPhoneNumber: String
+        get() = sharedPreference.getString("userSocialPhoneNumber", "").toString()
+        set(userSocialPhoneNumber) {
+            sharedPreference.edit().putString("userSocialPhoneNumber", userSocialPhoneNumber).apply()
+        }
+
+    var userSocialNickname: String
+        get() = sharedPreference.getString("userSocialNickname", "").toString()
+        set(userSocialNickname) {
+            sharedPreference.edit().putString("userSocialNickname", userSocialNickname).apply()
+        }
+
+    var userSocialPhoto: String
+        get() = sharedPreference.getString("userSocialPhoto", "").toString()
+        set(userSocialPhoto) {
+            sharedPreference.edit().putString("userSocialPhoto", userSocialPhoto).apply()
+        }
+
+    var userSocialGender: String
+        get() = sharedPreference.getString("userSocialGender", "").toString()
+        set(userSocialGender) {
+            sharedPreference.edit().putString("userSocialGender", userSocialGender).apply()
+        }
+
+    var userSocialBirthDay: String
+        get() = sharedPreference.getString("userSocialBirthDay", "").toString()
+        set(userSocialBirthDay) {
+            sharedPreference.edit().putString("userSocialBirthDay", userSocialBirthDay).apply()
         }
 
     /**

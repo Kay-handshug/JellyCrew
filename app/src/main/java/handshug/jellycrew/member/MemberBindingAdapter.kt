@@ -12,6 +12,7 @@ import androidx.appcompat.widget.AppCompatCheckBox
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.BindingAdapter
+import handshug.jellycrew.Preference
 import handshug.jellycrew.R
 import handshug.jellycrew.member.viewModel.MemberViewModel
 import handshug.jellycrew.utils.*
@@ -168,6 +169,52 @@ fun ConstraintLayout.setCheckLogin(viewModel: MemberViewModel) {
     })
 }
 
+@BindingAdapter("setTitleIndex", "setIndex", "isShowRightBtn", "setTitle")
+fun ConstraintLayout.setTitleIndex(viewModel: MemberViewModel, index: Int, isShowRightBtn: Boolean = false, title: String) {
+    val btnRight = this.btn_title_close
+    val btnLeft = this.btn_title_back
+
+    val llIndex01 = this.ll_index_01
+    val llIndex02 = this.ll_index_02
+    val llIndex03 = this.ll_index_03
+    val llIndex04 = this.ll_index_04
+    val llIndex05 = this.ll_index_05
+
+    val tvTitle = this.tv_title
+    tvTitle.text = if(title.isNotEmpty()) title else context.getString(R.string.join_title)
+
+    if (isShowRightBtn) btnRight.visible()
+    else btnRight.gone()
+
+    btnLeft.setOnClickListener {
+        if(index < 0) viewModel.navigateToLoginHome()
+        else viewModel.showDialogFinish()
+    }
+
+    llIndex01.gone()
+    llIndex02.gone()
+    llIndex03.gone()
+    llIndex04.gone()
+    llIndex05.gone()
+
+    if (Preference.loginType == 0) {
+        when (index) {
+            0 -> llIndex01.visible()
+            1 -> llIndex02.visible()
+            2 -> llIndex03.visible()
+            3 -> llIndex04.visible()
+            4 -> llIndex05.visible()
+        }
+    }
+    else {
+        when (index) {
+            0 -> llIndex01.visible()
+            1 -> llIndex03.visible()
+            2 -> llIndex05.visible()
+        }
+    }
+}
+
 @BindingAdapter("setCheckTerms")
 fun ConstraintLayout.setCheckTerms(viewModel: MemberViewModel) {
     val cbAgreeAll = this.cb_join_terms_agree_all
@@ -292,6 +339,10 @@ fun ConstraintLayout.setCheckPhoneVerify(viewModel: MemberViewModel) {
 
     val tvInputVerifyCountDown = this.tv_join_phone_input_verify_number_countdown
     val tvInputErrorMsg = this.tv_join_phone_input_error_msg
+
+    if (Preference.loginType != 0 && Preference.userSocialPhoneNumber.isNotEmpty()) {
+        etInputPhoneNumber.setText(Preference.userSocialPhoneNumber)
+    }
 
     this.setOnClickListener {
         viewModel.hideKeyboard(it)
@@ -465,43 +516,6 @@ fun loseFocusRecheck(view: View, state: Boolean) {
     }
 }
 
-@BindingAdapter("setTitleIndex", "setIndex", "isShowRightBtn", "setTitle")
-fun ConstraintLayout.setTitleIndex(viewModel: MemberViewModel, index: Int, isShowRightBtn: Boolean = false, title: String) {
-    val btnRight = this.btn_title_close
-    val btnLeft = this.btn_title_back
-
-    val llIndex01 = this.ll_index_01
-    val llIndex02 = this.ll_index_02
-    val llIndex03 = this.ll_index_03
-    val llIndex04 = this.ll_index_04
-    val llIndex05 = this.ll_index_05
-
-    val tvTitle = this.tv_title
-    tvTitle.text = if(title.isNotEmpty()) title else context.getString(R.string.join_title)
-
-    if (isShowRightBtn) btnRight.visible()
-    else btnRight.gone()
-
-    btnLeft.setOnClickListener {
-        if(index < 0) viewModel.navigateToLoginHome()
-        else viewModel.showDialogFinish()
-    }
-
-    llIndex01.gone()
-    llIndex02.gone()
-    llIndex03.gone()
-    llIndex04.gone()
-    llIndex05.gone()
-
-    when (index) {
-        0 -> llIndex01.visible()
-        1 -> llIndex02.visible()
-        2 -> llIndex03.visible()
-        3 -> llIndex04.visible()
-        4 -> llIndex05.visible()
-    }
-}
-
 @SuppressLint("UseCompatLoadingForDrawables")
 @BindingAdapter("setCheckEmail")
 fun ConstraintLayout.setCheckEmail(viewModel: MemberViewModel) {
@@ -510,6 +524,10 @@ fun ConstraintLayout.setCheckEmail(viewModel: MemberViewModel) {
 
     val etEmailInput = this.et_join_email_input
     val tvInputErrorMsg = this.tv_join_email_input_error_msg
+
+    if (Preference.loginType != 0 && Preference.userSocialEmail.isNotEmpty()) {
+        etEmailInput.setText(Preference.userSocialEmail)
+    }
 
     this.setOnClickListener {
         viewModel.hideKeyboard(it)
@@ -732,6 +750,17 @@ fun ConstraintLayout.setCheckUserInfo(viewModel: MemberViewModel) {
 
     val tvBirth = this.tv_join_user_info_birth
     val tvGender = this.tv_join_user_info_gender
+
+    if (Preference.loginType != 0) {
+        if (Preference.userSocialBirthDay.isNotEmpty()) {
+            tvBirth.text = Preference.userSocialBirthDay
+            tvBirth.isSelected = true
+        }
+        if (Preference.userSocialGender.isNotEmpty()) {
+            if (Preference.userSocialGender.contains("fe")) viewModel.selectedGender.value = 0
+            else viewModel.selectedGender.value = 1
+        }
+    }
 
     this.setOnClickListener {
         viewModel.hideKeyboard(it)

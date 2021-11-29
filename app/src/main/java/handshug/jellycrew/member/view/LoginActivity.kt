@@ -32,6 +32,7 @@ import handshug.jellycrew.member.MemberContract.Companion.START_LOGIN_KAKAO
 import handshug.jellycrew.member.MemberContract.Companion.START_LOGIN_NAVER
 import handshug.jellycrew.member.viewModel.MemberViewModel
 import handshug.jellycrew.utils.ActivityUtil
+import handshug.jellycrew.utils.FormatterUtil
 import handshug.jellycrew.utils.Log
 import org.koin.androidx.viewmodel.ext.android.getViewModel
 
@@ -75,13 +76,13 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>() {
     }
 
     private fun startLoginKakao(viewModel: MemberViewModel) {
+        val client = UserApiClient.instance
         val callback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
             var logMsg = ""
-            if(error != null) {
+            if (error != null) {
                 logMsg = "# Login kakao fail : $error"
                 Log.msg(logMsg)
-            }
-            else token?.apply {
+            } else token?.apply {
                 Preference.loginType = 1
                 Preference.accessToken = accessToken
                 Preference.accessTokenExpiredAt = accessTokenExpiresAt.time
@@ -91,13 +92,31 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>() {
                 logMsg = "# Login kakao success : ${token.accessToken}"
                 Log.msg(logMsg)
 
-                viewModel.loginSocial(token.accessToken, "KAKAO")
+                client.me { user, error2 ->
+                    if (error != null) {
+                        Log.msg("# Login kakao user info access fail : $error2")
+                    } else if (user != null) {
+                        Log.msg("# Login kakao user info access success : ${user.kakaoAccount?.email}")
+
+                        val userAccount = user.kakaoAccount
+                        val userBirth = FormatterUtil.getBirthStringFormat(userAccount?.birthyear
+                                ?: "", userAccount?.birthday ?: "")
+                        Preference.userSocialId = user.id
+                        Preference.userSocialEmail = userAccount?.email ?: ""
+                        Preference.userSocialPhoneNumber = userAccount?.phoneNumber ?: ""
+                        Preference.userSocialNickname = userAccount?.profile?.nickname ?: ""
+                        Preference.userSocialPhoto = userAccount?.profile?.thumbnailImageUrl ?: ""
+                        Preference.userSocialGender = userAccount?.gender?.name ?: ""
+                        Preference.userSocialBirthDay = userBirth
+                    }
+
+                    viewModel.loginSocial(token.accessToken, "KAKAO")
+                }
+                toast(logMsg)
             }
-            toast(logMsg)
         }
 
-        val client = UserApiClient.instance
-        if(client.isKakaoTalkLoginAvailable(this)) {
+        if (client.isKakaoTalkLoginAvailable(this)) {
             client.loginWithKakaoTalk(this, callback = callback)
         } else {
             client.loginWithKakaoAccount(this, callback = callback)
