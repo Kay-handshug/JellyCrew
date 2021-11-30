@@ -66,61 +66,13 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>() {
                     ACTIVITY_LOGIN_EMAIL -> goToLoginEmail()
                     ACTIVITY_PAST_ORDERS -> goToPastOrders()
                     FRAGMENT_JOIN_TERMS -> goToJoinTerms()
-                    START_LOGIN_KAKAO -> startLoginKakao(viewModel)
+                    START_LOGIN_KAKAO -> viewModel.startLoginKakao(this) // startLoginKakao(viewModel)
                     START_LOGIN_NAVER -> startLoginNaver()
                     START_LOGIN_FACEBOOK -> startLoginFacebook()
                     LOGIN_SUCCESS -> goToMainActivity()
                 }
             }
         })
-    }
-
-    private fun startLoginKakao(viewModel: MemberViewModel) {
-        val client = UserApiClient.instance
-        val callback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
-            var logMsg = ""
-            if (error != null) {
-                logMsg = "# Login kakao fail : $error"
-                Log.msg(logMsg)
-            } else token?.apply {
-                Preference.loginType = 1
-                Preference.accessToken = accessToken
-                Preference.accessTokenExpiredAt = accessTokenExpiresAt.time
-                Preference.refreshToken = refreshToken
-                Preference.refreshTokenExpiredAt = refreshTokenExpiresAt.time
-
-                logMsg = "# Login kakao success : ${token.accessToken}"
-                Log.msg(logMsg)
-
-                client.me { user, error2 ->
-                    if (error != null) {
-                        Log.msg("# Login kakao user info access fail : $error2")
-                    } else if (user != null) {
-                        Log.msg("# Login kakao user info access success : ${user.kakaoAccount?.email}")
-
-                        val userAccount = user.kakaoAccount
-                        val userBirth = FormatterUtil.getBirthStringFormat(userAccount?.birthyear
-                                ?: "", userAccount?.birthday ?: "")
-                        Preference.userSocialId = user.id
-                        Preference.userSocialEmail = userAccount?.email ?: ""
-                        Preference.userSocialPhoneNumber = userAccount?.phoneNumber ?: ""
-                        Preference.userSocialNickname = userAccount?.profile?.nickname ?: ""
-                        Preference.userSocialPhoto = userAccount?.profile?.thumbnailImageUrl ?: ""
-                        Preference.userSocialGender = userAccount?.gender?.name ?: ""
-                        Preference.userSocialBirthDay = userBirth
-                    }
-
-                    viewModel.loginSocial(token.accessToken, "KAKAO")
-                }
-                toast(logMsg)
-            }
-        }
-
-        if (client.isKakaoTalkLoginAvailable(this)) {
-            client.loginWithKakaoTalk(this, callback = callback)
-        } else {
-            client.loginWithKakaoAccount(this, callback = callback)
-        }
     }
 
     @SuppressLint("HandlerLeak")

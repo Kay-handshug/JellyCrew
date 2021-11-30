@@ -1,12 +1,15 @@
 package handshug.jellycrew.member.viewModel
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.os.CountDownTimer
 import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.kakao.sdk.auth.model.OAuthToken
+import com.kakao.sdk.user.UserApiClient
 import handshug.jellycrew.Preference
 import handshug.jellycrew.R
 import handshug.jellycrew.api.member.MemberPhoneCheckMigrationResponse
@@ -43,13 +46,11 @@ import handshug.jellycrew.member.MemberContract.Companion.START_LOGIN_FACEBOOK
 import handshug.jellycrew.member.MemberContract.Companion.START_LOGIN_KAKAO
 import handshug.jellycrew.member.MemberContract.Companion.START_LOGIN_NAVER
 import handshug.jellycrew.member.model.MemberApi
-import handshug.jellycrew.utils.EtcUtil
-import handshug.jellycrew.utils.JwtUtil
-import handshug.jellycrew.utils.Log
+import handshug.jellycrew.utils.*
 import handshug.jellycrew.utils.ResponseCode.ERROR_CODE_2001
 import handshug.jellycrew.utils.ResponseCode.SUCCESS
-import handshug.jellycrew.utils.visible
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class MemberViewModel(private val memberApi: MemberApi) : BaseViewModel(), MemberContract {
 
@@ -253,6 +254,54 @@ class MemberViewModel(private val memberApi: MemberApi) : BaseViewModel(), Membe
         this["socialEmail"] = Preference.userSocialEmail
         this["accessToken"] = Preference.socialAccessToken
         this["refreshToken"] = Preference.socialRefreshToken
+    }
+
+    fun startLoginKakao(context: Context) {
+        viewModelScope.launch(exceptionHandler) {
+            val client = UserApiClient.instance
+            val callback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
+                var logMsg = ""
+                if (error != null) {
+                    logMsg = "# Login kakao fail : $error"
+                    Log.msg(logMsg)
+                } else token?.apply {
+                    Preference.loginType = 1
+                    Preference.accessToken = accessToken
+                    Preference.accessTokenExpiredAt = accessTokenExpiresAt.time
+                    Preference.refreshToken = refreshToken
+                    Preference.refreshTokenExpiredAt = refreshTokenExpiresAt.time
+
+                    logMsg = "# Login kakao success : ${token.accessToken}"
+                    Log.msg(logMsg)
+
+                    client.me { user, _ ->
+                        if (user != null) {
+                            Log.msg("# Login kakao user info access success : ${user.kakaoAccount?.email}")
+
+                            val userAccount = user.kakaoAccount
+                            val userBirth = FormatterUtil.getBirthStringFormat(userAccount?.birthyear
+                                ?: "", userAccount?.birthday ?: "")
+                            Preference.userSocialId = user.id
+                            Preference.userSocialEmail = userAccount?.email ?: ""
+                            Preference.userSocialPhoneNumber = userAccount?.phoneNumber ?: ""
+                            Preference.userSocialNickname = userAccount?.profile?.nickname ?: ""
+                            Preference.userSocialPhoto = userAccount?.profile?.thumbnailImageUrl ?: ""
+                            Preference.userSocialGender = userAccount?.gender?.name ?: ""
+                            Preference.userSocialBirthDay = userBirth
+                        }
+
+                        loginSocial(token.accessToken, "KAKAO")
+                    }
+                    toast(logMsg)
+                }
+            }
+
+            if (client.isKakaoTalkLoginAvailable(context)) {
+                client.loginWithKakaoTalk(context, callback = callback)
+            } else {
+                client.loginWithKakaoAccount(context, callback = callback)
+            }
+        }
     }
 
     fun countDownTimer(textView: AppCompatTextView, errorMsg: AppCompatTextView,

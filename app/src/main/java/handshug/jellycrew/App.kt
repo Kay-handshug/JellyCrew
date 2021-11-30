@@ -30,17 +30,17 @@ class App : Application() {
         }
 
         // 초기설정 - 해당 프로젝트(안드로이드)의 application id 값을 설정합니다. 결제와 통계를 위해 꼭 필요합니다.
-        BootpayAnalytics.init(this, "616e6b217b5ba4f7e3529b99")
+        BootpayAnalytics.init(this, this.getString(R.string.BOOTPAY_APPLICATION_ID))
 
         // Kakao
-        KakaoSdk.init(this, "aed9b518e0077c6a7c0b1a367bca9f10")
+        KakaoSdk.init(this, this.getString(R.string.KAKAO_APP_KEY))
         
         // Naver
         OAuthLogin.getInstance().init(
             this,
-            "u5KRBxmTD3QCsM7l3wF2",
-            "07YMCEwPuh",
-            getString(R.string.app_name)
+            this.getString(R.string.NAVER_CLIENT_ID),
+            this.getString(R.string.NAVER_CLIENT_SECRET),
+            this.getString(R.string.app_name)
         )
 
         // Facebook
