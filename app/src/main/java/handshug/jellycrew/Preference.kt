@@ -166,6 +166,12 @@ object Preference {
             sharedPreference.edit().putString("userSocialId", userSocialId).apply()
         }
 
+    var userSocialName: String
+        get() = sharedPreference.getString("userSocialName", "").toString()
+        set(userSocialName) {
+            sharedPreference.edit().putString("userSocialName", userSocialName).apply()
+        }
+
     var userSocialEmail: String
         get() = sharedPreference.getString("userSocialEmail", "").toString()
         set(userSocialEmail) {

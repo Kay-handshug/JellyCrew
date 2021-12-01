@@ -50,17 +50,8 @@ import handshug.jellycrew.member.MemberContract.Companion.START_LOGIN_FACEBOOK
 import handshug.jellycrew.member.MemberContract.Companion.START_LOGIN_KAKAO
 import handshug.jellycrew.member.MemberContract.Companion.START_LOGIN_NAVER
 import handshug.jellycrew.member.model.MemberApi
-import handshug.jellycrew.modules.ApiContract
 import handshug.jellycrew.utils.*
 import kotlinx.coroutines.launch
-import okhttp3.internal.http.HttpMethod
-import java.io.BufferedReader
-import java.io.IOException
-import java.io.InputStream
-import java.io.InputStreamReader
-import java.net.HttpURLConnection
-import java.net.MalformedURLException
-import java.net.URL
 
 class MemberViewModel(private val memberApi: MemberApi) : BaseViewModel(), MemberContract {
 
