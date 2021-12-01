@@ -6,6 +6,7 @@ import com.google.gson.*
 import com.google.gson.reflect.TypeToken
 import handshug.jellycrew.Preference
 import handshug.jellycrew.TimeSynchronizer
+import handshug.jellycrew.api.member.MemberLoginResponse
 import java.nio.ByteBuffer
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -66,6 +67,15 @@ object EtcUtil {
         }
     }
 
+    fun login(result: MemberLoginResponse) {
+        Preference.apply {
+            val token = result.token
+            userId = token.accountId
+            accessToken = token.access_token
+            refreshToken = token.refresh_token
+        }
+    }
+
     fun logout() {
         Preference.isLogin = false
         Preference.userPassword = ""
@@ -73,5 +83,26 @@ object EtcUtil {
         Preference.userSocialId = ""
         Preference.accessToken = ""
         Preference.refreshToken = ""
+    }
+
+    fun joinEmail() {
+        Preference.apply {
+            userSocialId = ""
+            userSocialName = ""
+            userSocialEmail = ""
+            userSocialBirthDay = ""
+            userSocialPhoto = ""
+            userSocialNickname = ""
+            userSocialGender = ""
+            userSocialPhoneNumber = ""
+            userSocialType = ""
+
+            socialAccessToken = ""
+            socialAccessTokenExpiredAt = -1L
+            socialRefreshToken = ""
+            socialRefreshTokenExpiredAt = -1L
+
+            loginType = 0
+        }
     }
 }

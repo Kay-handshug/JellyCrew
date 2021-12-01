@@ -87,6 +87,7 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>() {
         loginManager.registerCallback(callbackFacebook, object: FacebookCallback<LoginResult> {
             override fun onSuccess(result: LoginResult?) {
                 Preference.loginType = 3
+                Preference.userSocialType = FACEBOOK
 
                 result?.accessToken?.apply {
                     Preference.userSocialId = userId

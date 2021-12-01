@@ -10,6 +10,7 @@ object ResponseCode {
         const val SUCCESS = "0001"      // 200
         const val FAILURE = "2000"      // 400~
 
+        const val ERROR_CODE_1000 = "1000" // 서버 내부 오류입니다.
         const val ERROR_CODE_2000 = "2000" // 권한이 없습니다.
         const val ERROR_CODE_2001 = "2001" // 해당 유저를 찾을 수 없습니다.
         const val ERROR_CODE_2004 = "2004" // 유효하지 않은 토큰입니다.

@@ -2,7 +2,7 @@ package handshug.jellycrew.member.model
 
 import handshug.jellycrew.api.JellyCrewAPIPostResponse
 import handshug.jellycrew.api.member.MemberJoinSuccessResponse
-import handshug.jellycrew.api.member.MemberLoginEmailResponse
+import handshug.jellycrew.api.member.MemberLoginResponse
 import handshug.jellycrew.api.member.MemberPhoneCheckMigrationResponse
 import handshug.jellycrew.api.member.scheme.MemberPhoneVerifyData
 import retrofit2.http.Body
@@ -46,16 +46,27 @@ interface MemberApi {
         @Query("birth") birth: String,
         @Query("genderType") genderType: String,
         @Query("name") name: String,
-        @Query("accountReferType") accountReferType: String
+        @Query("accountReferType") accountReferType: String,
+        @Query("nickname") nickname: String,
+        @Query("recommendFriend") recommendFriend: String,
+        @Query("marketingAgreement") marketingAgreement: Boolean = true,
+        @Query("lifeTimeMember") lifeTimeMember: Boolean = true,
+        @Query("socialType") socialType: String,
+        @Query("socialId") socialId: String,
+        @Query("socialEmail") socialEmail: String,
+        @Query("accessToken") accessToken: String,
+        @Query("refreshToken") refreshToken: String
     ): JellyCrewAPIPostResponse<MemberJoinSuccessResponse>
 
+    // 이메일 로그인
     @POST("/api/account/v1/login")
     suspend fun loginEmail(
             @Body params: MutableMap<String, Any>
-    ): JellyCrewAPIPostResponse<MemberLoginEmailResponse>
+    ): JellyCrewAPIPostResponse<MemberLoginResponse>
 
+    // 소셜 로그인
     @POST("/api/account/v1/login/social")
     suspend fun loginSocial(
             @Body  params: MutableMap<String, Any>
-    ): JellyCrewAPIPostResponse<String>
+    ): JellyCrewAPIPostResponse<MemberLoginResponse>
 }

@@ -35,6 +35,7 @@ import handshug.jellycrew.member.MemberContract.Companion.FRAGMENT_JOIN_PHONE
 import handshug.jellycrew.member.MemberContract.Companion.FRAGMENT_JOIN_TERMS
 import handshug.jellycrew.member.MemberContract.Companion.FRAGMENT_JOIN_USER_INFO
 import handshug.jellycrew.member.MemberContract.Companion.KAKAO
+import handshug.jellycrew.member.MemberContract.Companion.LOGIN_SUCCESS
 import handshug.jellycrew.member.MemberContract.Companion.MEMBER_LOGIN
 import handshug.jellycrew.member.MemberContract.Companion.NAVER
 import handshug.jellycrew.member.MemberContract.Companion.REQ_PHONE_VERIFY_CONFIRM
@@ -82,6 +83,8 @@ class MemberViewModel(private val memberApi: MemberApi) : BaseViewModel(), Membe
     val selectedGender: MutableLiveData<Int> = MutableLiveData()
 
     fun memberLogin() = viewEvent(MEMBER_LOGIN)
+    fun loginSuccess() = viewEvent(LOGIN_SUCCESS)
+
     fun activityClose() = viewEvent(ACTIVITY_CLOSE)
     fun navigateToMain() = viewEvent(ACTIVITY_MAIN)
     fun navigateToLogin() = viewEvent(ACTIVITY_LOGIN)
@@ -181,7 +184,16 @@ class MemberViewModel(private val memberApi: MemberApi) : BaseViewModel(), Membe
                     Preference.userBirth,
                     Preference.userGender,
                     Preference.userName,
-                    "DIRECT"
+                    "DIRECT",
+                    Preference.userNickname,
+                    Preference.userFriend,
+                    Preference.isMarketingAgree,
+                    Preference.isLifeTimeMember,
+                    Preference.userSocialType,
+                    Preference.userSocialId,
+                    Preference.userSocialEmail,
+                    Preference.socialAccessToken,
+                    Preference.socialRefreshToken
             ).apply {
                 _isJoinSuccess.value = checkSuccess(this.code)
             }
@@ -221,7 +233,8 @@ class MemberViewModel(private val memberApi: MemberApi) : BaseViewModel(), Membe
         viewModelScope.launch(exceptionHandler) {
             memberApi.loginSocial(setLoginSocialParams(socialType)).apply {
                 if (checkSuccess(this.code)) {
-                    toast(this.message)
+                    EtcUtil.login(this.data)
+                    loginSuccess()
                 }
             }
         }
@@ -238,25 +251,6 @@ class MemberViewModel(private val memberApi: MemberApi) : BaseViewModel(), Membe
         this["token"] = Preference.socialAccessToken
     }
 
-    private fun getJoinUserInfoParams() = mutableMapOf<String, Any>().apply {
-        this["email"] = Preference.userEmail
-        this["password"] = Preference.userPassword
-        this["mobile"] = Preference.userPhoneNumber
-        this["birth"] = Preference.userBirth
-        this["genderType"] = Preference.userGender
-        this["name"] = Preference.userName
-        this["accountReferType"] = "DIRECT"
-        this["nickname"] = Preference.userNickname
-        this["recommendFriend"] = Preference.userFriend
-        this["marketingAgreement"] = Preference.isMarketingAgree
-        this["lifeTimeMember"] = Preference.isLifeTimeMember
-        this["socialType"] = EtcUtil.getUserSocialType()
-        this["socialId"] = Preference.userSocialId
-        this["socialEmail"] = Preference.userSocialEmail
-        this["accessToken"] = Preference.socialAccessToken
-        this["refreshToken"] = Preference.socialRefreshToken
-    }
-
     fun getStartLoginKakao() {
         viewModelScope.launch(exceptionHandler) {
             val client = UserApiClient.instance
@@ -267,6 +261,7 @@ class MemberViewModel(private val memberApi: MemberApi) : BaseViewModel(), Membe
                     Log.msg(logMsg)
                 } else token?.apply {
                     Preference.loginType = 1
+                    Preference.userSocialType = KAKAO
                     Preference.socialAccessToken = accessToken
                     Preference.socialAccessTokenExpiredAt = accessTokenExpiresAt.time
                     Preference.socialRefreshToken = refreshToken
@@ -317,7 +312,7 @@ class MemberViewModel(private val memberApi: MemberApi) : BaseViewModel(), Membe
                             var logMsg = ""
                             if (success) {
                                 Preference.loginType = 2
-
+                                Preference.userSocialType = NAVER
                                 Preference.socialAccessToken = getAccessToken(this)
                                 Preference.socialRefreshToken = getRefreshToken(this)
                                 Preference.socialAccessTokenExpiredAt = getExpiresAt(this)

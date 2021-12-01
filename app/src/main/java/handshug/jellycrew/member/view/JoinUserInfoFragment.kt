@@ -85,7 +85,12 @@ class JoinUserInfoFragment : BindingFragment<FragmentJoinUserInfoBinding>() {
 
                         Preference.userBirth = birth
                         Preference.userGender = EtcUtil.getGenderType(gender)
-                        if (Preference.loginType != 0) Preference.userPassword = ""
+                        if (Preference.loginType == 0) {
+                            EtcUtil.joinEmail() // reset social data
+                        }
+                        else {
+                            Preference.userPassword = ""
+                        }
 
                         viewModel.joinConfirm()
                     }
