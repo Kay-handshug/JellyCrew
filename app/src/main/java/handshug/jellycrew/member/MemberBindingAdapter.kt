@@ -342,18 +342,11 @@ fun ConstraintLayout.setCheckPhoneVerify(viewModel: MemberViewModel) {
     if (Preference.loginType != 0) {
         if (Preference.userSocialName.isNotEmpty()) {
             etName.setText(Preference.userSocialName)
-            setEditBoxNameVerify(context, etName.text.toString(), btnNext, btnReqVerify, tvRule01, tvRule02, etInputPhoneNumber, etName, btnNameInputDelete, viewModel)
+            setEditBoxNameVerify(context, viewModel, etName.text.toString(), btnNext, btnReqVerify, tvRule01, tvRule02, etInputPhoneNumber, etName, btnNameInputDelete)
         }
         if (Preference.userSocialPhoneNumber.isNotEmpty()) {
-            btnPhoneInputDelete.visible()
-            etInputPhoneNumber.isSelected = true
-
             etInputPhoneNumber.setText(Preference.userSocialPhoneNumber)
-
-            if(etInputPhoneNumber.length() > 9 || viewModel.verifyPhoneNumber(etInputPhoneNumber.text.toString())) {
-                btnReqVerify.isSelected = true
-                btnReqVerify.isEnabled = true
-            }
+            setEditBoxPhoneNunmber(context, viewModel, etInputPhoneNumber.text.toString(), btnReqVerify, tvRule01, tvRule02, etInputPhoneNumber, etName, btnPhoneInputDelete, tvInputErrorMsg)
         }
     }
 
@@ -398,7 +391,7 @@ fun ConstraintLayout.setCheckPhoneVerify(viewModel: MemberViewModel) {
         override fun afterTextChanged(s: Editable?) {}
         override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
         override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-            setEditBoxNameVerify(context, s.toString(), btnNext, btnReqVerify, tvRule01, tvRule02, etInputPhoneNumber, etName, btnNameInputDelete, viewModel)
+            setEditBoxNameVerify(context, viewModel, s.toString(), btnNext, btnReqVerify, tvRule01, tvRule02, etInputPhoneNumber, etName, btnNameInputDelete)
         }
     })
 
@@ -406,38 +399,7 @@ fun ConstraintLayout.setCheckPhoneVerify(viewModel: MemberViewModel) {
         override fun afterTextChanged(s: Editable?) {}
         override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
         override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-            val cnt = s.toString().length
-
-            if (cnt == 0) {
-                btnPhoneInputDelete.invisible()
-                etInputPhoneNumber.isSelected = false
-            }
-            else {
-                btnPhoneInputDelete.visible()
-                etInputPhoneNumber.isSelected = true
-            }
-
-            ViewUtil.setBackgroundDrawable(etInputPhoneNumber, R.drawable.common_box_radius08_white_border_red500)
-            if (cnt < 1) {
-                setErrorMsg(tvInputErrorMsg, context.getString(R.string.join_phone_error_01))
-            }
-            else if (cnt < 10 || !viewModel.verifyPhoneNumber(s.toString())) {
-                setErrorMsg(tvInputErrorMsg, context.getString(R.string.join_phone_error_02))
-            }
-            else {
-                if (tvRule01.isSelected && tvRule02.isSelected) {
-                    btnReqVerify.isSelected = true
-                    btnReqVerify.isEnabled = true
-
-                    ViewUtil.setBackgroundDrawable(etName, R.drawable.selector_btn_radius08_gray400_n_gray700)
-                }
-                else {
-                    ViewUtil.setBackgroundDrawable(etName, R.drawable.common_box_radius08_white_border_red500)
-                }
-                tvInputErrorMsg.gone()
-                ViewUtil.setBackgroundDrawable(etInputPhoneNumber, R.drawable.selector_btn_radius08_gray400_n_gray700)
-            }
-            etInputPhoneNumber.setSelection(cnt)
+            setEditBoxPhoneNunmber(context, viewModel, s.toString(), btnReqVerify, tvRule01, tvRule02, etInputPhoneNumber, etName, btnPhoneInputDelete, tvInputErrorMsg)
         }
     })
 
@@ -471,11 +433,12 @@ fun ConstraintLayout.setCheckPhoneVerify(viewModel: MemberViewModel) {
     })
 }
 
-fun setEditBoxNameVerify(
-        context: Context, text: String, btnNext: AppCompatButton, btnReqVerify: AppCompatButton,
+private fun setEditBoxNameVerify(
+        context: Context, viewModel: MemberViewModel, text: String,
+        btnNext: AppCompatButton, btnReqVerify: AppCompatButton,
         tvRule01: AppCompatTextView, tvRule02: AppCompatTextView,
         etInputPhoneNumber: AppCompatEditText, etName: AppCompatEditText,
-        btnNameInputDelete: AppCompatImageView, viewModel: MemberViewModel
+        btnNameInputDelete: AppCompatImageView
 ) {
     val cnt = text.length
 
@@ -526,6 +489,46 @@ fun setEditBoxNameVerify(
         etName.isSelected = true
     }
     etName.setSelection(cnt)
+}
+
+private fun setEditBoxPhoneNunmber(
+        context: Context, viewModel: MemberViewModel, text: String,
+        btnReqVerify: AppCompatButton, tvRule01: AppCompatTextView, tvRule02: AppCompatTextView,
+        etInputPhoneNumber: AppCompatEditText, etName: AppCompatEditText,
+        btnPhoneInputDelete: AppCompatImageView, tvInputErrorMsg: AppCompatTextView
+) {
+    val cnt = text.length
+
+    if (cnt == 0) {
+        btnPhoneInputDelete.invisible()
+        etInputPhoneNumber.isSelected = false
+    }
+    else {
+        btnPhoneInputDelete.visible()
+        etInputPhoneNumber.isSelected = true
+    }
+
+    ViewUtil.setBackgroundDrawable(etInputPhoneNumber, R.drawable.common_box_radius08_white_border_red500)
+    if (cnt < 1) {
+        setErrorMsg(tvInputErrorMsg, context.getString(R.string.join_phone_error_01))
+    }
+    else if (cnt < 10 || !viewModel.verifyPhoneNumber(text)) {
+        setErrorMsg(tvInputErrorMsg, context.getString(R.string.join_phone_error_02))
+    }
+    else {
+        if (tvRule01.isSelected && tvRule02.isSelected) {
+            btnReqVerify.isSelected = true
+            btnReqVerify.isEnabled = true
+
+            ViewUtil.setBackgroundDrawable(etName, R.drawable.selector_btn_radius08_gray400_n_gray700)
+        }
+        else {
+            ViewUtil.setBackgroundDrawable(etName, R.drawable.common_box_radius08_white_border_red500)
+        }
+        tvInputErrorMsg.gone()
+        ViewUtil.setBackgroundDrawable(etInputPhoneNumber, R.drawable.selector_btn_radius08_gray400_n_gray700)
+    }
+    etInputPhoneNumber.setSelection(cnt)
 }
 
 fun loseFocusRecheck(view: View, state: Boolean) {

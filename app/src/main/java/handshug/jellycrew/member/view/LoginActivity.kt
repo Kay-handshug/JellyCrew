@@ -74,6 +74,7 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>() {
         })
     }
 
+    // CallbackManager 사용 문제로 viewModel로 이동X
     private fun startLoginFacebook(viewModel: MemberViewModel) {
         callbackFacebook = CallbackManager.Factory.create()
 
