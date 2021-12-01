@@ -343,7 +343,7 @@ class MemberViewModel(private val memberApi: MemberApi) : BaseViewModel(), Membe
 
     fun countDownTimer(textView: AppCompatTextView, errorMsg: AppCompatTextView,
                        btnRequestVerify: AppCompatButton, btnNext: AppCompatButton): CountDownTimer {
-        return object: CountDownTimer(3 * 3 * 1000L, 1000L) {
+        return object: CountDownTimer(3 * 60 * 1000L, 1000L) {
             @SuppressLint("SetTextI18n")
             override fun onTick(millis: Long) {
                 val min = convertTimeFormat(getMinutesFromMillis(millis))
