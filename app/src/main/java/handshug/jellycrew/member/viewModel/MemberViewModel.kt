@@ -1,7 +1,7 @@
 package handshug.jellycrew.member.viewModel
 
 import android.annotation.SuppressLint
-import android.content.Context
+import android.app.Activity
 import android.os.CountDownTimer
 import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.AppCompatTextView
@@ -10,6 +10,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.user.UserApiClient
+import com.nhn.android.naverlogin.OAuthLogin
+import com.nhn.android.naverlogin.OAuthLoginHandler
 import handshug.jellycrew.Preference
 import handshug.jellycrew.R
 import handshug.jellycrew.api.member.MemberPhoneCheckMigrationResponse
@@ -32,7 +34,9 @@ import handshug.jellycrew.member.MemberContract.Companion.FRAGMENT_JOIN_PASSWORD
 import handshug.jellycrew.member.MemberContract.Companion.FRAGMENT_JOIN_PHONE
 import handshug.jellycrew.member.MemberContract.Companion.FRAGMENT_JOIN_TERMS
 import handshug.jellycrew.member.MemberContract.Companion.FRAGMENT_JOIN_USER_INFO
+import handshug.jellycrew.member.MemberContract.Companion.KAKAO
 import handshug.jellycrew.member.MemberContract.Companion.MEMBER_LOGIN
+import handshug.jellycrew.member.MemberContract.Companion.NAVER
 import handshug.jellycrew.member.MemberContract.Companion.REQ_PHONE_VERIFY_CONFIRM
 import handshug.jellycrew.member.MemberContract.Companion.SHOW_DIALOG_DATE_PICKER
 import handshug.jellycrew.member.MemberContract.Companion.SHOW_DIALOG_FINISH
@@ -46,11 +50,17 @@ import handshug.jellycrew.member.MemberContract.Companion.START_LOGIN_FACEBOOK
 import handshug.jellycrew.member.MemberContract.Companion.START_LOGIN_KAKAO
 import handshug.jellycrew.member.MemberContract.Companion.START_LOGIN_NAVER
 import handshug.jellycrew.member.model.MemberApi
+import handshug.jellycrew.modules.ApiContract
 import handshug.jellycrew.utils.*
-import handshug.jellycrew.utils.ResponseCode.ERROR_CODE_2001
-import handshug.jellycrew.utils.ResponseCode.SUCCESS
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import okhttp3.internal.http.HttpMethod
+import java.io.BufferedReader
+import java.io.IOException
+import java.io.InputStream
+import java.io.InputStreamReader
+import java.net.HttpURLConnection
+import java.net.MalformedURLException
+import java.net.URL
 
 class MemberViewModel(private val memberApi: MemberApi) : BaseViewModel(), MemberContract {
 
@@ -216,9 +226,9 @@ class MemberViewModel(private val memberApi: MemberApi) : BaseViewModel(), Membe
         }
     }
 
-    fun loginSocial(accessToken: String, socialType: String) {
+    fun loginSocial(socialType: String) {
         viewModelScope.launch(exceptionHandler) {
-            memberApi.loginSocial(setLoginSocialParams(accessToken, socialType)).apply {
+            memberApi.loginSocial(setLoginSocialParams(socialType)).apply {
                 if (checkSuccess(this.code)) {
                     toast(this.message)
                 }
@@ -231,10 +241,10 @@ class MemberViewModel(private val memberApi: MemberApi) : BaseViewModel(), Membe
         this["password"] = Preference.userPassword
     }
 
-    private fun setLoginSocialParams(accessToken: String, socialType: String) = mutableMapOf<String, Any>().apply {
+    private fun setLoginSocialParams(socialType: String) = mutableMapOf<String, Any>().apply {
         this["appType"] = "AOS"
         this["socialType"] = socialType
-        this["token"] = accessToken
+        this["token"] = Preference.socialAccessToken
     }
 
     private fun getJoinUserInfoParams() = mutableMapOf<String, Any>().apply {
@@ -256,7 +266,7 @@ class MemberViewModel(private val memberApi: MemberApi) : BaseViewModel(), Membe
         this["refreshToken"] = Preference.socialRefreshToken
     }
 
-    fun startLoginKakao(context: Context) {
+    fun getStartLoginKakao() {
         viewModelScope.launch(exceptionHandler) {
             val client = UserApiClient.instance
             val callback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
@@ -266,12 +276,12 @@ class MemberViewModel(private val memberApi: MemberApi) : BaseViewModel(), Membe
                     Log.msg(logMsg)
                 } else token?.apply {
                     Preference.loginType = 1
-                    Preference.accessToken = accessToken
-                    Preference.accessTokenExpiredAt = accessTokenExpiresAt.time
-                    Preference.refreshToken = refreshToken
-                    Preference.refreshTokenExpiredAt = refreshTokenExpiresAt.time
+                    Preference.socialAccessToken = accessToken
+                    Preference.socialAccessTokenExpiredAt = accessTokenExpiresAt.time
+                    Preference.socialRefreshToken = refreshToken
+                    Preference.socialRefreshTokenExpiredAt = refreshTokenExpiresAt.time
 
-                    logMsg = "# Login kakao success : ${token.accessToken}"
+                    logMsg = "# Login kakao success : $accessToken"
                     Log.msg(logMsg)
 
                     client.me { user, _ ->
@@ -279,9 +289,8 @@ class MemberViewModel(private val memberApi: MemberApi) : BaseViewModel(), Membe
                             Log.msg("# Login kakao user info access success : ${user.kakaoAccount?.email}")
 
                             val userAccount = user.kakaoAccount
-                            val userBirth = FormatterUtil.getBirthStringFormat(userAccount?.birthyear
-                                ?: "", userAccount?.birthday ?: "")
-                            Preference.userSocialId = user.id
+                            val userBirth = FormatterUtil.getBirthStringFormat(userAccount?.birthyear?: "", userAccount?.birthday ?: "")
+                            Preference.userSocialId = user.id.toString()
                             Preference.userSocialEmail = userAccount?.email ?: ""
                             Preference.userSocialPhoneNumber = userAccount?.phoneNumber ?: ""
                             Preference.userSocialNickname = userAccount?.profile?.nickname ?: ""
@@ -290,7 +299,7 @@ class MemberViewModel(private val memberApi: MemberApi) : BaseViewModel(), Membe
                             Preference.userSocialBirthDay = userBirth
                         }
 
-                        loginSocial(token.accessToken, "KAKAO")
+                        loginSocial(KAKAO)
                     }
                     toast(logMsg)
                 }
@@ -301,6 +310,48 @@ class MemberViewModel(private val memberApi: MemberApi) : BaseViewModel(), Membe
             } else {
                 client.loginWithKakaoAccount(context, callback = callback)
             }
+        }
+    }
+
+    @SuppressLint("HandlerLeak")
+    fun getStartLoginNaver(activity: Activity) {
+        viewModelScope.launch(exceptionHandler) {
+            val module = OAuthLogin.getInstance()
+
+            val handler: OAuthLoginHandler = object : OAuthLoginHandler() {
+                override fun run(success: Boolean) {
+
+                    module.apply {
+                        with(context) {
+                            var logMsg = ""
+                            if (success) {
+                                Preference.loginType = 2
+
+                                Preference.socialAccessToken = getAccessToken(this)
+                                Preference.socialRefreshToken = getRefreshToken(this)
+                                Preference.socialAccessTokenExpiredAt = getExpiresAt(this)
+                                Preference.socialRefreshTokenExpiredAt = -1L
+
+                                logMsg = "# Login naver success : ${Preference.socialAccessToken}"
+                                Log.msg(logMsg)
+
+                                GetUserInfoTask(this).start()
+
+                                loginSocial(NAVER)
+                            } else {
+                                val errorCode: String = getLastErrorCode(this).code
+                                val errorDesc: String = getLastErrorDesc(this)
+
+                                logMsg = "# login naver error : $errorCode / $errorDesc"
+                                Log.msg(logMsg)
+                            }
+                            toast(logMsg)
+                        }
+                    }
+                }
+            }
+
+            module.startOauthLoginActivity(activity, handler)
         }
     }
 

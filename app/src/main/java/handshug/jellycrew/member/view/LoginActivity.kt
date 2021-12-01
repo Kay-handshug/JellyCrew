@@ -27,6 +27,7 @@ import handshug.jellycrew.member.MemberContract.Companion.ACTIVITY_LOGIN_HOME
 import handshug.jellycrew.member.MemberContract.Companion.ACTIVITY_MAIN
 import handshug.jellycrew.member.MemberContract.Companion.ACTIVITY_PAST_ORDERS
 import handshug.jellycrew.member.MemberContract.Companion.LOGIN_SUCCESS
+import handshug.jellycrew.member.MemberContract.Companion.NAVER
 import handshug.jellycrew.member.MemberContract.Companion.START_LOGIN_FACEBOOK
 import handshug.jellycrew.member.MemberContract.Companion.START_LOGIN_KAKAO
 import handshug.jellycrew.member.MemberContract.Companion.START_LOGIN_NAVER
@@ -34,6 +35,7 @@ import handshug.jellycrew.member.viewModel.MemberViewModel
 import handshug.jellycrew.utils.ActivityUtil
 import handshug.jellycrew.utils.FormatterUtil
 import handshug.jellycrew.utils.Log
+import kotlinx.coroutines.withContext
 import org.koin.androidx.viewmodel.ext.android.getViewModel
 
 
@@ -66,46 +68,13 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>() {
                     ACTIVITY_LOGIN_EMAIL -> goToLoginEmail()
                     ACTIVITY_PAST_ORDERS -> goToPastOrders()
                     FRAGMENT_JOIN_TERMS -> goToJoinTerms()
-                    START_LOGIN_KAKAO -> viewModel.startLoginKakao(this) // startLoginKakao(viewModel)
-                    START_LOGIN_NAVER -> startLoginNaver()
+                    START_LOGIN_KAKAO -> viewModel.getStartLoginKakao() // startLoginKakao(viewModel)
+                    START_LOGIN_NAVER -> viewModel.getStartLoginNaver(this)
                     START_LOGIN_FACEBOOK -> startLoginFacebook()
                     LOGIN_SUCCESS -> goToMainActivity()
                 }
             }
         })
-    }
-
-    @SuppressLint("HandlerLeak")
-    private fun startLoginNaver() {
-        val module = OAuthLogin.getInstance()
-
-        val handler: OAuthLoginHandler = object : OAuthLoginHandler() {
-            override fun run(success: Boolean) {
-                var logMsg = ""
-                if (success) {
-                    Preference.loginType = 2
-
-                    val accessToken: String = module.getAccessToken(applicationContext)
-                    val refreshToken: String = module.getRefreshToken(applicationContext)
-                    val expiresAt: Long = module.getExpiresAt(applicationContext)
-                    val tokenType: String = module.getTokenType(applicationContext)
-
-                    logMsg = "# Login naver success : $accessToken"
-                    Log.msg(logMsg)
-
-                    goToMainActivity()
-                } else {
-                    val errorCode: String = module.getLastErrorCode(applicationContext).code
-                    val errorDesc: String = module.getLastErrorDesc(applicationContext)
-
-                    logMsg = "# login naver error : $errorCode / $errorDesc"
-                    Log.msg(logMsg)
-                }
-                toast(logMsg)
-            }
-        }
-
-        module.startOauthLoginActivity(this, handler)
     }
 
     private fun startLoginFacebook() {

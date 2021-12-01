@@ -41,5 +41,9 @@ interface MemberContract {
 
         const val MEMBER_LOGIN = 3000
         const val LOGIN_SUCCESS = 3010
+
+        const val KAKAO = "KAKAO"
+        const val NAVER = "NAVER"
+        const val FACEBOOK = "FACEBOOK"
     }
 }

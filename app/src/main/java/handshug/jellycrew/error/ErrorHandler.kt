@@ -10,6 +10,7 @@ import handshug.jellycrew.member.view.JoinActivity
 import handshug.jellycrew.utils.ActivityUtil
 import handshug.jellycrew.utils.NetworkConnectionInterceptor
 import handshug.jellycrew.utils.ResponseCode.ERROR_CODE_2001
+import handshug.jellycrew.utils.ResponseCode.ERROR_CODE_2004
 import org.koin.core.context.GlobalContext.get
 import retrofit2.HttpException
 import retrofit2.Retrofit

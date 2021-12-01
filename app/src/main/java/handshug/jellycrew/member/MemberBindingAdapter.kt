@@ -525,7 +525,10 @@ fun ConstraintLayout.setCheckEmail(viewModel: MemberViewModel) {
     val etEmailInput = this.et_join_email_input
     val tvInputErrorMsg = this.tv_join_email_input_error_msg
 
-    if (Preference.loginType != 0 && Preference.userSocialEmail.isNotEmpty()) {
+    if (Preference.loginType != 0 && Preference.userSocialEmail.isNotEmpty() && viewModel.verifyEmail(Preference.userSocialEmail)) {
+        btnNext.isSelected = true
+        btnNext.isEnabled = true
+
         etEmailInput.setText(Preference.userSocialEmail)
     }
 
@@ -751,13 +754,16 @@ fun ConstraintLayout.setCheckUserInfo(viewModel: MemberViewModel) {
     val tvBirth = this.tv_join_user_info_birth
     val tvGender = this.tv_join_user_info_gender
 
+    val ivBirthDropDown = this.iv_join_user_info_birth_drop_down
+
     if (Preference.loginType != 0) {
         if (Preference.userSocialBirthDay.isNotEmpty()) {
             tvBirth.text = Preference.userSocialBirthDay
             tvBirth.isSelected = true
+            ivBirthDropDown.isSelected = true
         }
         if (Preference.userSocialGender.isNotEmpty()) {
-            if (Preference.userSocialGender.contains("fe")) viewModel.selectedGender.value = 0
+            if (Preference.userSocialGender.contains("fe") || Preference.userSocialGender.contains("F")) viewModel.selectedGender.value = 0
             else viewModel.selectedGender.value = 1
         }
     }

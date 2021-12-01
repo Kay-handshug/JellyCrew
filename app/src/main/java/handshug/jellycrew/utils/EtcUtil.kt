@@ -70,7 +70,7 @@ object EtcUtil {
         Preference.isLogin = false
         Preference.userPassword = ""
         Preference.userSocialEmail = ""
-        Preference.userSocialId = -1L
+        Preference.userSocialId = ""
         Preference.accessToken = ""
         Preference.refreshToken = ""
     }

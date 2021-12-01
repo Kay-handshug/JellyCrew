@@ -160,10 +160,10 @@ object Preference {
             sharedPreference.edit().putString("userSocialType", userSocialType).apply()
         }
 
-    var userSocialId: Long
-        get() = sharedPreference.getLong("userSocialId", -1L)
+    var userSocialId: String
+        get() = sharedPreference.getString("userSocialId", "").toString()
         set(userSocialId) {
-            sharedPreference.edit().putLong("userSocialId", userSocialId).apply()
+            sharedPreference.edit().putString("userSocialId", userSocialId).apply()
         }
 
     var userSocialEmail: String

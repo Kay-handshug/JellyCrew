@@ -6,10 +6,6 @@
     <string name="btn_cancel">취소</string>
     <string name="btn_next">다음</string>
 
-    // facebook
-    <string name="facebook_app_id">424827942650818</string>
-    <string name="fb_login_protocol_scheme">fb424827942650818</string>
-
     // popup
     <string name="popup_permission_setting_title">필요 권한</string>
     <string name="popup_permission_setting_message">이 앱은 사용하기 위해 권한이 필요합니다. 앱 설정에서 부여할 수 있습니다.</string>
@@ -26,6 +22,10 @@
     <string name="login_email">이메일 로그인</string>
     <string name="login_email_join">이메일로 가입</string>
     <string name="login_old_order_list_view">2022년 09월 이전 주문조회</string>
+    <string name="login_social_error_01">연결이 실패했습니다.</string>
+    <string name="login_social_error_02">API URL이 잘못되었습니다.</string>
+    <string name="login_social_error_03">API 응답을 읽는데 실패했습니다.</string>
+    <string name="login_social_error_04">API 요청과 응답을 실패했습니다.</string>
 
     // login email
     <string name="login_email_title">이메일과 비밀번호를\n입력해주세요 :)</string>

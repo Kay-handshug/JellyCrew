@@ -24,6 +24,8 @@ android {
         resValue 'string', "KAKAO_APP_KEY", project.KAKAO_APP_KEY
         resValue 'string', "NAVER_CLIENT_ID", project.NAVER_CLIENT_ID
         resValue 'string', "NAVER_CLIENT_SECRET", project.NAVER_CLIENT_SECRET
+        resValue 'string', "FACEBOOK_APP_ID", project.FACEBOOK_APP_ID
+        resValue 'string', "FACEBOOK_APP_SCHEME", project.FACEBOOK_APP_SCHEME
     }
 
     buildTypes {
