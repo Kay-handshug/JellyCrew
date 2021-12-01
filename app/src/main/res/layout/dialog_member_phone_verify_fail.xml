@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <data>
+        <variable name="viewModel" type="handshug.jellycrew.member.viewModel.MemberViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="16dp"
+        android:orientation="vertical"
+        android:background="@drawable/common_box_top_radius08_white" >
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_member_phone_verify_fail_title"
+            style="@style/style_common_text_bold"
+            android:layout_width="0dp"
+            android:layout_marginTop="24dp"
+            android:text="@string/join_phone_error_request_verify_fail_title"
+            android:textColor="@color/color_common_text_gray800"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:id="@+id/ll_member_phone_verify_fail_noti_01"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:padding="16dp"
+            android:orientation="vertical"
+            android:background="@drawable/common_box_radius08_gray100"
+            app:layout_constraintTop_toBottomOf="@+id/tv_member_phone_verify_fail_title"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/style_common_text"
+                android:text="@string/join_phone_error_request_verify_fail_notice_01"
+                app:setTextColorSpannableEnd="@{28}"
+                app:setTextColorSpannableStart="@{4}" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/style_common_text"
+                android:layout_marginTop="16dp"
+                android:text="@string/join_phone_error_request_verify_fail_notice_02"
+                app:setTextColorSpannableEnd="@{17}"
+                app:setTextColorSpannableStart="@{10}" />
+
+        </LinearLayout>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_member_phone_verify_fail_noti_02"
+            style="@style/style_common_text"
+            android:layout_marginTop="24dp"
+            android:text="@string/join_phone_error_request_verify_fail_notice_03"
+            android:textColor="@color/color_common_text_gray700"
+            app:layout_constraintTop_toBottomOf="@+id/ll_member_phone_verify_fail_noti_01"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_member_phone_verify_fail_noti_03"
+            style="@style/style_common_text"
+            android:layout_marginTop="16dp"
+            android:text="@string/join_phone_error_request_verify_fail_notice_04"
+            android:textColor="@color/color_common_text_gray700"
+            app:layout_constraintTop_toBottomOf="@+id/tv_member_phone_verify_fail_noti_02"
+            app:layout_constraintStart_toStartOf="parent"
+            app:setTextColorSpannableEnd="@{17}"
+            app:setTextColorSpannableStart="@{12}" />
+
+        <LinearLayout
+            android:id="@+id/ll_member_phone_verify_fail_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="24dp"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@+id/tv_member_phone_verify_fail_noti_03"
+            app:layout_constraintStart_toStartOf="parent" >
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/btn_member_phone_verify_fail_kakao"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/ic_btn_cs_center_kakao" />
+
+            <Space
+                android:layout_width="10dp"
+                android:layout_height="1dp" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/btn_member_phone_verify_fail_email"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/ic_btn_cs_center_email" />
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

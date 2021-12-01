@@ -67,13 +67,11 @@
     <string name="join_phone_error_05">인증번호 입력 시간이 지났어요.</string>
     <string name="join_phone_error_toast">인증 문자를 보내드릴 수 없는 번호로 확인되요.</string>
     <string name="join_phone_error_request_verify_fail">인증문자가 계속 오지 않아요 :(</string>
-    <string name="join_phone_error_request_verify_fail_notice_01">안녕하세요. 젤리크루 고객센터 입니다.\n\n휴대폰 인증 문자가 오지 않아서 다음 단계 진행에 어려움이 있으시군요.\n아래 내용에 해당되는지 한 번 확인 부탁드려요.</string>
-    <string name="join_phone_error_request_verify_fail_notice_02">젤리크루 고객센터 번호 070-4402-1515가 스팸 번호로 등록되어있어 문자가 스팸 문자로 분류된 경우</string>
-    <string name="join_phone_error_request_verify_fail_notice_03">통신사 무료 부가서비스 중 스팸 필터링 부가서비스에 가입되어있는 경우</string>
-    <string name="join_phone_error_request_verify_fail_notice_04">위 2가지 사유인 경우가 많으므로, 먼저 휴대폰의 스팸 문자함 및 통신사에 해당 부가서비스 가입 여부를 확인해 주세요.</string>
-    <string name="join_phone_error_request_verify_fail_notice_05">그럼에도 불구하고 계속 오지 않는다면,</string>
-    <string name="join_phone_error_request_verify_fail_notice_06">젤리크루 카톡상담 또는 메일</string>
-    <string name="join_phone_error_request_verify_fail_notice_07">로 문의해 주세요.</string>
+    <string name="join_phone_error_request_verify_fail_title">인증문자가\n계속 오지 않나요? :(</string>
+    <string name="join_phone_error_request_verify_fail_notice_01">1. 젤리크루 고객센터 번호(070-4402-1515)가\n스팸 문자로 분류되어 있을 수 있어요.</string>
+    <string name="join_phone_error_request_verify_fail_notice_02">2. 가입한 통신사 무료 부가서비스 중에\n스팸 필터링 부가서비스가 있을 수 있어요.</string>
+    <string name="join_phone_error_request_verify_fail_notice_03">위 2가지 사유인 경우가 많으니 먼저 휴대폰의 스팸 문자함 및 통신사에 해당 부가서비스 가입 여부를 확인해 주세요.</string>
+    <string name="join_phone_error_request_verify_fail_notice_04">그럼에도 불구하고 계속 오지 않는다면,\n젤리크루 카톡상담 또는 메일로 문의해 주세요.</string>
 
     // Join Already
     <string name="join_already_title_01">이미 가입을 하셨네요! :)</string>

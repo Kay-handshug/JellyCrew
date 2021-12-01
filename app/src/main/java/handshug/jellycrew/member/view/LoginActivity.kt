@@ -30,6 +30,7 @@ import handshug.jellycrew.member.MemberContract.Companion.START_LOGIN_KAKAO
 import handshug.jellycrew.member.MemberContract.Companion.START_LOGIN_NAVER
 import handshug.jellycrew.member.viewModel.MemberViewModel
 import handshug.jellycrew.utils.ActivityUtil
+import handshug.jellycrew.utils.EtcUtil
 import handshug.jellycrew.utils.Log
 import org.json.JSONException
 import org.koin.androidx.viewmodel.ext.android.getViewModel
@@ -140,6 +141,7 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>() {
     }
 
     private fun goToJoinTerms() {
+        EtcUtil.joinEmail() // reset social data
         Intent(this, JoinActivity::class.java).apply {
             startActivity(this)
             overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
