@@ -35,6 +35,7 @@ import handshug.jellycrew.member.MemberContract.Companion.FRAGMENT_JOIN_PHONE
 import handshug.jellycrew.member.MemberContract.Companion.FRAGMENT_JOIN_TERMS
 import handshug.jellycrew.member.MemberContract.Companion.FRAGMENT_JOIN_USER_INFO
 import handshug.jellycrew.member.MemberContract.Companion.KAKAO
+import handshug.jellycrew.member.MemberContract.Companion.LOGIN_FAIL
 import handshug.jellycrew.member.MemberContract.Companion.LOGIN_SUCCESS
 import handshug.jellycrew.member.MemberContract.Companion.MEMBER_LOGIN
 import handshug.jellycrew.member.MemberContract.Companion.NAVER
@@ -84,6 +85,7 @@ class MemberViewModel(private val memberApi: MemberApi) : BaseViewModel(), Membe
 
     fun memberLogin() = viewEvent(MEMBER_LOGIN)
     fun loginSuccess() = viewEvent(LOGIN_SUCCESS)
+    fun loginFail() = viewEvent(LOGIN_FAIL)
 
     fun activityClose() = viewEvent(ACTIVITY_CLOSE)
     fun navigateToMain() = viewEvent(ACTIVITY_MAIN)
@@ -251,14 +253,13 @@ class MemberViewModel(private val memberApi: MemberApi) : BaseViewModel(), Membe
         this["token"] = Preference.socialAccessToken
     }
 
-    fun getStartLoginKakao() {
+    fun getStartLoginKakao(activity: Activity) {
         viewModelScope.launch(exceptionHandler) {
             val client = UserApiClient.instance
             val callback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
-                var logMsg = ""
+                loginFail() // close progressBar
                 if (error != null) {
-                    logMsg = "# Login kakao fail : $error"
-                    Log.msg(logMsg)
+                    Log.msg("# Login kakao fail : $error")
                 } else token?.apply {
                     Preference.loginType = 1
                     Preference.userSocialType = KAKAO
@@ -267,8 +268,7 @@ class MemberViewModel(private val memberApi: MemberApi) : BaseViewModel(), Membe
                     Preference.socialRefreshToken = refreshToken
                     Preference.socialRefreshTokenExpiredAt = refreshTokenExpiresAt.time
 
-                    logMsg = "# Login kakao success : $accessToken"
-                    Log.msg(logMsg)
+                    Log.msg("# Login kakao success : $accessToken")
 
                     client.me { user, _ ->
                         if (user != null) {
@@ -287,14 +287,13 @@ class MemberViewModel(private val memberApi: MemberApi) : BaseViewModel(), Membe
 
                         loginSocial(KAKAO)
                     }
-                    toast(logMsg)
                 }
             }
 
-            if (client.isKakaoTalkLoginAvailable(context)) {
-                client.loginWithKakaoTalk(context, callback = callback)
+            if (client.isKakaoTalkLoginAvailable(activity)) {
+                client.loginWithKakaoTalk(activity, callback = callback)
             } else {
-                client.loginWithKakaoAccount(context, callback = callback)
+                client.loginWithKakaoAccount(activity, callback = callback)
             }
         }
     }
@@ -309,7 +308,6 @@ class MemberViewModel(private val memberApi: MemberApi) : BaseViewModel(), Membe
 
                     module.apply {
                         with(context) {
-                            var logMsg = ""
                             if (success) {
                                 Preference.loginType = 2
                                 Preference.userSocialType = NAVER
@@ -318,8 +316,7 @@ class MemberViewModel(private val memberApi: MemberApi) : BaseViewModel(), Membe
                                 Preference.socialAccessTokenExpiredAt = getExpiresAt(this)
                                 Preference.socialRefreshTokenExpiredAt = -1L
 
-                                logMsg = "# Login naver success : ${Preference.socialAccessToken}"
-                                Log.msg(logMsg)
+                                Log.msg("# Login naver success : ${Preference.socialAccessToken}")
 
                                 GetUserInfoTask(this).start()
 
@@ -328,10 +325,8 @@ class MemberViewModel(private val memberApi: MemberApi) : BaseViewModel(), Membe
                                 val errorCode: String = getLastErrorCode(this).code
                                 val errorDesc: String = getLastErrorDesc(this)
 
-                                logMsg = "# login naver error : $errorCode / $errorDesc"
-                                Log.msg(logMsg)
+                                Log.msg("# login naver error : $errorCode / $errorDesc")
                             }
-                            toast(logMsg)
                         }
                     }
                 }

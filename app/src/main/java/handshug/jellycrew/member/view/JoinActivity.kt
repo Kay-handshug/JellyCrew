@@ -64,6 +64,8 @@ class JoinActivity : BindingActivity<ActivityJoinBinding>() {
                 }
             }
         })
+
+        hideProgressBar()
     }
 
     fun moveChangePosition(position: Int) {

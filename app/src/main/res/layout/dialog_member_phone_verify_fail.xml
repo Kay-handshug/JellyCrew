@@ -41,15 +41,15 @@
             <androidx.appcompat.widget.AppCompatTextView
                 style="@style/style_common_text"
                 android:text="@string/join_phone_error_request_verify_fail_notice_01"
-                app:setTextColorSpannableEnd="@{28}"
-                app:setTextColorSpannableStart="@{4}" />
+                app:setTextColorSpannableEnd="@{6}"
+                app:setTextColorSpannableStart="@{31}" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 style="@style/style_common_text"
                 android:layout_marginTop="16dp"
                 android:text="@string/join_phone_error_request_verify_fail_notice_02"
-                app:setTextColorSpannableEnd="@{17}"
-                app:setTextColorSpannableStart="@{10}" />
+                app:setTextColorSpannableEnd="@{13}"
+                app:setTextColorSpannableStart="@{22}" />
 
         </LinearLayout>
 
@@ -70,8 +70,8 @@
             android:textColor="@color/color_common_text_gray700"
             app:layout_constraintTop_toBottomOf="@+id/tv_member_phone_verify_fail_noti_02"
             app:layout_constraintStart_toStartOf="parent"
-            app:setTextColorSpannableEnd="@{17}"
-            app:setTextColorSpannableStart="@{12}" />
+            app:setTextColorSpannableEnd="@{16}"
+            app:setTextColorSpannableStart="@{21}" />
 
         <LinearLayout
             android:id="@+id/ll_member_phone_verify_fail_btn"
@@ -79,6 +79,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:layout_marginTop="24dp"
+            android:paddingBottom="10dp"
             android:orientation="horizontal"
             app:layout_constraintTop_toBottomOf="@+id/tv_member_phone_verify_fail_noti_03"
             app:layout_constraintStart_toStartOf="parent" >

@@ -17,6 +17,27 @@
         android:paddingBottom="16dp"
         android:background="@color/white">
 
+        <LinearLayout
+            android:id="@+id/progress_bar"
+            android:visibility="gone"
+            android:gravity="center"
+            android:clickable="true"
+            android:focusable="true"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:elevation="5dp"
+            tools:visibility="visible"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <com.airbnb.lottie.LottieAnimationView
+                style="@style/ProgressBar"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                app:lottie_rawRes="@raw/progress_wheel"/>
+
+        </LinearLayout>
+
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/iv_login_title_close"
             android:layout_width="wrap_content"

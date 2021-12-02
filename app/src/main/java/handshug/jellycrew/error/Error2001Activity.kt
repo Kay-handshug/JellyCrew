@@ -38,6 +38,8 @@ class Error2001Activity : BindingActivity<ActivityMemberNotFoundBinding>() {
                 }
             }
         })
+
+        hideProgressBar()
     }
 
     private fun goToJoinTerms() {

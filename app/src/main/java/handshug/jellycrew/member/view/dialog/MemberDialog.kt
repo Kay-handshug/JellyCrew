@@ -97,6 +97,20 @@ class MemberDialog(
         dialog.show()
     }
 
+    fun showDialogSendSmsFail() {
+        val dialogBinding = BindingDialog<DialogMemberPhoneVerifyFailBinding>(
+                activity,
+                R.layout.dialog_member_phone_verify_fail
+        )
+
+        val dialog = dialogBinding.getBottomSheetDialog()
+        dialogBinding.apply {
+            binding.viewModel = viewModel
+        }
+
+        dialog.show()
+    }
+
     fun showDialogAlreadyJoinUser(account: MemberAccountData?, socials: List<MemberAccountSocialsData>?) {
         val dialogBinding = BindingDialog<DialogMemberAlreadyJoinBinding>(
                 activity,

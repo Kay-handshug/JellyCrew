@@ -24,6 +24,7 @@ import handshug.jellycrew.member.MemberContract.Companion.ACTIVITY_LOGIN_HOME
 import handshug.jellycrew.member.MemberContract.Companion.ACTIVITY_MAIN
 import handshug.jellycrew.member.MemberContract.Companion.ACTIVITY_PAST_ORDERS
 import handshug.jellycrew.member.MemberContract.Companion.FACEBOOK
+import handshug.jellycrew.member.MemberContract.Companion.LOGIN_FAIL
 import handshug.jellycrew.member.MemberContract.Companion.LOGIN_SUCCESS
 import handshug.jellycrew.member.MemberContract.Companion.START_LOGIN_FACEBOOK
 import handshug.jellycrew.member.MemberContract.Companion.START_LOGIN_KAKAO
@@ -60,16 +61,20 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>() {
         viewModel.viewEvent.observe(this, {
             it.getContentIfNotHandled()?.let { event ->
                 when (event) {
-                    ACTIVITY_CLOSE -> finishAffinity() // finish()
+                    ACTIVITY_CLOSE -> finishAffinity()
                     ACTIVITY_MAIN -> goToMainActivity()
                     ACTIVITY_LOGIN_HOME -> goToMainActivity()
                     ACTIVITY_LOGIN_EMAIL -> goToLoginEmail()
                     ACTIVITY_PAST_ORDERS -> goToPastOrders()
                     FRAGMENT_JOIN_TERMS -> goToJoinTerms()
-                    START_LOGIN_KAKAO -> viewModel.getStartLoginKakao() // startLoginKakao(viewModel)
+                    START_LOGIN_KAKAO -> {
+                        showProgressBar()
+                        viewModel.getStartLoginKakao(this)
+                    }
                     START_LOGIN_NAVER -> viewModel.getStartLoginNaver(this)
                     START_LOGIN_FACEBOOK -> startLoginFacebook(viewModel)
                     LOGIN_SUCCESS -> goToMainActivity()
+                    LOGIN_FAIL -> hideProgressBar()
                 }
             }
         })
@@ -114,6 +119,7 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>() {
                     }
                     request.executeAsync()
 
+                    showProgressBar()
                     viewModel.loginSocial(FACEBOOK)
                 }
             }
@@ -131,6 +137,7 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>() {
 
     private fun goToMainActivity() {
         Preference.isLogin = true
+        hideProgressBar()
 
         TimeSynchronizer.sync()
         Intent(this, MainActivity::class.java).apply {

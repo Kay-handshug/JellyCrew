@@ -127,7 +127,7 @@ class JoinPhoneFragment : BindingFragment<FragmentJoinPhoneBinding>() {
                         val phoneNumber = binding.etJoinPhoneInput.text.toString()
                         viewModel.phoneVerifySend(phoneNumber)
                     }
-                    SHOW_DIALOG_REQUEST_VERIFY_SEND_FAIL -> dialog.showDialogTitleContents("인증문자가 계속 오지 않아요 :(", "고객센터 안내 내용")
+                    SHOW_DIALOG_REQUEST_VERIFY_SEND_FAIL -> dialog.showDialogSendSmsFail()
                     COUNT_DOWN_TIMER_START -> {
                         timer.cancel()
                         timer.start()
