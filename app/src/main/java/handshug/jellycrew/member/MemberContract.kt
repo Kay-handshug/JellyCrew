@@ -18,8 +18,9 @@ interface MemberContract {
         const val FRAGMENT_JOIN_TERMS = 1201
         const val FRAGMENT_JOIN_PHONE = 1202
         const val FRAGMENT_JOIN_EMAIL = 1203
-        const val FRAGMENT_JOIN_PASSWORD = 1204
-        const val FRAGMENT_JOIN_USER_INFO = 1205
+        const val FRAGMENT_JOIN_EMAIL_CAFE24 = 1204
+        const val FRAGMENT_JOIN_PASSWORD = 1205
+        const val FRAGMENT_JOIN_USER_INFO = 1206
 
         const val REQ_PHONE_VERIFY_CONFIRM = 1250
 

@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto" >
 
     <data>
         <variable name="viewModel" type="handshug.jellycrew.member.viewModel.MemberViewModel" />
-        <variable name="dialog" type="androidx.appcompat.app.AlertDialog" />
+        <variable name="dialog" type="com.google.android.material.bottomsheet.BottomSheetDialog" />
+        <variable name="phone" type="String" />
+        <variable name="name" type="String" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -16,8 +17,7 @@
         android:paddingBottom="24dp"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
-        android:background="@color/white"
-        app:setCheckPhoneVerify="@{viewModel}">
+        android:background="@color/white" >
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_member_cafe24_title"
@@ -27,7 +27,7 @@
             android:textSize="22sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:setTextColorSpannableEnd="@{11}"
+            app:setTextColorSpannableEnd="@{12}"
             app:setTextColorSpannableStart="@{19}" />
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -42,7 +42,7 @@
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_member_cafe24_phone_number"
             style="@style/style_common_text_bold"
-            android:text="@string/join_already_member_phone_number"
+            android:text="@string/join_already_member_user_info"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_member_cafe24_hint" />
 
@@ -55,69 +55,28 @@
             android:background="@drawable/common_box_radius08_gray100_border_gray400"
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
+            android:text="@{phone}"
+            android:textSize="14sp"
+            android:gravity="center_vertical"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_member_cafe24_phone_number" />
 
-        <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/et_member_cafe24_name_input"
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_member_cafe24_name_input"
             style="@style/style_common_text"
             android:layout_width="0dp"
             android:layout_height="45dp"
-            android:background="@drawable/selector_btn_radius08_gray400_n_gray700"
-            android:hint="@string/join_user_info_name_hint"
-            android:inputType="text"
-            android:maxLength="30"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/common_box_radius08_gray100_border_gray400"
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
-            android:textColorHint="@color/color_common_text_gray500"
-            app:layout_constraintTop_toBottomOf="@+id/tv_member_cafe24_phone_number_input"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/iv_member_cafe24_name_input_delete"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:visibility="invisible"
-            app:layout_constraintBottom_toBottomOf="@+id/et_member_cafe24_name_input"
-            app:layout_constraintEnd_toEndOf="@+id/et_member_cafe24_name_input"
-            app:layout_constraintTop_toTopOf="@+id/et_member_cafe24_name_input"
-            app:srcCompat="@drawable/com_facebook_tooltip_black_xout"
-            tools:visibility="visible" />
-
-        <LinearLayout
-            android:id="@+id/ll_member_cafe24_name_input_rule"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:text="@{name}"
+            android:textSize="14sp"
             android:gravity="center_vertical"
-            android:orientation="horizontal"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/et_member_cafe24_name_input" >
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tv_member_cafe24_name_rule_01"
-                style="@style/style_common_text"
-                android:textColor="@drawable/color_drawable_gray500"
-                android:text="@string/join_user_info_name_rule_01" />
-
-            <View
-                android:layout_width="1dp"
-                android:layout_height="10dp"
-                android:layout_marginStart="5dp"
-                android:layout_marginEnd="5dp"
-                android:background="@drawable/color_drawable_gray500" />
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tv_member_cafe24_name_rule_02"
-                style="@style/style_common_text"
-                android:textColor="@drawable/color_drawable_gray500"
-                android:text="@string/join_user_info_name_rule_02" />
-
-        </LinearLayout>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_member_cafe24_phone_number_input" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_member_cafe24_next"
@@ -125,12 +84,11 @@
             android:layout_width="0dp"
             android:text="@string/btn_next"
             android:layout_marginTop="24dp"
-            android:enabled="false"
-            android:textColor="@drawable/selector_color_gray500_n_white"
-            android:background="@drawable/selector_btn_radius08_white_n_violet500"
+            android:textColor="@drawable/selector_color_white_n_gray500"
+            android:background="@drawable/selector_btn_radius08_violet500_n_gray200"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ll_member_cafe24_name_input_rule" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_member_cafe24_name_input" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_member_cafe24_new_join"

@@ -8,11 +8,11 @@ import handshug.jellycrew.Preference
 import handshug.jellycrew.R
 import handshug.jellycrew.base.BindingFragment
 import handshug.jellycrew.databinding.FragmentJoinPhoneBinding
-import handshug.jellycrew.member.MemberContract
 import handshug.jellycrew.member.MemberContract.Companion.ACTIVITY_LOGIN
 import handshug.jellycrew.member.MemberContract.Companion.COUNT_DOWN_TIMER_START
 import handshug.jellycrew.member.MemberContract.Companion.COUNT_DOWN_TIMER_STOP
 import handshug.jellycrew.member.MemberContract.Companion.FRAGMENT_JOIN_EMAIL
+import handshug.jellycrew.member.MemberContract.Companion.FRAGMENT_JOIN_EMAIL_CAFE24
 import handshug.jellycrew.member.MemberContract.Companion.REQ_PHONE_VERIFY_CONFIRM
 import handshug.jellycrew.member.MemberContract.Companion.SHOW_DIALOG_REQUEST_VERIFY_SEND_FAIL
 import handshug.jellycrew.member.MemberContract.Companion.SHOW_DIALOG_TOAST_VERIFY_SEND
@@ -106,14 +106,26 @@ class JoinPhoneFragment : BindingFragment<FragmentJoinPhoneBinding>() {
             val cafe24 = data.accountCafe24
             val socials = data.accountSocials
 
+            Preference.isCafe24MemberJoin = false
             if ((account != null && account.email.isNotEmpty()) || !socials.isNullOrEmpty()) {
                 dialog.showDialogAlreadyJoinUser(account, socials)
             }
-            else if (cafe24 != null && cafe24.email.isNotEmpty()) {
-                // todo cafe24 dialog show
+            else if (cafe24 != null && cafe24.mobile.isNotEmpty()) {
+                val inputPhone = binding.etJoinPhoneInput.text.toString()
+                val inputName = binding.etJoinPhoneNameInput.text.toString()
+
+                // cafe24에서 가끔 공백 들어옴
+                if (inputPhone.trim() == cafe24.mobile.trim() && inputName.trim() == cafe24.name.trim()) {
+                    // cafe24 member
+                    dialog.showDialogAlreadyCafe24Member(inputPhone, inputName, cafe24)
+                }
+                else {
+                    // no member
+                    dialog.showDialogAlreadyCafe24MemberNotFound()
+                }
             }
             else {
-                goToJoinEmail()
+                goToJoinEmail(true)
             }
         })
 
@@ -121,7 +133,8 @@ class JoinPhoneFragment : BindingFragment<FragmentJoinPhoneBinding>() {
             it.getContentIfNotHandled()?.let { event ->
                 when (event) {
                     ACTIVITY_LOGIN -> (activity as JoinActivity).goToLogin()
-                    FRAGMENT_JOIN_EMAIL -> goToJoinEmail()
+                    FRAGMENT_JOIN_EMAIL -> goToJoinEmail(true)
+                    FRAGMENT_JOIN_EMAIL_CAFE24 -> goToJoinEmail(false)
                     REQ_PHONE_VERIFY_CONFIRM -> {
                         val phoneNumber = binding.etJoinPhoneInput.text.toString()
                         val verifyCode = binding.etJoinPhoneInputVerifyCode.text.toString()
@@ -144,11 +157,13 @@ class JoinPhoneFragment : BindingFragment<FragmentJoinPhoneBinding>() {
         })
     }
 
-    private fun goToJoinEmail() {
-        val userName = binding.etJoinPhoneNameInput.text.toString()
-        val userPhoneNumber = binding.etJoinPhoneInput.text.toString()
-        Preference.userName = userName
-        Preference.userPhoneNumber = userPhoneNumber
+    private fun goToJoinEmail(isDirectContinue: Boolean) {
+        if (isDirectContinue) {
+            val userName = binding.etJoinPhoneNameInput.text.toString()
+            val userPhoneNumber = binding.etJoinPhoneInput.text.toString()
+            Preference.userName = userName
+            Preference.userPhoneNumber = userPhoneNumber
+        }
         (activity as JoinActivity).moveChangePosition(if (Preference.loginType ==0) 2 else 1)
     }
 

@@ -76,7 +76,7 @@
     // Join already member
     <string name="join_already_member_title">새 단장한 젤리크루 앱으로\n회원님의 기본정보를 가져올게요 :)</string>
     <string name="join_already_member_hint">단장 전의 젤리크루에 가입 또는 주문 시에 저장하셨던\n번호로 확인돼요.\n본인 인증 당시의 이름을 입력해주세요.</string>
-    <string name="join_already_member_phone_number">인증된 휴대폰번호</string>
+    <string name="join_already_member_user_info">인증된 회원정보</string>
     <string name="join_already_member_new_join">새단장 했으니 신규가입 할래요</string>
 
     // Join already member not found
@@ -137,6 +137,14 @@
     <string name="join_success_benefits_03_value">1,000 원</string>
     <string name="join_success_benefits_noti">※ 웰컴 기프트는 오늘부터 1달 안에 사용해주세요!</string>
     <string name="join_success_confirm">Go, 젤리크루!</string>
+
+    // Join Cafe24 Success
+    <string name="join_success_cafe24_title_01">님과 젤리크루, 다시 이어졌어요</string>
+    <string name="join_success_cafe24_title_02">다시 함께하게 되어 기쁜 마음에\n새단장 캐쉬도 보내드려요!</string>
+    <string name="join_success_cafe24_benefits_01">잔여 적립금</string>
+    <string name="join_success_cafe24_benefits_02">새단장 캐쉬</string>
+    <string name="join_success_cafe24_benefits_02_value">1,000 원</string>
+    <string name="join_success_cafe24_benefits_noti">※ 새단장 캐쉬는 오늘부터 1달 안에 사용해주세요!</string>
 
     // Join Finish
     <string name="join_finish_title_01">회원가입을 중단하시겠어요?</string>

@@ -15,9 +15,11 @@ import handshug.jellycrew.Preference
 import handshug.jellycrew.R
 import handshug.jellycrew.member.viewModel.MemberViewModel
 import handshug.jellycrew.utils.*
+import kotlinx.android.synthetic.main.activity_join_success.view.*
 import kotlinx.android.synthetic.main.activity_login_email.view.*
 import kotlinx.android.synthetic.main.activity_member_title.view.*
 import kotlinx.android.synthetic.main.dialog_member_already_join.view.*
+import kotlinx.android.synthetic.main.dialog_member_for_cafe24.view.*
 import kotlinx.android.synthetic.main.fragment_join_email.view.*
 import kotlinx.android.synthetic.main.fragment_join_password.view.*
 import kotlinx.android.synthetic.main.fragment_join_phone.view.*
@@ -554,6 +556,15 @@ fun ConstraintLayout.setCheckEmail(viewModel: MemberViewModel) {
         btnNext.isEnabled = true
 
         etEmailInput.setText(Preference.userSocialEmail)
+        setEditBoxEmail(context, viewModel, etEmailInput.text.toString(), btnNext, btnEmailInputDelete, etEmailInput, tvInputErrorMsg)
+    }
+
+    if (Preference.isCafe24MemberJoin && Preference.userEmail.isNotEmpty()) {
+        btnNext.isSelected = true
+        btnNext.isEnabled = true
+
+        etEmailInput.setText(Preference.userEmail)
+        setEditBoxEmail(context, viewModel, etEmailInput.text.toString(), btnNext, btnEmailInputDelete, etEmailInput, tvInputErrorMsg)
     }
 
     this.setOnClickListener {
@@ -572,34 +583,42 @@ fun ConstraintLayout.setCheckEmail(viewModel: MemberViewModel) {
         override fun afterTextChanged(s: Editable?) {}
         override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
         override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-            val cnt = s.toString().length
-
-            if (cnt == 0) {
-                btnEmailInputDelete.invisible()
-                etEmailInput.isSelected = false
-            }
-            else {
-                btnEmailInputDelete.visible()
-                etEmailInput.isSelected = true
-            }
-
-            ViewUtil.setBackgroundDrawable(etEmailInput, R.drawable.common_box_radius08_white_border_red500)
-            if (cnt < 1) {
-                setErrorMsg(tvInputErrorMsg, context.getString(R.string.join_email_input_empty))
-            }
-            else if (!viewModel.verifyEmail(s.toString())) {
-                setErrorMsg(tvInputErrorMsg, context.getString(R.string.join_email_input_error))
-            }
-            else {
-                btnNext.isSelected = true
-                btnNext.isEnabled = true
-
-                tvInputErrorMsg.gone()
-                ViewUtil.setBackgroundDrawable(etEmailInput, R.drawable.selector_btn_radius08_gray400_n_gray700)
-            }
-            etEmailInput.setSelection(cnt)
+            setEditBoxEmail(context, viewModel, s.toString(), btnNext, btnEmailInputDelete, etEmailInput, tvInputErrorMsg)
         }
     })
+}
+
+private fun setEditBoxEmail(
+        context: Context, viewModel: MemberViewModel, text: String,
+        btnNext: AppCompatButton, btnEmailInputDelete: AppCompatImageView,
+        etEmailInput: AppCompatEditText, tvInputErrorMsg: AppCompatTextView
+) {
+    val cnt = text.length
+
+    if (cnt == 0) {
+        btnEmailInputDelete.invisible()
+        etEmailInput.isSelected = false
+    }
+    else {
+        btnEmailInputDelete.visible()
+        etEmailInput.isSelected = true
+    }
+
+    ViewUtil.setBackgroundDrawable(etEmailInput, R.drawable.common_box_radius08_white_border_red500)
+    if (cnt < 1) {
+        setErrorMsg(tvInputErrorMsg, context.getString(R.string.join_email_input_empty))
+    }
+    else if (!viewModel.verifyEmail(text)) {
+        setErrorMsg(tvInputErrorMsg, context.getString(R.string.join_email_input_error))
+    }
+    else {
+        btnNext.isSelected = true
+        btnNext.isEnabled = true
+
+        tvInputErrorMsg.gone()
+        ViewUtil.setBackgroundDrawable(etEmailInput, R.drawable.selector_btn_radius08_gray400_n_gray700)
+    }
+    etEmailInput.setSelection(cnt)
 }
 
 @SuppressLint("UseCompatLoadingForDrawables")
@@ -792,6 +811,15 @@ fun ConstraintLayout.setCheckUserInfo(viewModel: MemberViewModel) {
         }
     }
 
+    if (Preference.isCafe24MemberJoin) {
+        if (Preference.userBirth.isNotEmpty()) {
+            tvBirth.text = Preference.userBirth
+            tvBirth.isSelected = true
+            ivBirthDropDown.isSelected = true
+        }
+    }
+
+
     this.setOnClickListener {
         viewModel.hideKeyboard(it)
     }
@@ -806,9 +834,71 @@ fun setErrorMsg(view: AppCompatTextView, msg: String) {
     view.visible()
 }
 
+@BindingAdapter("setJoinSuccessInfo")
+fun ConstraintLayout.setJoinSuccessInfo(viewModel: MemberViewModel) {
+    val llSubTitle = this.ll_join_success_sub_title_02
+
+    val tvName = llSubTitle.tv_join_success_name
+    val tvSubTitle01 = llSubTitle.tv_join_success_sub_title_02
+    val tvSuvTitle02 = this.tv_join_success_sub_title_03
+    val tvBenefits03Value = this.tv_join_success_benefits_03_value
+    val tvBenefitsNoti = this.tv_join_success_benefits_noti
+
+    val rlBenefits01 = this.rl_join_success_benefits_01
+    val rlBenefits02 = this.rl_join_success_benefits_02
+    val rlBenefits03 = this.rl_join_success_benefits_03
+    val rlBenefits05 = this.rl_join_success_benefits_05
+
+    val btnConfirm = this.btn_join_success_confirm
+
+    tvName.text = Preference.userName
+
+    rlBenefits01.gone()
+    rlBenefits02.gone()
+    rlBenefits03.gone()
+    rlBenefits05.gone()
+
+    if (Preference.isCafe24MemberJoin) {
+        setString(context, tvSubTitle01, R.string.join_success_cafe24_title_01)
+        setString(context, tvSuvTitle02, R.string.join_success_cafe24_title_02)
+        setString(context, tvBenefitsNoti, R.string.join_success_cafe24_benefits_noti)
+
+        rlBenefits03.visible()
+        rlBenefits05.visible()
+
+        if (Preference.userMoney > 0) {
+            val money = FormatterUtil.convertCommaNumberPlusWon(Preference.userMoney)
+            tvBenefits03Value.text = money
+            setTextColorSpan(context, tvBenefits03Value, 0, money.length -1)
+        }
+    }
+    else {
+        setString(context, tvSubTitle01, R.string.join_success_sub_title_02)
+        setString(context, tvSuvTitle02, R.string.join_success_sub_title_03)
+        setString(context, tvBenefitsNoti, R.string.join_success_benefits_noti)
+
+        rlBenefits01.visible()
+        rlBenefits02.visible()
+    }
+
+    setTextColorSpan(context, tvBenefitsNoti, 15, 5)
+
+    btnConfirm.setOnClickListener {
+        viewModel.navigateToJoinSuccess()
+    }
+}
+
+fun setString(context: Context, view: AppCompatTextView, id: Int) {
+    view.text = context.getString(id)
+}
+
+fun setTextColorSpan(context: Context, view: AppCompatTextView, start: Int, end: Int) {
+    ViewUtil.setTextColorSpannable(view, context.getColor(R.color.color_common_violet500), view.text.toString(), start, end)
+}
+
 @BindingAdapter("setTextColorSpannableStart", "setTextColorSpannableEnd")
 fun AppCompatTextView.setTextColorSpannableStart(start: Int, end: Int) {
-    ViewUtil.setTextColorSpannable(this, context.getColor(R.color.color_common_violet500), this.text.toString(), start, end)
+    setTextColorSpan(context, this, start, end)
 }
 
 @BindingAdapter("setAlreadyJoinUser", "setSocialsType")

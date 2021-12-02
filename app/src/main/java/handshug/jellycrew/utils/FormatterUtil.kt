@@ -89,12 +89,12 @@ object FormatterUtil {
 
     fun convertCommaNumberPlusWon(number: Int): String {
         val decimalFormat = DecimalFormat("#,###")
-        return "${decimalFormat.format(number)}원"
+        return "${decimalFormat.format(number)} 원"
     }
 
     fun convertCommaNumberPlusWon(number: Long): String {
         val decimalFormat = DecimalFormat("#,###")
-        return "${decimalFormat.format(number)}원"
+        return "${decimalFormat.format(number)} 원"
     }
 
     fun removeCommaNumber(number: String): Int {
@@ -144,6 +144,11 @@ object FormatterUtil {
         return String.format(format, value)
     }
 
+    fun convertServerDate(date: String): String {
+        return if (date.contains("T")) {
+            date.split("T")[0]
+        } else date
+    }
 
     fun convertCurrencyFormat(digit: Int, price: BigDecimal?): String {
         return String.format("%,.${digit}f", price)

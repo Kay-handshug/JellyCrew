@@ -20,6 +20,12 @@ object Preference {
             sharedPreference.edit().putInt("loginType", loginType).apply()
         }
 
+    var isCafe24MemberJoin: Boolean
+        get() = sharedPreference.getBoolean("isCafe24MemberJoin", false)
+        set(isCafe24MemberJoin) {
+            sharedPreference.edit().putBoolean("isCafe24MemberJoin", isCafe24MemberJoin).apply()
+        }
+
     var loginKey: String
         get() = sharedPreference.getString("loginKey", "").toString()
         set(loginKey) {
@@ -140,6 +146,12 @@ object Preference {
         get() = sharedPreference.getString("userFriend", "").toString()
         set(userFriend) {
             sharedPreference.edit().putString("userFriend", userFriend).apply()
+        }
+
+    var userMoney: Long
+        get() = sharedPreference.getLong("userMoney", 0L)
+        set(userMoney) {
+            sharedPreference.edit().putLong("userMoney", userMoney).apply()
         }
 
     var isMarketingAgree: Boolean

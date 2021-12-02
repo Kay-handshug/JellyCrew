@@ -30,6 +30,7 @@ import handshug.jellycrew.member.MemberContract.Companion.ACTIVITY_RESET_PASSWOR
 import handshug.jellycrew.member.MemberContract.Companion.COUNT_DOWN_TIMER_START
 import handshug.jellycrew.member.MemberContract.Companion.COUNT_DOWN_TIMER_STOP
 import handshug.jellycrew.member.MemberContract.Companion.FRAGMENT_JOIN_EMAIL
+import handshug.jellycrew.member.MemberContract.Companion.FRAGMENT_JOIN_EMAIL_CAFE24
 import handshug.jellycrew.member.MemberContract.Companion.FRAGMENT_JOIN_PASSWORD
 import handshug.jellycrew.member.MemberContract.Companion.FRAGMENT_JOIN_PHONE
 import handshug.jellycrew.member.MemberContract.Companion.FRAGMENT_JOIN_TERMS
@@ -101,6 +102,7 @@ class MemberViewModel(private val memberApi: MemberApi) : BaseViewModel(), Membe
 
     fun navigateToJoinTerms() = viewEvent(FRAGMENT_JOIN_TERMS)
     fun navigateToJoinPhone() = viewEvent(FRAGMENT_JOIN_PHONE)
+    fun navigateToJoinEmailCafe24() = viewEvent(FRAGMENT_JOIN_EMAIL_CAFE24)
     fun navigateToJoinPassword() = viewEvent(FRAGMENT_JOIN_PASSWORD)
     fun navigateToJoinUserInfo() = viewEvent(FRAGMENT_JOIN_USER_INFO)
 

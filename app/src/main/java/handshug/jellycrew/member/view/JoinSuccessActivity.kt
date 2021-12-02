@@ -28,7 +28,6 @@ class JoinSuccessActivity : BindingActivity<ActivityJoinSuccessBinding>() {
         this.viewModel = viewModel
 
         binding.viewModel = viewModel
-        binding.name = Preference.userName
         binding.lifecycleOwner = this
 
         viewModel.toastMessage.observe(this, {
