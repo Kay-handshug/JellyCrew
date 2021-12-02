@@ -1,21 +1,21 @@
 <resources>
     <string name="app_name">JellyCrew</string>
 
-    // default button
+    // Default Button
     <string name="btn_ok">확인</string>
     <string name="btn_cancel">취소</string>
     <string name="btn_next">다음</string>
 
-    // popup
+    // Popup
     <string name="popup_permission_setting_title">필요 권한</string>
     <string name="popup_permission_setting_message">이 앱은 사용하기 위해 권한이 필요합니다. 앱 설정에서 부여할 수 있습니다.</string>
 
-    // toast
+    // Toast
     <string name="toast_app_finish">뒤로 가기를 한 번 더 누를 시 앱이 종료됩니다.</string>
     <string name="toast_payment_request_token">이 로직은 서버사이드에서 먼저 수행되어야 합니다.</string>
     <string name="toast_request_join_fail">지금은 회원 가입이 안되요. 잠시 뒤 다시 시도해 주세요 :(</string>
 
-    // login
+    // Login
     <string name="login">로그인</string>
     <string name="login_title">JELLY CREW</string>
     <string name="login_sub_title">크리에이터와 나를 잇는 쇼핑플랫폼</string>
@@ -27,16 +27,16 @@
     <string name="login_social_error_03">API 응답을 읽는데 실패했습니다.</string>
     <string name="login_social_error_04">API 요청과 응답을 실패했습니다.</string>
 
-    // login email
+    // Login Email
     <string name="login_email_title">이메일과 비밀번호를\n입력해주세요 :)</string>
     <string name="login_email_btn_find">이메일 찾기</string>
     <string name="login_email_btn_reset_password">비밀번호 재설정</string>
 
-    // login not found
+    // Login not found
     <string name="login_not_found_title">젤리크루에는\n입력하신 이메일로\n가입된 계정이 없네요.</string>
     <string name="login_not_found_noti">혹시 이메일 주소 또는 비밀번호 입력\n오류일 수 있으니 확인 부탁드려요.\n\n그래도 동일한 안내가 계속 나온다면\n이메일 찾기 또는 회원가입을 진행해 주세요 :)</string>
 
-    // join terms
+    // Join Terms
     <string name="join_title">회원가입</string>
     <string name="join_terms_sub_title">젤리크루\n약관에 동의해 주세요 :)</string>
     <string name="join_terms_agree_all">모두 동의 (선택정보 포함)</string>
@@ -53,7 +53,7 @@
     <string name="join_terms_test_contents_s">이용약관</string>
     <string name="join_terms_test_contents_l">개인정보수집 및 이용동의</string>
 
-    // join phone
+    // Join Phone
     <string name="join_phone_sub_title">이름과\n휴대폰 번호를 알려주세요 :)</string>
     <string name="join_phone_sub_title_hint">입력하신 번호로 인증번호를 보내드려요.</string>
     <string name="join_phone_input_hint">휴대폰 번호 (- 제외)</string>
@@ -72,6 +72,20 @@
     <string name="join_phone_error_request_verify_fail_notice_02">2. 가입한 통신사 무료 부가서비스 중에\n스팸 필터링 부가서비스가 있을 수 있어요.</string>
     <string name="join_phone_error_request_verify_fail_notice_03">위 2가지 사유인 경우가 많으니 먼저 휴대폰의 스팸 문자함 및 통신사에 해당 부가서비스 가입 여부를 확인해 주세요.</string>
     <string name="join_phone_error_request_verify_fail_notice_04">그럼에도 불구하고 계속 오지 않는다면,\n젤리크루 카톡상담 또는 메일로 문의해 주세요.</string>
+
+    // Join already member
+    <string name="join_already_member_title">새 단장한 젤리크루 앱으로\n회원님의 기본정보를 가져올게요 :)</string>
+    <string name="join_already_member_hint">단장 전의 젤리크루에 가입 또는 주문 시에 저장하셨던\n번호로 확인돼요.\n본인 인증 당시의 이름을 입력해주세요.</string>
+    <string name="join_already_member_phone_number">인증된 휴대폰번호</string>
+    <string name="join_already_member_new_join">새단장 했으니 신규가입 할래요</string>
+
+    // Join already member not found
+    <string name="join_already_member_not_found_title_01">휴대폰 번호와 이름이\n일치하지 않아</string>
+    <string name="join_already_member_not_found_title_02">정보를 가져올 수 없어요.</string>
+    <string name="join_already_member_not_found_hint">회원님의 개인정보를 보호하기 위해\n정확하게 맞아야만 정보를 가져올 수 있어요\n다시 인증 또는 신규가입으로 진행해주세요 :)</string>
+    <string name="join_already_member_not_found_retry">다시 인증</string>
+    <string name="join_already_member_not_found_cs_kakao">카톡상담</string>
+    <string name="join_already_member_not_found_cs_email">메일보내기</string>
 
     // Join Already
     <string name="join_already_title_01">이미 가입을 하셨네요! :)</string>

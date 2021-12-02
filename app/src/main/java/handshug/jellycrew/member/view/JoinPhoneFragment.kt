@@ -103,10 +103,14 @@ class JoinPhoneFragment : BindingFragment<FragmentJoinPhoneBinding>() {
 
         viewModel.alreadyJoinData.observe(viewLifecycleOwner, { data ->
             val account = data.account
+            val cafe24 = data.accountCafe24
             val socials = data.accountSocials
 
             if ((account != null && account.email.isNotEmpty()) || !socials.isNullOrEmpty()) {
                 dialog.showDialogAlreadyJoinUser(account, socials)
+            }
+            else if (cafe24 != null && cafe24.email.isNotEmpty()) {
+                // todo cafe24 dialog show
             }
             else {
                 goToJoinEmail()

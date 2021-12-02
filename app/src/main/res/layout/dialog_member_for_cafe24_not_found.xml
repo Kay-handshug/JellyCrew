@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" >
+
+    <data>
+        <variable name="viewModel" type="handshug.jellycrew.member.viewModel.MemberViewModel" />
+        <variable name="dialog" type="androidx.appcompat.app.AlertDialog" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="16dp"
+        android:paddingBottom="24dp"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:background="@color/white"
+        app:setCheckPhoneVerify="@{viewModel}">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_member_cafe24_not_found_title_01"
+            style="@style/style_common_title"
+            android:layout_marginTop="8dp"
+            android:text="@string/join_already_member_not_found_title_01"
+            android:textSize="22sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_member_cafe24_not_found_title_02"
+            style="@style/style_common_title"
+            android:paddingBottom="24dp"
+            android:text="@string/join_already_member_not_found_title_02"
+            android:textSize="22sp"
+            android:textColor="@color/color_common_red500"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_member_cafe24_not_found_title_01" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_member_cafe24_not_found_hint"
+            style="@style/style_common_text"
+            android:layout_width="0dp"
+            android:padding="16dp"
+            android:layout_marginTop="16dp"
+            android:gravity="center"
+            android:text="@string/join_already_member_not_found_hint"
+            android:background="@drawable/common_box_radius08_gray100"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_member_cafe24_not_found_title_02" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_member_cafe24_not_found_next"
+            style="@style/style_common_button_bold"
+            android:layout_width="0dp"
+            android:text="@string/btn_next"
+            android:layout_marginTop="24dp"
+            android:enabled="false"
+            android:textColor="@drawable/selector_color_gray500_n_white"
+            android:background="@drawable/selector_btn_radius08_white_n_violet500"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_member_cafe24_not_found_hint" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_member_cafe24_not_found_new_join"
+            style="@style/style_common_button_bold"
+            android:layout_width="0dp"
+            android:text="@string/join_already_member_new_join"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="24dp"
+            android:textColor="@drawable/selector_color_gray500_n_white"
+            android:background="@drawable/selector_btn_radius08_white_n_violet500"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_member_cafe24_not_found_next" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_member_cafe24_not_found_cs_kakao"
+            style="@style/style_common_text"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:padding="10dp"
+            android:text="@string/join_already_member_not_found_cs_kakao"
+            android:textColor="@color/color_common_text_gray500"
+            app:layout_constraintTop_toBottomOf="@+id/btn_member_cafe24_not_found_new_join"
+            app:layout_constraintRight_toLeftOf="@+id/v_line"/>
+
+        <View
+            android:id="@+id/v_line"
+            android:layout_width="1dp"
+            android:layout_height="12dp"
+            android:layout_marginTop="28dp"
+            android:layout_marginEnd="16dp"
+            android:background="@color/color_common_text_gray500"
+            app:layout_constraintTop_toBottomOf="@id/btn_member_cafe24_not_found_new_join"
+            app:layout_constraintRight_toLeftOf="@+id/tv_member_cafe24_not_found_cs_email" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_member_cafe24_not_found_cs_email"
+            style="@style/style_common_text"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:padding="10dp"
+            android:text="@string/join_already_member_not_found_cs_email"
+            android:textColor="@color/color_common_text_gray500"
+            app:layout_constraintTop_toBottomOf="@id/btn_member_cafe24_not_found_new_join"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
