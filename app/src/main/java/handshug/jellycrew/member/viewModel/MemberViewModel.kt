@@ -27,8 +27,10 @@ import handshug.jellycrew.member.MemberContract.Companion.ACTIVITY_LOGIN_HOME
 import handshug.jellycrew.member.MemberContract.Companion.ACTIVITY_MAIN
 import handshug.jellycrew.member.MemberContract.Companion.ACTIVITY_PAST_ORDERS
 import handshug.jellycrew.member.MemberContract.Companion.ACTIVITY_RESET_PASSWORD
+import handshug.jellycrew.member.MemberContract.Companion.CAFE24
 import handshug.jellycrew.member.MemberContract.Companion.COUNT_DOWN_TIMER_START
 import handshug.jellycrew.member.MemberContract.Companion.COUNT_DOWN_TIMER_STOP
+import handshug.jellycrew.member.MemberContract.Companion.DIRECT
 import handshug.jellycrew.member.MemberContract.Companion.FRAGMENT_JOIN_EMAIL
 import handshug.jellycrew.member.MemberContract.Companion.FRAGMENT_JOIN_EMAIL_CAFE24
 import handshug.jellycrew.member.MemberContract.Companion.FRAGMENT_JOIN_PASSWORD
@@ -188,7 +190,7 @@ class MemberViewModel(private val memberApi: MemberApi) : BaseViewModel(), Membe
                     Preference.userBirth,
                     Preference.userGender,
                     Preference.userName,
-                    "DIRECT",
+                    if (Preference.isCafe24MemberJoin) CAFE24 else DIRECT,
                     Preference.userNickname,
                     Preference.userFriend,
                     Preference.isMarketingAgree,

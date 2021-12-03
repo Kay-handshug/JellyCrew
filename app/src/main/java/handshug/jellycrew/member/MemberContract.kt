@@ -47,5 +47,9 @@ interface MemberContract {
         const val KAKAO = "KAKAO"
         const val NAVER = "NAVER"
         const val FACEBOOK = "FACEBOOK"
+
+        // join type
+        const val DIRECT = "DIRECT"
+        const val CAFE24 = "CAFE24"
     }
 }
