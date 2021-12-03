@@ -8,104 +8,111 @@
         <variable name="viewModel" type="handshug.jellycrew.member.viewModel.MemberViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/white"
-        app:setCheckUserInfo="@{viewModel}">
+        android:layout_height="wrap_content"
+        android:paddingBottom="16dp">
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_join_user_info_sub_title"
-            style="@style/style_common_title"
-            android:layout_marginTop="62dp"
-            android:layout_marginStart="16dp"
-            android:text="@string/join_user_info_sub_title"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            app:setCheckUserInfo="@{viewModel}">
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_join_user_info_birth"
-            android:layout_width="0dp"
-            android:layout_height="45dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
-            android:gravity="center_vertical"
-            android:text="@string/join_user_info_birth_hint"
-            android:textColor="@drawable/selector_color_gray500_n_gray800"
-            android:background="@drawable/selector_btn_radius08_red500_n_gray700"
-            android:onClick="@{() -> viewModel.showDialogDatePicker()}"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_join_user_info_sub_title" />
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_join_user_info_sub_title"
+                style="@style/style_common_title"
+                android:layout_marginTop="62dp"
+                android:layout_marginStart="16dp"
+                android:text="@string/join_user_info_sub_title"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_join_user_info_birth_error_msg"
-            style="@style/style_common_text"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="10dp"
-            android:text="@string/join_user_info_birth_error_msg"
-            android:textColor="@color/color_common_red500"
-            android:visibility="gone"
-            app:layout_constraintTop_toBottomOf="@+id/tv_join_user_info_birth"
-            app:layout_constraintStart_toStartOf="parent"
-            tools:visibility="visible"/>
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_join_user_info_birth"
+                android:layout_width="0dp"
+                android:layout_height="45dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:gravity="center_vertical"
+                android:text="@string/join_user_info_birth_hint"
+                android:textColor="@drawable/selector_color_gray500_n_gray800"
+                android:background="@drawable/selector_btn_radius08_red500_n_gray700"
+                android:onClick="@{() -> viewModel.showDialogDatePicker()}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_join_user_info_sub_title" />
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/iv_join_user_info_birth_drop_down"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="24dp"
-            android:onClick="@{() -> viewModel.showDialogDatePicker()}"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_join_user_info_birth"
-            app:layout_constraintEnd_toEndOf="@+id/tv_join_user_info_birth"
-            app:layout_constraintTop_toTopOf="@+id/tv_join_user_info_birth"
-            app:srcCompat="@drawable/selector_btn_arrow_drop_down" />
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_join_user_info_birth_error_msg"
+                style="@style/style_common_text"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="10dp"
+                android:text="@string/join_user_info_birth_error_msg"
+                android:textColor="@color/color_common_red500"
+                android:visibility="gone"
+                app:layout_constraintTop_toBottomOf="@+id/tv_join_user_info_birth"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:visibility="visible"/>
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_join_user_info_gender"
-            android:layout_width="0dp"
-            android:layout_height="45dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
-            android:gravity="center_vertical"
-            android:text="@string/join_user_info_gender_hint"
-            android:textColor="@drawable/selector_color_gray500_n_gray800"
-            android:background="@drawable/common_box_radius08_white_border_red500"
-            android:onClick="@{() -> viewModel.showDialogGender()}"
-            app:layout_constraintTop_toBottomOf="@+id/tv_join_user_info_birth_error_msg"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_join_user_info_birth_drop_down"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="24dp"
+                android:onClick="@{() -> viewModel.showDialogDatePicker()}"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_join_user_info_birth"
+                app:layout_constraintEnd_toEndOf="@+id/tv_join_user_info_birth"
+                app:layout_constraintTop_toTopOf="@+id/tv_join_user_info_birth"
+                app:srcCompat="@drawable/selector_btn_arrow_drop_down" />
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/iv_join_user_info_gender_drop_down"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="24dp"
-            android:onClick="@{() -> viewModel.showDialogGender()}"
-            app:layout_constraintBottom_toBottomOf="@id/tv_join_user_info_gender"
-            app:layout_constraintEnd_toEndOf="@id/tv_join_user_info_gender"
-            app:layout_constraintTop_toTopOf="@id/tv_join_user_info_gender"
-            app:srcCompat="@drawable/selector_btn_arrow_drop_down" />
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_join_user_info_gender"
+                android:layout_width="0dp"
+                android:layout_height="45dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:gravity="center_vertical"
+                android:text="@string/join_user_info_gender_hint"
+                android:textColor="@drawable/selector_color_gray500_n_gray800"
+                android:background="@drawable/common_box_radius08_white_border_red500"
+                android:onClick="@{() -> viewModel.showDialogGender()}"
+                app:layout_constraintTop_toBottomOf="@+id/tv_join_user_info_birth_error_msg"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_join_user_info_next"
-            style="@style/style_common_button_bold"
-            android:layout_width="0dp"
-            android:text="@string/join_confirm"
-            android:layout_marginTop="24dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:enabled="false"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_join_user_info_gender" />
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_join_user_info_gender_drop_down"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="24dp"
+                android:onClick="@{() -> viewModel.showDialogGender()}"
+                app:layout_constraintBottom_toBottomOf="@id/tv_join_user_info_gender"
+                app:layout_constraintEnd_toEndOf="@id/tv_join_user_info_gender"
+                app:layout_constraintTop_toTopOf="@id/tv_join_user_info_gender"
+                app:srcCompat="@drawable/selector_btn_arrow_drop_down" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_join_user_info_next"
+                style="@style/style_common_button_bold"
+                android:layout_width="0dp"
+                android:text="@string/join_confirm"
+                android:layout_marginTop="24dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:enabled="false"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_join_user_info_gender" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
 
 </layout>

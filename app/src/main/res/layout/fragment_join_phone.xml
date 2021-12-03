@@ -8,209 +8,215 @@
         <variable name="viewModel" type="handshug.jellycrew.member.viewModel.MemberViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/white"
-        app:setCheckPhoneVerify="@{viewModel}">
+        android:layout_height="wrap_content"
+        android:paddingBottom="16dp">
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_join_phone_sub_title"
-            style="@style/style_common_title"
-            android:layout_marginTop="62dp"
-            android:layout_marginStart="16dp"
-            android:text="@string/join_phone_sub_title"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_join_phone_sub_title_hint"
-            style="@style/style_common_text"
-            android:layout_marginStart="16dp"
-            android:paddingBottom="30dp"
-            android:text="@string/join_phone_sub_title_hint"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_join_phone_sub_title" />
-
-        <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/et_join_phone_name_input"
-            style="@style/style_common_text"
-            android:layout_width="0dp"
-            android:layout_height="45dp"
-            android:background="@drawable/selector_btn_radius08_gray400_n_gray700"
-            android:hint="@string/join_user_info_name_hint"
-            android:inputType="text"
-            android:maxLength="30"
-            android:layout_marginTop="24dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
-            android:textColorHint="@color/color_common_text_gray500"
-            app:layout_constraintTop_toBottomOf="@+id/tv_join_phone_sub_title_hint"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/iv_join_phone_name_input_delete"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:visibility="invisible"
-            app:layout_constraintBottom_toBottomOf="@+id/et_join_phone_name_input"
-            app:layout_constraintEnd_toEndOf="@+id/et_join_phone_name_input"
-            app:layout_constraintTop_toTopOf="@+id/et_join_phone_name_input"
-            app:srcCompat="@drawable/com_facebook_tooltip_black_xout"
-            tools:visibility="visible" />
-
-        <LinearLayout
-            android:id="@+id/ll_join_phone_name_input_rule"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginStart="16dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/et_join_phone_name_input" >
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            app:setCheckPhoneVerify="@{viewModel}">
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tv_join_phone_name_rule_01"
-                style="@style/style_common_text"
-                android:textColor="@drawable/color_drawable_gray500"
-                android:text="@string/join_user_info_name_rule_01" />
-
-            <View
-                android:layout_width="1dp"
-                android:layout_height="10dp"
-                android:layout_marginStart="5dp"
-                android:layout_marginEnd="5dp"
-                android:background="@drawable/color_drawable_gray500" />
+                android:id="@+id/tv_join_phone_sub_title"
+                style="@style/style_common_title"
+                android:layout_marginTop="62dp"
+                android:layout_marginStart="16dp"
+                android:text="@string/join_phone_sub_title"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tv_join_phone_name_rule_02"
+                android:id="@+id/tv_join_phone_sub_title_hint"
                 style="@style/style_common_text"
-                android:textColor="@drawable/color_drawable_gray500"
-                android:text="@string/join_user_info_name_rule_02" />
+                android:layout_marginStart="16dp"
+                android:paddingBottom="30dp"
+                android:text="@string/join_phone_sub_title_hint"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_join_phone_sub_title" />
 
-        </LinearLayout>
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/et_join_phone_name_input"
+                style="@style/style_common_text"
+                android:layout_width="0dp"
+                android:layout_height="45dp"
+                android:background="@drawable/selector_btn_radius08_gray400_n_gray700"
+                android:hint="@string/join_user_info_name_hint"
+                android:inputType="text"
+                android:maxLength="30"
+                android:layout_marginTop="24dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:textColorHint="@color/color_common_text_gray500"
+                app:layout_constraintTop_toBottomOf="@+id/tv_join_phone_sub_title_hint"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
 
-        <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/et_join_phone_input"
-            style="@style/style_common_text"
-            android:layout_width="0dp"
-            android:layout_height="45dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:background="@drawable/selector_btn_radius08_gray400_n_gray700"
-            android:hint="@string/join_phone_input_hint"
-            android:inputType="phone"
-            android:maxLength="11"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
-            android:textColorHint="@color/color_common_text_gray500"
-            app:layout_constraintEnd_toStartOf="@+id/btn_join_phone_request_verify"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ll_join_phone_name_input_rule" />
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_join_phone_name_input_delete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="@+id/et_join_phone_name_input"
+                app:layout_constraintEnd_toEndOf="@+id/et_join_phone_name_input"
+                app:layout_constraintTop_toTopOf="@+id/et_join_phone_name_input"
+                app:srcCompat="@drawable/com_facebook_tooltip_black_xout"
+                tools:visibility="visible" />
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/iv_join_phone_input_delete"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:visibility="invisible"
-            app:layout_constraintBottom_toBottomOf="@+id/et_join_phone_input"
-            app:layout_constraintEnd_toEndOf="@+id/et_join_phone_input"
-            app:layout_constraintTop_toTopOf="@+id/et_join_phone_input"
-            app:srcCompat="@drawable/com_facebook_tooltip_black_xout"
-            tools:visibility="visible" />
+            <LinearLayout
+                android:id="@+id/ll_join_phone_name_input_rule"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="16dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/et_join_phone_name_input" >
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_join_phone_request_verify"
-            style="@style/style_common_button_bold"
-            android:layout_width="100dp"
-            android:layout_height="45dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:text="@string/join_phone_request_verify"
-            android:enabled="false"
-            android:background="@drawable/selector_btn_radius08_white_n_violet500"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ll_join_phone_name_input_rule" />
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_join_phone_name_rule_01"
+                    style="@style/style_common_text"
+                    android:textColor="@drawable/color_drawable_gray500"
+                    android:text="@string/join_user_info_name_rule_01" />
 
-        <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/et_join_phone_input_verify_code"
-            style="@style/style_common_text"
-            android:layout_width="0dp"
-            android:layout_height="45dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginTop="16dp"
-            android:maxLength="6"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
-            android:inputType="number"
-            android:visibility="gone"
-            android:background="@drawable/selector_btn_radius08_gray400_n_gray700"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/et_join_phone_input"
-            tools:visibility="visible"/>
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="10dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:background="@drawable/color_drawable_gray500" />
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_join_phone_input_verify_number_countdown"
-            style="@style/style_common_text"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="35dp"
-            android:layout_marginTop="16dp"
-            android:textSize="14sp"
-            android:textColor="@color/color_common_text_gray900"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="@+id/et_join_phone_input_verify_code"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/et_join_phone_input"
-            tools:text="03:00"
-            tools:visibility="visible"/>
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_join_phone_name_rule_02"
+                    style="@style/style_common_text"
+                    android:textColor="@drawable/color_drawable_gray500"
+                    android:text="@string/join_user_info_name_rule_02" />
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_join_phone_input_error_msg"
-            style="@style/style_common_text"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:visibility="gone"
-            android:textColor="@color/color_common_red500"
-            app:layout_constraintTop_toBottomOf="@+id/et_join_phone_input_verify_code"
-            app:layout_constraintStart_toStartOf="parent"
-            tools:text="@string/join_phone_error_01"
-            tools:visibility="visible" />
+            </LinearLayout>
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_join_phone_send_error_msg"
-            style="@style/style_common_text"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:text="@string/join_phone_error_request_verify_fail"
-            android:textColor="@color/color_common_text_gray600"
-            android:onClick="@{() -> viewModel.showDialogRequestVerifySendFail()}"
-            app:layout_constraintTop_toBottomOf="@+id/tv_join_phone_input_error_msg"
-            app:layout_constraintStart_toStartOf="parent"
-            app:underline="@{true}" />
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/et_join_phone_input"
+                style="@style/style_common_text"
+                android:layout_width="0dp"
+                android:layout_height="45dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/selector_btn_radius08_gray400_n_gray700"
+                android:hint="@string/join_phone_input_hint"
+                android:inputType="phone"
+                android:maxLength="11"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:textColorHint="@color/color_common_text_gray500"
+                app:layout_constraintEnd_toStartOf="@+id/btn_join_phone_request_verify"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ll_join_phone_name_input_rule" />
 
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_join_phone_input_delete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="@+id/et_join_phone_input"
+                app:layout_constraintEnd_toEndOf="@+id/et_join_phone_input"
+                app:layout_constraintTop_toTopOf="@+id/et_join_phone_input"
+                app:srcCompat="@drawable/com_facebook_tooltip_black_xout"
+                tools:visibility="visible" />
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_join_phone_next"
-            style="@style/style_common_button_bold"
-            android:layout_width="0dp"
-            android:text="@string/btn_next"
-            android:layout_marginTop="24dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:enabled="false"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_join_phone_send_error_msg" />
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_join_phone_request_verify"
+                style="@style/style_common_button_bold"
+                android:layout_width="100dp"
+                android:layout_height="45dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="@string/join_phone_request_verify"
+                android:enabled="false"
+                android:background="@drawable/selector_btn_radius08_white_n_violet500"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ll_join_phone_name_input_rule" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/et_join_phone_input_verify_code"
+                style="@style/style_common_text"
+                android:layout_width="0dp"
+                android:layout_height="45dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="16dp"
+                android:maxLength="6"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:inputType="number"
+                android:visibility="gone"
+                android:background="@drawable/selector_btn_radius08_gray400_n_gray700"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/et_join_phone_input"
+                tools:visibility="visible"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_join_phone_input_verify_number_countdown"
+                style="@style/style_common_text"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="35dp"
+                android:layout_marginTop="16dp"
+                android:textSize="14sp"
+                android:textColor="@color/color_common_text_gray900"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@+id/et_join_phone_input_verify_code"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/et_join_phone_input"
+                tools:text="03:00"
+                tools:visibility="visible"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_join_phone_input_error_msg"
+                style="@style/style_common_text"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:visibility="gone"
+                android:textColor="@color/color_common_red500"
+                app:layout_constraintTop_toBottomOf="@+id/et_join_phone_input_verify_code"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:text="@string/join_phone_error_01"
+                tools:visibility="visible" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_join_phone_send_error_msg"
+                style="@style/style_common_text"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/join_phone_error_request_verify_fail"
+                android:textColor="@color/color_common_text_gray600"
+                android:onClick="@{() -> viewModel.showDialogRequestVerifySendFail()}"
+                app:layout_constraintTop_toBottomOf="@+id/tv_join_phone_input_error_msg"
+                app:layout_constraintStart_toStartOf="parent"
+                app:underline="@{true}" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_join_phone_next"
+                style="@style/style_common_button_bold"
+                android:layout_width="0dp"
+                android:text="@string/btn_next"
+                android:layout_marginTop="24dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:enabled="false"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_join_phone_send_error_msg" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
 
 </layout>

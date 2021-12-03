@@ -508,6 +508,7 @@ private fun setEditBoxPhoneNunmber(
     else {
         btnPhoneInputDelete.visible()
         etInputPhoneNumber.isSelected = true
+        loseFocusRecheck(etInputPhoneNumber, true)
     }
 
     ViewUtil.setBackgroundDrawable(etInputPhoneNumber, R.drawable.common_box_radius08_white_border_red500)
@@ -844,10 +845,10 @@ fun ConstraintLayout.setJoinSuccessInfo(viewModel: MemberViewModel) {
     val tvBenefits03Value = this.tv_join_success_benefits_03_value
     val tvBenefitsNoti = this.tv_join_success_benefits_noti
 
-    val rlBenefits01 = this.rl_join_success_benefits_01
-    val rlBenefits02 = this.rl_join_success_benefits_02
-    val rlBenefits03 = this.rl_join_success_benefits_03
-    val rlBenefits05 = this.rl_join_success_benefits_05
+    val rlBenefits01 = this.ll_join_success_benefits_01
+    val rlBenefits02 = this.ll_join_success_benefits_02
+    val rlBenefits03 = this.ll_join_success_benefits_03
+    val rlBenefits05 = this.ll_join_success_benefits_05
 
     val btnConfirm = this.btn_join_success_confirm
 

@@ -8,161 +8,170 @@
         <variable name="viewModel" type="handshug.jellycrew.member.viewModel.MemberViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingLeft="16dp"
-        android:paddingTop="16dp"
-        android:paddingRight="16dp"
-        android:paddingBottom="16dp"
-        android:background="@color/white">
+        android:layout_height="wrap_content" >
 
-        <LinearLayout
-            android:id="@+id/progress_bar"
-            android:visibility="gone"
-            android:gravity="center"
-            android:clickable="true"
-            android:focusable="true"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:elevation="5dp"
-            tools:visibility="visible"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
+            android:paddingLeft="16dp"
+            android:paddingTop="16dp"
+            android:paddingRight="16dp"
+            android:paddingBottom="16dp"
+            android:background="@color/white">
 
-            <com.airbnb.lottie.LottieAnimationView
-                style="@style/ProgressBar"
-                app:lottie_autoPlay="true"
-                app:lottie_loop="true"
-                app:lottie_rawRes="@raw/progress_wheel"/>
+            <LinearLayout
+                android:id="@+id/progress_bar"
+                android:visibility="gone"
+                android:gravity="center"
+                android:clickable="true"
+                android:focusable="true"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:elevation="5dp"
+                tools:visibility="visible"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
 
-        </LinearLayout>
+                <com.airbnb.lottie.LottieAnimationView
+                    style="@style/ProgressBar"
+                    app:lottie_autoPlay="true"
+                    app:lottie_loop="true"
+                    app:lottie_rawRes="@raw/progress_wheel"/>
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/iv_login_title_close"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="12dp"
-            android:onClick="@{() -> viewModel.activityClose()}"
-            app:srcCompat="@drawable/ic_icon_arrow_left"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            </LinearLayout>
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="12dp"
-            android:onClick="@{() -> viewModel.navigateToLoginHome()}"
-            app:srcCompat="@drawable/ic_icon_home"
-            app:layout_constraintStart_toEndOf="@+id/iv_login_title_close"
-            app:layout_constraintTop_toTopOf="parent" />
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_login_title_close"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="12dp"
+                android:onClick="@{() -> viewModel.activityClose()}"
+                app:srcCompat="@drawable/ic_icon_arrow_left"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/iv_login_img"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            app:srcCompat="@drawable/ic_img_login"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/iv_login_title_close" />
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="12dp"
+                android:onClick="@{() -> viewModel.navigateToLoginHome()}"
+                app:srcCompat="@drawable/ic_icon_home"
+                app:layout_constraintStart_toEndOf="@+id/iv_login_title_close"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/iv_login_logo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/iv_login_img"
-            app:srcCompat="@drawable/ic_icon_logo" />
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_login_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                app:srcCompat="@drawable/ic_img_login"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/iv_login_title_close" />
 
-        <androidx.appcompat.widget.AppCompatTextView
-            style="@style/style_common_sub_title"
-            android:id="@+id/tv_login_sub_title"
-            android:layout_width="match_parent"
-            android:layout_marginTop="16dp"
-            android:text="@string/login_sub_title"
-            android:textSize="16sp"
-            android:textColor="@color/color_common_violet500"
-            android:gravity="center"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/iv_login_logo" />
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_login_logo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/iv_login_img"
+                app:srcCompat="@drawable/ic_icon_logo" />
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/iv_login_kakao"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
-            android:onClick="@{() -> viewModel.startLoginKakao()}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_login_sub_title"
-            app:srcCompat="@drawable/ic_icon_login_kakao"
-            tools:ignore="SmallSp" />
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/style_common_sub_title"
+                android:id="@+id/tv_login_sub_title"
+                android:layout_width="match_parent"
+                android:layout_marginTop="16dp"
+                android:text="@string/login_sub_title"
+                android:textSize="16sp"
+                android:textColor="@color/color_common_violet500"
+                android:gravity="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/iv_login_logo" />
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/iv_login_naver"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:onClick="@{() -> viewModel.startLoginNaver()}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/iv_login_kakao"
-            app:srcCompat="@drawable/ic_icon_login_naver" />
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_login_kakao"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:onClick="@{() -> viewModel.startLoginKakao()}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_login_sub_title"
+                app:srcCompat="@drawable/ic_icon_login_kakao"
+                tools:ignore="SmallSp" />
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/iv_login_facebook"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:onClick="@{() -> viewModel.startLoginFacebook()}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/iv_login_naver"
-            app:srcCompat="@drawable/ic_icon_login_facebook" />
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_login_naver"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:onClick="@{() -> viewModel.startLoginNaver()}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/iv_login_kakao"
+                app:srcCompat="@drawable/ic_icon_login_naver" />
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_login_email"
-            style="@style/style_common_text"
-            android:layout_marginStart="70dp"
-            android:layout_marginTop="30dp"
-            android:text="@string/login_email"
-            android:textSize="14sp"
-            android:textColor="@color/color_common_text_gray800"
-            android:onClick="@{() -> viewModel.navigateToLoginEmail()}"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/iv_login_facebook"
-            app:underline="@{true}" />
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_login_facebook"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:onClick="@{() -> viewModel.startLoginFacebook()}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/iv_login_naver"
+                app:srcCompat="@drawable/ic_icon_login_facebook" />
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_login_email_join"
-            style="@style/style_common_text"
-            android:layout_marginTop="30dp"
-            android:text="@string/login_email_join"
-            android:textSize="14sp"
-            android:textColor="@color/color_common_text_gray800"
-            android:onClick="@{() -> viewModel.navigateToJoinTerms()}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/tv_login_email"
-            app:layout_constraintTop_toBottomOf="@+id/iv_login_facebook"
-            app:underline="@{true}" />
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_login_email"
+                style="@style/style_common_text"
+                android:layout_marginTop="30dp"
+                android:onClick="@{() -> viewModel.navigateToLoginEmail()}"
+                android:text="@string/login_email"
+                android:textColor="@color/color_common_text_gray800"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.2"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/iv_login_facebook"
+                app:underline="@{true}" />
 
-        <androidx.appcompat.widget.AppCompatTextView
-            style="@style/style_common_text"
-            android:layout_marginTop="20dp"
-            android:gravity="center"
-            android:text="@string/login_old_order_list_view"
-            android:textSize="14sp"
-            android:textColor="@color/color_common_border_gray500"
-            android:onClick="@{() -> viewModel.navigateToPastOrders()}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_login_email"
-            app:underline="@{true}"/>
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_login_email_join"
+                style="@style/style_common_text"
+                android:layout_marginTop="30dp"
+                android:text="@string/login_email_join"
+                android:textSize="14sp"
+                android:textColor="@color/color_common_text_gray800"
+                android:onClick="@{() -> viewModel.navigateToJoinTerms()}"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tv_login_email"
+                app:layout_constraintTop_toBottomOf="@+id/iv_login_facebook"
+                app:underline="@{true}" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/style_common_text"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:text="@string/login_old_order_list_view"
+                android:textSize="14sp"
+                android:textColor="@color/color_common_border_gray500"
+                android:onClick="@{() -> viewModel.navigateToPastOrders()}"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_login_email"
+                app:underline="@{true}"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
 
 </layout>

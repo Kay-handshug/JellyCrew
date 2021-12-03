@@ -9,210 +9,217 @@
         <variable name="title" type="String" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/white"
-        app:setCheckLogin="@{viewModel}">
+        android:layout_height="wrap_content"
+        android:paddingBottom="16dp">
 
-        <include
-            android:id="@+id/ic_common_title_login"
-            layout="@layout/activity_member_title"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:viewModel="@{viewModel}"
-            app:index="@{-1}"
-            app:title="@{title}" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_login_title"
-            style="@style/style_common_title"
-            android:layout_marginTop="62dp"
-            android:layout_marginStart="16dp"
-            android:text="@string/login_email_title"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ic_common_title_login" />
-
-        <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/et_login_email_input"
-            style="@style/style_common_text"
-            android:layout_width="0dp"
-            android:layout_height="45dp"
-            android:background="@drawable/selector_btn_radius08_gray400_n_gray700"
-            android:hint="@string/join_email_input_hint"
-            android:inputType="textEmailAddress"
-            android:maxLength="30"
-            android:layout_marginTop="24dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
-            android:textColorHint="@color/color_common_text_gray500"
-            app:layout_constraintTop_toBottomOf="@+id/tv_login_title"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/iv_login_email_input_delete"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:visibility="invisible"
-            app:layout_constraintBottom_toBottomOf="@+id/et_login_email_input"
-            app:layout_constraintEnd_toEndOf="@+id/et_login_email_input"
-            app:layout_constraintTop_toTopOf="@+id/et_login_email_input"
-            app:srcCompat="@drawable/com_facebook_tooltip_black_xout"
-            tools:visibility="visible" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_login_email_input_error_msg"
-            style="@style/style_common_text"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="10dp"
-            android:textColor="@color/color_common_red500"
-            android:visibility="gone"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/et_login_email_input"
-            tools:layout_editor_absoluteY="320dp"
-            tools:text="@string/join_phone_error_01"
-            tools:visibility="visible" />
-
-        <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/et_login_password_input"
-            style="@style/style_common_text"
-            android:layout_width="0dp"
-            android:layout_height="45dp"
-            android:background="@drawable/selector_btn_radius08_gray400_n_gray700"
-            android:hint="@string/join_password_input_hint"
-            android:inputType="textPassword"
-            android:maxLength="30"
-            android:layout_marginTop="16dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
-            android:textColorHint="@color/color_common_text_gray500"
-            app:layout_constraintTop_toBottomOf="@+id/tv_login_email_input_error_msg"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/iv_login_password_input_delete"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="32dp"
-            android:visibility="invisible"
-            app:layout_constraintBottom_toBottomOf="@+id/et_login_password_input"
-            app:layout_constraintEnd_toEndOf="@+id/ibtn_login_password_input_view"
-            app:layout_constraintTop_toTopOf="@+id/et_login_password_input"
-            app:srcCompat="@drawable/com_facebook_tooltip_black_xout"
-            tools:visibility="visible" />
-
-        <androidx.appcompat.widget.AppCompatImageButton
-            android:id="@+id/ibtn_login_password_input_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="24dp"
-            android:background="@android:color/transparent"
-            android:src="@drawable/selector_btn_password_view"
-            android:visibility="invisible"
-            app:layout_constraintBottom_toBottomOf="@+id/et_login_password_input"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/et_login_password_input"
-            tools:visibility="visible"/>
-
-        <LinearLayout
-            android:id="@+id/ll_login_password_input_rule"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginStart="16dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/et_login_password_input" >
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            app:setCheckLogin="@{viewModel}">
+
+            <include
+                android:id="@+id/ic_common_title_login"
+                layout="@layout/activity_member_title"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:viewModel="@{viewModel}"
+                app:index="@{-1}"
+                app:title="@{title}" />
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tv_login_password_rule_01"
-                style="@style/style_common_text"
-                android:textColor="@drawable/color_drawable_gray500"
-                android:text="@string/join_password_rule_01" />
+                android:id="@+id/tv_login_title"
+                style="@style/style_common_title"
+                android:layout_marginTop="62dp"
+                android:layout_marginStart="16dp"
+                android:text="@string/login_email_title"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ic_common_title_login" />
 
-            <View
-                android:layout_width="1dp"
-                android:layout_height="10dp"
-                android:layout_marginStart="5dp"
-                android:layout_marginEnd="5dp"
-                android:background="@drawable/color_drawable_gray500" />
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/et_login_email_input"
+                style="@style/style_common_text"
+                android:layout_width="0dp"
+                android:layout_height="45dp"
+                android:background="@drawable/selector_btn_radius08_gray400_n_gray700"
+                android:hint="@string/join_email_input_hint"
+                android:inputType="textEmailAddress"
+                android:maxLength="30"
+                android:layout_marginTop="24dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:textColorHint="@color/color_common_text_gray500"
+                app:layout_constraintTop_toBottomOf="@+id/tv_login_title"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_login_email_input_delete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="@+id/et_login_email_input"
+                app:layout_constraintEnd_toEndOf="@+id/et_login_email_input"
+                app:layout_constraintTop_toTopOf="@+id/et_login_email_input"
+                app:srcCompat="@drawable/com_facebook_tooltip_black_xout"
+                tools:visibility="visible" />
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tv_login_password_rule_02"
+                android:id="@+id/tv_login_email_input_error_msg"
                 style="@style/style_common_text"
-                android:textColor="@drawable/color_drawable_gray500"
-                android:text="@string/join_password_rule_02" />
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/color_common_red500"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/et_login_email_input"
+                tools:layout_editor_absoluteY="320dp"
+                tools:text="@string/join_phone_error_01"
+                tools:visibility="visible" />
 
-            <View
-                android:layout_width="1dp"
-                android:layout_height="10dp"
-                android:layout_marginStart="5dp"
-                android:layout_marginEnd="5dp"
-                android:background="@drawable/color_drawable_gray500" />
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tv_login_password_rule_03"
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/et_login_password_input"
                 style="@style/style_common_text"
-                android:textColor="@drawable/color_drawable_gray500"
-                android:text="@string/join_password_rule_03" />
+                android:layout_width="0dp"
+                android:layout_height="45dp"
+                android:background="@drawable/selector_btn_radius08_gray400_n_gray700"
+                android:hint="@string/join_password_input_hint"
+                android:inputType="textPassword"
+                android:maxLength="30"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:textColorHint="@color/color_common_text_gray500"
+                app:layout_constraintTop_toBottomOf="@+id/tv_login_email_input_error_msg"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
 
-        </LinearLayout>
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_login_password_input_delete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="32dp"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="@+id/et_login_password_input"
+                app:layout_constraintEnd_toEndOf="@+id/ibtn_login_password_input_view"
+                app:layout_constraintTop_toTopOf="@+id/et_login_password_input"
+                app:srcCompat="@drawable/com_facebook_tooltip_black_xout"
+                tools:visibility="visible" />
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_login"
-            style="@style/style_common_button_bold"
-            android:layout_width="0dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="16dp"
-            android:enabled="false"
-            android:text="@string/login"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ll_login_password_input_rule" />
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/ibtn_login_password_input_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="24dp"
+                android:background="@android:color/transparent"
+                android:src="@drawable/selector_btn_password_view"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="@+id/et_login_password_input"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/et_login_password_input"
+                tools:visibility="visible"/>
 
-        <LinearLayout
-            android:id="@+id/ll_login_find_reset"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:orientation="horizontal"
-            app:layout_constraintTop_toBottomOf="@+id/btn_login"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
+            <LinearLayout
+                android:id="@+id/ll_login_password_input_rule"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="16dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/et_login_password_input" >
 
-            <androidx.appcompat.widget.AppCompatTextView
-                style="@style/style_common_text"
-                android:text="@string/login_email_btn_find"
-                android:textColor="@color/color_common_text_gray800"
-                android:onClick="@{() -> viewModel.navigateToLoginFindEmail()}"
-                app:underline="@{true}" />
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_login_password_rule_01"
+                    style="@style/style_common_text"
+                    android:textColor="@drawable/color_drawable_gray500"
+                    android:text="@string/join_password_rule_01" />
 
-            <View
-                android:layout_width="1dp"
-                android:layout_height="12dp"
-                android:layout_marginStart="50dp"
-                android:layout_marginEnd="50dp"
-                android:background="@color/color_common_text_gray800" />
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="10dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:background="@drawable/color_drawable_gray500" />
 
-            <androidx.appcompat.widget.AppCompatTextView
-                style="@style/style_common_text"
-                android:text="@string/login_email_btn_reset_password"
-                android:textColor="@color/color_common_text_gray800"
-                android:onClick="@{() -> viewModel.navigateToLoginResetPassword()}"
-                app:underline="@{true}" />
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_login_password_rule_02"
+                    style="@style/style_common_text"
+                    android:textColor="@drawable/color_drawable_gray500"
+                    android:text="@string/join_password_rule_02" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="10dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:background="@drawable/color_drawable_gray500" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_login_password_rule_03"
+                    style="@style/style_common_text"
+                    android:textColor="@drawable/color_drawable_gray500"
+                    android:text="@string/join_password_rule_03" />
+
+            </LinearLayout>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_login"
+                style="@style/style_common_button_bold"
+                android:layout_width="0dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="16dp"
+                android:enabled="false"
+                android:text="@string/login"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ll_login_password_input_rule" />
+
+            <LinearLayout
+                android:id="@+id/ll_login_find_reset"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@+id/btn_login"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/style_common_text"
+                    android:text="@string/login_email_btn_find"
+                    android:textColor="@color/color_common_text_gray800"
+                    android:onClick="@{() -> viewModel.navigateToLoginFindEmail()}"
+                    app:underline="@{true}" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="12dp"
+                    android:layout_marginStart="50dp"
+                    android:layout_marginEnd="50dp"
+                    android:background="@color/color_common_text_gray800" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/style_common_text"
+                    android:text="@string/login_email_btn_reset_password"
+                    android:textColor="@color/color_common_text_gray800"
+                    android:onClick="@{() -> viewModel.navigateToLoginResetPassword()}"
+                    app:underline="@{true}" />
 
 
-        </LinearLayout>
+            </LinearLayout>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
 
 </layout>
