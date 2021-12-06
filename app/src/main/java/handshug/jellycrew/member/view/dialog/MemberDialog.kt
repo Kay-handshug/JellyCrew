@@ -14,7 +14,6 @@ import handshug.jellycrew.base.BindingDialog
 import handshug.jellycrew.databinding.*
 import handshug.jellycrew.member.viewModel.MemberViewModel
 import handshug.jellycrew.utils.FormatterUtil
-import handshug.jellycrew.utils.Log
 import kotlin.text.StringBuilder
 
 class MemberDialog(
@@ -125,18 +124,22 @@ class MemberDialog(
         val dialog = dialogBinding.getBottomSheetDialog()
         dialogBinding.apply {
             binding.viewModel = viewModel
-            binding.email = account?.email?: ""
+            binding.dialog = dialog
+
+            val accountEmail = account?.email?: ""
+            val maskedEmail = if (accountEmail.isNotEmpty()) FormatterUtil.maskedEmail(accountEmail) else ""
+            binding.email = maskedEmail
 
             val socialsType: StringBuilder = StringBuilder()
-            socials?.forEach {
-                socialsType.append(it.socialType).append(",")
+            val maxCnt = socials?.size?: 0
+            for (i in 1..maxCnt) {
+                val type = socials?.get(i)?.socialType
+                socialsType.append(type)
+                if (maxCnt != i) {
+                    socialsType.append(",")
+                }
             }
             binding.socialsType = socialsType.toString()
-
-            binding.btnJoinAlreadyLogin.setOnClickListener {
-                viewModel.navigateToLogin()
-                dialog.dismiss()
-            }
         }
 
         dialog.show()
@@ -161,7 +164,7 @@ class MemberDialog(
                     userName = name
                     userPhoneNumber = phoneNumber
                     userMoney = cafe24.usableMoney
-                    userEmail = if (viewModel.verifyEmail(cafe24.email)) cafe24.email else ""
+                    userEmail = cafe24.email
                     userBirth = FormatterUtil.convertServerDate(cafe24.birthday)
                 }
 

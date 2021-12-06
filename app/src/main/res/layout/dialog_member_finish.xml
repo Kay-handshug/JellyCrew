@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:layout_margin="50dp"
+        android:layout_margin="30dp"
         android:padding="16dp"
         android:orientation="vertical"
         android:background="@drawable/common_box_radius16_white">
@@ -35,88 +35,108 @@
             app:layout_constraintTop_toBottomOf="@+id/tv_join_finish_title_01"
             app:layout_constraintStart_toStartOf="parent" />
 
-        <RelativeLayout
-            android:id="@+id/rl_join_finish_benefits_01"
+        <LinearLayout
+            android:id="@+id/ll_join_finish_benefits_01"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:gravity="center"
             android:padding="10dp"
+            android:orientation="horizontal"
             android:background="@drawable/common_box_radius08_gray100"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_join_finish_title_02">
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tv_join_finish_benefits_01"
-                style="@style/style_common_text_bold"
-                android:drawableStart="@drawable/ic_icon_join_benefits_01"
-                android:drawablePadding="10dp"
-                android:text="@string/join_success_benefits_01"
-                android:textColor="@color/color_common_text_gray900"
-                android:textSize="16sp" />
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.8"
+                android:gravity="center"
+                android:orientation="horizontal" >
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    app:srcCompat="@drawable/ic_icon_join_benefits_01" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/style_common_text_bold"
+                    android:text="@string/join_success_benefits_01"
+                    android:textColor="@color/color_common_text_gray900"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
 
             <View
-                android:id="@+id/v_center_01"
                 android:layout_width="1dp"
                 android:layout_height="12dp"
-                android:layout_marginStart="28dp"
-                android:layout_marginEnd="24dp"
-                android:layout_centerVertical="true"
-                android:layout_toEndOf="@+id/tv_join_finish_benefits_01"
                 android:background="@color/color_common_border_gray500" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 style="@style/style_common_text_bold"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:gravity="center"
                 android:text="@string/join_success_benefits_01_value"
                 android:textColor="@color/color_common_text_gray900"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 android:layout_marginStart="18dp"
-                android:layout_toEndOf="@+id/v_center_01"
                 app:setTextColorSpannableStart="@{0}"
                 app:setTextColorSpannableEnd="@{5}"/>
 
-        </RelativeLayout>
+        </LinearLayout>
 
-        <RelativeLayout
-            android:id="@+id/rl_join_finish_benefits_02"
+        <LinearLayout
+            android:id="@+id/ll_join_finish_benefits_02"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:padding="10dp"
             android:gravity="center"
+            android:orientation="horizontal"
             android:background="@drawable/common_box_radius08_gray100"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/rl_join_finish_benefits_01">
+            app:layout_constraintTop_toBottomOf="@+id/ll_join_finish_benefits_01">
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tv_join_finish_benefits_02"
-                style="@style/style_common_text_bold"
-                android:drawableStart="@drawable/ic_icon_join_benefits_02"
-                android:drawablePadding="10dp"
-                android:text="@string/join_success_benefits_02"
-                android:textColor="@color/color_common_text_gray900"
-                android:textSize="16sp" />
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.5"
+                android:gravity="center"
+                android:orientation="horizontal" >
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    app:srcCompat="@drawable/ic_icon_join_benefits_02" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/style_common_text_bold"
+                    android:text="@string/join_success_benefits_02"
+                    android:textColor="@color/color_common_text_gray900"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
 
             <View
-                android:id="@+id/v_center_02"
                 android:layout_width="1dp"
                 android:layout_height="12dp"
-                android:layout_marginStart="24dp"
-                android:layout_marginEnd="24dp"
-                android:layout_centerVertical="true"
-                android:layout_toEndOf="@+id/tv_join_finish_benefits_02"
                 android:background="@color/color_common_border_gray500" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 style="@style/style_common_text_bold"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:gravity="center"
                 android:text="@string/join_success_benefits_02_value"
                 android:textColor="@color/color_common_text_gray900"
-                android:textSize="16sp"
-                android:layout_toEndOf="@+id/v_center_02"
+                android:textSize="14sp"
                 app:setTextColorSpannableStart="@{0}"
                 app:setTextColorSpannableEnd="@{3}"/>
 
-        </RelativeLayout>
+        </LinearLayout>
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_join_finish_btn_01"
@@ -130,7 +150,7 @@
             android:onClick="@{() -> dialog.dismiss()}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/rl_join_finish_benefits_02" />
+            app:layout_constraintTop_toBottomOf="@+id/ll_join_finish_benefits_02" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_join_finish_btn_02"

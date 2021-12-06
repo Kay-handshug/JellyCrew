@@ -88,11 +88,13 @@
     <string name="join_already_member_not_found_cs_email">메일보내기</string>
 
     // Join Already
-    <string name="join_already_title_01">이미 가입을 하셨네요! :)</string>
-    <string name="join_already_title_02">아래 힌트를 보시고, 로그인 해 주세요.</string>
+    <string name="join_already_title_01">오랜만이에요! :)</string>
+    <string name="join_already_title_02">해당 번호로 이미\n젤리크루에 가입되어 있어요! :)</string>
+    <string name="join_already_title_03">아래 힌트를 보시고, 로그인 해 주세요.</string>
     <string name="join_already_email">이메일</string>
     <string name="join_already_sns">소셜 계정 연동</string>
     <string name="join_already_login">로그인</string>
+    <string name="join_already_new_join">다른 이메일 주소로 가입할래요.</string>
 
     // Join Email
     <string name="join_email_sub_title">아이디가 될\n이메일 주소를 입력해 주세요 :)</string>

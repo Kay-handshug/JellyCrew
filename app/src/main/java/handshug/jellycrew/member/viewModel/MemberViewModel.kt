@@ -104,6 +104,7 @@ class MemberViewModel(private val memberApi: MemberApi) : BaseViewModel(), Membe
 
     fun navigateToJoinTerms() = viewEvent(FRAGMENT_JOIN_TERMS)
     fun navigateToJoinPhone() = viewEvent(FRAGMENT_JOIN_PHONE)
+    fun nabigateToJoinEmail() = viewEvent(FRAGMENT_JOIN_EMAIL)
     fun navigateToJoinEmailCafe24() = viewEvent(FRAGMENT_JOIN_EMAIL_CAFE24)
     fun navigateToJoinPassword() = viewEvent(FRAGMENT_JOIN_PASSWORD)
     fun navigateToJoinUserInfo() = viewEvent(FRAGMENT_JOIN_USER_INFO)
@@ -162,7 +163,7 @@ class MemberViewModel(private val memberApi: MemberApi) : BaseViewModel(), Membe
                 }
                 else {
                     // 미가입 회원 -> 계속 가입 진행
-                    viewEvent(FRAGMENT_JOIN_EMAIL)
+                    nabigateToJoinEmail()
                 }
             }
         }

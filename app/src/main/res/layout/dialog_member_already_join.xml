@@ -6,6 +6,7 @@
 
     <data>
         <variable name="viewModel" type="handshug.jellycrew.member.viewModel.MemberViewModel" />
+        <variable name="dialog" type="com.google.android.material.bottomsheet.BottomSheetDialog" />
         <variable name="email" type="String" />
         <variable name="socialsType" type="String" />
     </data>
@@ -18,7 +19,9 @@
         android:padding="16dp"
         android:orientation="vertical"
         android:background="@drawable/common_box_top_radius08_white"
-        app:setAlreadyJoinUser="@{email}"
+        app:setAlreadyJoinUser="@{viewModel}"
+        app:setAlreadyDialog="@{dialog}"
+        app:setAlreadyEmail="@{email}"
         app:setSocialsType="@{socialsType}">
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -33,12 +36,22 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_join_already_title_02"
+            style="@style/style_common_text_bold"
+            android:layout_marginTop="10dp"
+            android:textSize="16sp"
+            android:text="@string/join_already_title_02"
+            android:textColor="@color/color_common_text_gray800"
+            app:layout_constraintTop_toBottomOf="@+id/tv_join_already_title_01"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_join_already_title_03"
             style="@style/style_common_text"
             android:layout_marginTop="10dp"
             android:textSize="14sp"
-            android:text="@string/join_already_title_02"
+            android:text="@string/join_already_title_03"
             android:textColor="@color/color_common_text_gray700"
-            app:layout_constraintTop_toBottomOf="@+id/tv_join_already_title_01"
+            app:layout_constraintTop_toBottomOf="@+id/tv_join_already_title_02"
             app:layout_constraintStart_toStartOf="parent" />
 
         <LinearLayout
@@ -50,7 +63,7 @@
             android:layout_marginTop="32dp"
             android:orientation="vertical"
             android:background="@drawable/common_box_radius08_gray100"
-            app:layout_constraintTop_toBottomOf="@+id/tv_join_already_title_02"
+            app:layout_constraintTop_toBottomOf="@+id/tv_join_already_title_03"
             app:layout_constraintStart_toStartOf="parent" >
 
             <androidx.appcompat.widget.AppCompatTextView
@@ -71,6 +84,7 @@
                 android:background="@color/color_common_border_gray500" />
 
             <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_join_already_socials_title"
                 style="@style/style_common_text_bold"
                 android:textSize="14sp"
                 android:text="@string/join_already_sns" />
@@ -88,27 +102,21 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="10dp"
-                    android:visibility="gone"
-                    app:srcCompat="@drawable/ic_icon_login_img_kakao"
-                    tools:visibility="visible" />
+                    app:srcCompat="@drawable/selector_btn_login_img_kakao" />
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/iv_join_already_sns_naver"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="10dp"
-                    android:visibility="gone"
-                    app:srcCompat="@drawable/ic_icon_login_img_naver"
-                    tools:visibility="visible" />
+                    app:srcCompat="@drawable/selector_btn_login_img_naver" />
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/iv_join_already_sns_facebook"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="10dp"
-                    android:visibility="gone"
-                    app:srcCompat="@drawable/ic_icon_login_img_facebook"
-                    tools:visibility="visible"/>
+                    app:srcCompat="@drawable/selector_btn_login_img_facebook" />
 
             </LinearLayout>
 

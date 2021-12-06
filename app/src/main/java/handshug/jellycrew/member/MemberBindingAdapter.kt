@@ -11,6 +11,7 @@ import android.view.View
 import androidx.appcompat.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.BindingAdapter
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import handshug.jellycrew.Preference
 import handshug.jellycrew.R
 import handshug.jellycrew.member.viewModel.MemberViewModel
@@ -273,7 +274,14 @@ fun ConstraintLayout.setCheckTerms(viewModel: MemberViewModel) {
         checkItemState(cbAgreeAll, cbAgreeItem01, cbAgreeItem02, cbAgreeItem03, cbAgreeItem04, cbAgreeItem05, state)
     }
 
+    cbAgreeItem06.setOnCheckedChangeListener { _, _ ->
+        if (!cbAgreeItem05.isChecked) cbAgreeItem05.isChecked = true
+    }
+
     btnNext.setOnClickListener {
+        Preference.isMarketingAgree = cbAgreeItem04.isChecked
+        Preference.isLifeTimeMember = cbAgreeItem06.isChecked
+
         viewModel.navigateToJoinPhone()
     }
 }
@@ -560,7 +568,7 @@ fun ConstraintLayout.setCheckEmail(viewModel: MemberViewModel) {
         setEditBoxEmail(context, viewModel, etEmailInput.text.toString(), btnNext, btnEmailInputDelete, etEmailInput, tvInputErrorMsg)
     }
 
-    if (Preference.isCafe24MemberJoin && Preference.userEmail.isNotEmpty()) {
+    if (Preference.isCafe24MemberJoin && Preference.userEmail.isNotEmpty() && viewModel.verifyEmail(Preference.userEmail)) {
         btnNext.isSelected = true
         btnNext.isEnabled = true
 
@@ -797,15 +805,12 @@ fun ConstraintLayout.setCheckUserInfo(viewModel: MemberViewModel) {
 
     val tvBirth = this.tv_join_user_info_birth
     val tvGender = this.tv_join_user_info_gender
+    val tvBirthError = this.tv_join_user_info_birth_error_msg
 
     val ivBirthDropDown = this.iv_join_user_info_birth_drop_down
 
     if (Preference.loginType != 0) {
-        if (Preference.userSocialBirthDay.isNotEmpty()) {
-            tvBirth.text = Preference.userSocialBirthDay
-            tvBirth.isSelected = true
-            ivBirthDropDown.isSelected = true
-        }
+        checkBirthDayVerify(Preference.userSocialBirthDay, tvBirth, tvBirthError, ivBirthDropDown)
         if (Preference.userSocialGender.isNotEmpty()) {
             if (Preference.userSocialGender.contains("fe") || Preference.userSocialGender.contains("F")) viewModel.selectedGender.value = 0
             else viewModel.selectedGender.value = 1
@@ -813,11 +818,7 @@ fun ConstraintLayout.setCheckUserInfo(viewModel: MemberViewModel) {
     }
 
     if (Preference.isCafe24MemberJoin) {
-        if (Preference.userBirth.isNotEmpty()) {
-            tvBirth.text = Preference.userBirth
-            tvBirth.isSelected = true
-            ivBirthDropDown.isSelected = true
-        }
+        checkBirthDayVerify(Preference.userBirth, tvBirth, tvBirthError, ivBirthDropDown)
     }
 
 
@@ -827,6 +828,22 @@ fun ConstraintLayout.setCheckUserInfo(viewModel: MemberViewModel) {
 
     btnNext.setOnClickListener {
         viewModel.navigateToJoinConfirm()
+    }
+}
+
+fun checkBirthDayVerify(birth: String, tvBirth: AppCompatTextView, tvBirthError: AppCompatTextView, ivBirthDropDown: AppCompatImageView) {
+    if (birth.isNotEmpty()) {
+        tvBirth.text = birth
+
+        if (FormatterUtil.isOver14YearsOld(birth)) {
+            tvBirth.isSelected = true
+            ivBirthDropDown.isSelected = true
+
+            tvBirthError.gone()
+        }
+        else {
+            tvBirthError.visible()
+        }
     }
 }
 
@@ -848,6 +865,7 @@ fun ConstraintLayout.setJoinSuccessInfo(viewModel: MemberViewModel) {
     val rlBenefits01 = this.ll_join_success_benefits_01
     val rlBenefits02 = this.ll_join_success_benefits_02
     val rlBenefits03 = this.ll_join_success_benefits_03
+    val rlBenefits04 = this.ll_join_success_benefits_04
     val rlBenefits05 = this.ll_join_success_benefits_05
 
     val btnConfirm = this.btn_join_success_confirm
@@ -857,7 +875,10 @@ fun ConstraintLayout.setJoinSuccessInfo(viewModel: MemberViewModel) {
     rlBenefits01.gone()
     rlBenefits02.gone()
     rlBenefits03.gone()
+    rlBenefits04.gone()
     rlBenefits05.gone()
+
+    if (Preference.isLifeTimeMember) rlBenefits04.visible()
 
     if (Preference.isCafe24MemberJoin) {
         setString(context, tvSubTitle01, R.string.join_success_cafe24_title_01)
@@ -902,24 +923,50 @@ fun AppCompatTextView.setTextColorSpannableStart(start: Int, end: Int) {
     setTextColorSpan(context, this, start, end)
 }
 
-@BindingAdapter("setAlreadyJoinUser", "setSocialsType")
-fun ConstraintLayout.setAlreadyJoinUser(email:String, socialsType: String) {
+@SuppressLint("SetTextI18n")
+@BindingAdapter("setAlreadyJoinUser", "setAlreadyDialog", "setAlreadyEmail", "setSocialsType")
+fun ConstraintLayout.setAlreadyJoinUser(viewModel: MemberViewModel, dialog:BottomSheetDialog, email:String, socialsType: String) {
     val llJoinHint = this.ll_join_already_id_hint
     val llJoinSocialsHint = llJoinHint.ll_join_already_socials_hint
 
+    val tvSocialsTitle = this.tv_join_already_socials_title
     val tvEmail = llJoinHint.tv_join_already_email_hint
+
     val ivKakao = llJoinSocialsHint.iv_join_already_sns_kakao
     val ivNaver = llJoinSocialsHint.iv_join_already_sns_naver
     val ivFacebook = llJoinSocialsHint.iv_join_already_sns_facebook
 
+    val btnLogin = this.btn_join_already_login
+
     tvEmail.text = email
 
+    ivKakao.isSelected = false
+    ivNaver.isSelected = false
+    ivFacebook.isSelected = false
+
     val sns = socialsType.split(",")
+    var snsCnt = 0
     sns.forEach {
         when (it) {
-            "KAKAO" -> ivKakao.visible()
-            "NAVER" -> ivNaver.visible()
-            "FACEBOOK" -> ivFacebook.visible()
+            "KAKAO" -> {
+                snsCnt++
+                ivKakao.isSelected = true
+            }
+            "NAVER" -> {
+                snsCnt++
+                ivNaver.isSelected = true
+            }
+            "FACEBOOK" -> {
+                snsCnt++
+                ivFacebook.isSelected = true
+            }
         }
+    }
+
+    tvSocialsTitle.text = "${context.getString(R.string.join_already_sns)} ($snsCnt)"
+
+    btnLogin.setOnClickListener {
+        dialog.dismiss()
+        viewModel.navigateToLogin()
     }
 }

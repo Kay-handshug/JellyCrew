@@ -155,13 +155,13 @@ object Preference {
         }
 
     var isMarketingAgree: Boolean
-        get() = sharedPreference.getBoolean("isMarketingAgree", true)
+        get() = sharedPreference.getBoolean("isMarketingAgree", false)
         set(isMarketingAgree) {
             sharedPreference.edit().putBoolean("isMarketingAgree", isMarketingAgree).apply()
         }
 
     var isLifeTimeMember: Boolean
-        get() = sharedPreference.getBoolean("isLifeTimeMember", true)
+        get() = sharedPreference.getBoolean("isLifeTimeMember", false)
         set(isLifeTimeMember) {
             sharedPreference.edit().putBoolean("isLifeTimeMember", isLifeTimeMember).apply()
         }

@@ -129,6 +129,54 @@ object FormatterUtil {
         return Pair(hourGap, minutesGap % 60)
     }
 
+    fun maskedEmail(email: String): String {
+        val emailSplit = email.split("@")
+        val emailName = emailSplit[0]
+        val emailDomain = emailSplit[1].split(".")[0]
+        val emailLast = emailSplit[1].split(".")[1]
+
+        val cntName = emailName.length
+        val resultEmailName = when {
+            cntName < 3 -> {
+                masked(emailName, 0, cntName)
+            }
+            cntName < 5 -> {
+                masked(emailName, 1, cntName)
+            }
+            else -> {
+                masked(emailName, 2, cntName)
+            }
+        }
+
+        val cntDomain = emailDomain.length
+        val resultEmailDomain = when {
+            cntDomain < 3 -> {
+                masked(emailDomain, 0, cntDomain)
+            }
+            cntDomain < 5 -> {
+                masked(emailDomain, 1, cntDomain)
+            }
+            else -> {
+                masked(emailDomain, 2, cntDomain)
+            }
+        }
+
+        return "$resultEmailName@$resultEmailDomain.$emailLast"
+    }
+
+    private fun masked(text: String, startSize: Int, maxSize: Int): String {
+        val result = StringBuilder()
+        val start = IntRange(0, startSize)
+        val end = IntRange(startSize +1, maxSize -1)
+        val ranStart = text.slice(start)
+        val ranEnd = text.slice(end)
+
+        result.append(ranStart)
+        for (i in 1..ranEnd.length) {
+            result.append("*")
+        }
+        return result.toString()
+    }
 
     fun convertToString(value: Any?): String {
         return value?.toString() ?: ""
@@ -154,7 +202,7 @@ object FormatterUtil {
         return String.format("%,.${digit}f", price)
     }
 
-    fun getDateYear(time: Long): Int {
+    private fun getDateYear(time: Long): Int {
         return SimpleDateFormat("yyyy", Locale.getDefault()).format(Date(time)).toInt()
     }
 
@@ -163,6 +211,18 @@ object FormatterUtil {
         val current = getDateYear(Date().time)
 
         return (current.minus(birth) > 14)
+    }
+
+    fun isOver14YearsOld(birth: String): Boolean {
+        return try {
+            val year = birth.split("-")[0]
+            val current = getDateYear(Date().time)
+
+            (current.minus(year.toInt()) > 14)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            false
+        }
     }
 
     fun getDateTimestamp(timestamp: Long): String {
