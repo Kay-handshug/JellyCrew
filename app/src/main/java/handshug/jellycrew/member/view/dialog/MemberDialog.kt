@@ -15,6 +15,7 @@ import handshug.jellycrew.base.BindingDialog
 import handshug.jellycrew.databinding.*
 import handshug.jellycrew.member.viewModel.MemberViewModel
 import handshug.jellycrew.utils.FormatterUtil
+import handshug.jellycrew.utils.Log
 import kotlin.text.StringBuilder
 
 class MemberDialog(
@@ -136,7 +137,7 @@ class MemberDialog(
 
             val socialsType: StringBuilder = StringBuilder()
             val maxCnt = socials?.size?: 0
-            for (i in 1..maxCnt) {
+            for (i in 0 until maxCnt) {
                 val type = socials?.get(i)?.socialType
                 socialsType.append(type)
                 if (maxCnt != i) {
