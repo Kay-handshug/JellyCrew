@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">JellyCrew</string>
+    <string name="app_name">젤리크루</string>
 
     // Default Button
     <string name="btn_ok">확인</string>

@@ -16,7 +16,6 @@ import handshug.jellycrew.TimeSynchronizer
 import handshug.jellycrew.base.BindingActivity
 import handshug.jellycrew.databinding.ActivityLoginBinding
 import handshug.jellycrew.main.view.MainActivity
-import handshug.jellycrew.member.MemberContract
 import handshug.jellycrew.member.MemberContract.Companion.ACTIVITY_CLOSE
 import handshug.jellycrew.member.MemberContract.Companion.ACTIVITY_LOGIN_EMAIL
 import handshug.jellycrew.member.MemberContract.Companion.FRAGMENT_JOIN_TERMS
@@ -90,10 +89,17 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>() {
                 listOf("public_profile", "email", "user_birthday", "user_gender")
         )
 
+        Log.msg("# Login Facebook denied permission : start")
+
         loginManager.registerCallback(callbackFacebook, object: FacebookCallback<LoginResult> {
             override fun onSuccess(result: LoginResult?) {
                 Preference.loginType = 3
                 Preference.userSocialType = FACEBOOK
+
+                Log.msg("# Login Facebook denied permission : check")
+
+                val permissions = result?.recentlyDeniedPermissions
+                Log.msg("# Login Facebook denied permission : $permissions")
 
                 result?.accessToken?.apply {
                     Preference.userSocialId = userId
@@ -119,7 +125,6 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>() {
                     }
                     request.executeAsync()
 
-                    showProgressBar()
                     viewModel.loginSocial(FACEBOOK)
                 }
             }

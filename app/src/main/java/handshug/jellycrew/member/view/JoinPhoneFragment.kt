@@ -164,7 +164,7 @@ class JoinPhoneFragment : BindingFragment<FragmentJoinPhoneBinding>() {
             Preference.userName = userName
             Preference.userPhoneNumber = userPhoneNumber
         }
-        (activity as JoinActivity).moveChangePosition(if (Preference.loginType ==0) 2 else 1)
+        (activity as JoinActivity).moveChangePosition(if (Preference.loginType == 0) 2 else 1)
     }
 
     override fun onDestroy() {

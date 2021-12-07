@@ -3,6 +3,7 @@ package handshug.jellycrew.member.view.dialog
 import android.app.Activity
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import handshug.jellycrew.Preference
 import handshug.jellycrew.R
@@ -43,6 +44,8 @@ class MemberDialog(
 
         val dialog = dialogBinding.getBottomSheetDialog()
         dialogBinding.binding.dialog = dialog
+
+        dialog.behavior.state = BottomSheetBehavior.STATE_EXPANDED
         return dialog
     }
 
@@ -81,6 +84,7 @@ class MemberDialog(
             }
         }
 
+        dialog.behavior.state = BottomSheetBehavior.STATE_EXPANDED
         return dialog
     }
 
@@ -142,6 +146,7 @@ class MemberDialog(
             binding.socialsType = socialsType.toString()
         }
 
+        dialog.behavior.state = BottomSheetBehavior.STATE_EXPANDED
         dialog.show()
     }
 
@@ -184,6 +189,7 @@ class MemberDialog(
             }
         }
 
+        dialog.behavior.state = BottomSheetBehavior.STATE_EXPANDED
         dialog.show()
     }
 
@@ -215,6 +221,7 @@ class MemberDialog(
             }
         }
 
+        dialog.behavior.state = BottomSheetBehavior.STATE_EXPANDED
         dialog.show()
     }
 
@@ -229,6 +236,7 @@ class MemberDialog(
             binding.viewModel = viewModel
         }
 
+        dialog.behavior.state = BottomSheetBehavior.STATE_EXPANDED
         dialog.show()
     }
 }

@@ -140,11 +140,8 @@ object FormatterUtil {
             cntName < 3 -> {
                 masked(emailName, 0, cntName)
             }
-            cntName < 5 -> {
-                masked(emailName, 1, cntName)
-            }
             else -> {
-                masked(emailName, 2, cntName)
+                masked(emailName, 1, cntName)
             }
         }
 
@@ -153,11 +150,8 @@ object FormatterUtil {
             cntDomain < 3 -> {
                 masked(emailDomain, 0, cntDomain)
             }
-            cntDomain < 5 -> {
-                masked(emailDomain, 1, cntDomain)
-            }
             else -> {
-                masked(emailDomain, 2, cntDomain)
+                masked(emailDomain, 1, cntDomain)
             }
         }
 

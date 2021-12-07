@@ -270,12 +270,17 @@ fun ConstraintLayout.setCheckTerms(viewModel: MemberViewModel) {
     }
 
     cbAgreeItem05.setOnCheckedChangeListener { _, state ->
-        cbAgreeItem06.isChecked = state
         checkItemState(cbAgreeAll, cbAgreeItem01, cbAgreeItem02, cbAgreeItem03, cbAgreeItem04, cbAgreeItem05, state)
+        if (cbAgreeItem05.isChecked) {
+            if (!cbAgreeItem06.isChecked) cbAgreeItem06.isChecked = true
+        }
+        else {
+            cbAgreeItem06.isChecked = false
+        }
     }
 
-    cbAgreeItem06.setOnCheckedChangeListener { _, _ ->
-        if (!cbAgreeItem05.isChecked) cbAgreeItem05.isChecked = true
+    cbAgreeItem06.setOnCheckedChangeListener { _, state ->
+        if (state && !cbAgreeItem05.isChecked) cbAgreeItem05.isChecked = true
     }
 
     btnNext.setOnClickListener {
@@ -298,7 +303,7 @@ fun checkItemState(
         if (checkItemLastOne(cb01, cb02, cb03, cb04, cb05) > 4) cbAll.isChecked = true
     }
     else {
-        if (checkItemLastOne(cb01, cb02, cb03, cb04, cb05) > 3) cbAll.isChecked = false
+        cbAll.isChecked = false
     }
 }
 

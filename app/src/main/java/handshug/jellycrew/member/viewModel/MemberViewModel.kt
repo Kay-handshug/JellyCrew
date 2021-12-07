@@ -8,6 +8,7 @@ import androidx.appcompat.widget.AppCompatTextView
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.kakao.sdk.auth.AuthApiClient
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.user.UserApiClient
 import com.nhn.android.naverlogin.OAuthLogin
@@ -265,6 +266,7 @@ class MemberViewModel(private val memberApi: MemberApi) : BaseViewModel(), Membe
                 loginFail() // close progressBar
                 if (error != null) {
                     Log.msg("# Login kakao fail : $error")
+                    toast(error.message.toString())
                 } else token?.apply {
                     Preference.loginType = 1
                     Preference.userSocialType = KAKAO
@@ -295,11 +297,32 @@ class MemberViewModel(private val memberApi: MemberApi) : BaseViewModel(), Membe
                 }
             }
 
-            if (client.isKakaoTalkLoginAvailable(activity)) {
-                client.loginWithKakaoTalk(activity, callback = callback)
-            } else {
-                client.loginWithKakaoAccount(activity, callback = callback)
+            if (AuthApiClient.instance.hasToken()) {
+                client.accessTokenInfo { _, error ->
+                    if (error != null) {
+                        kakaoLogin(client, activity, callback)
+                    }
+                    else {
+                        if (Preference.loginType == 1 && Preference.userSocialType == KAKAO && Preference.socialAccessToken.isNotEmpty()) {
+                            loginSocial(KAKAO)
+                        }
+                        else {
+                            kakaoLogin(client, activity, callback)
+                        }
+                    }
+                }
             }
+            else {
+                kakaoLogin(client, activity, callback)
+            }
+        }
+    }
+
+    private fun kakaoLogin(client: UserApiClient, activity: Activity, callback: (token: OAuthToken?, error: Throwable?) -> Unit) {
+        if (client.isKakaoTalkLoginAvailable(activity)) {
+            client.loginWithKakaoTalk(activity, callback = callback)
+        } else {
+            client.loginWithKakaoAccount(activity, callback = callback)
         }
     }
 
