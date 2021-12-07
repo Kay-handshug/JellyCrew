@@ -22,28 +22,23 @@
 
     // Common ################################################### Start
     // Font
-    <style name="font_reqular">
-        <item name="android:fontFamily">@font/spoqa_han_sans_neo_regular</item>
-        <item name="fontFamily">@font/spoqa_han_sans_neo_regular</item>
-    </style>
-
     <style name="font_medium">
-        <item name="android:fontFamily">@font/spoqa_han_sans_neo_medium</item>
-        <item name="fontFamily">@font/spoqa_han_sans_neo_medium</item>
+        <item name="android:fontFamily">@font/spoqa_medium</item>
+        <item name="fontFamily">@font/spoqa_medium</item>
     </style>
 
     <style name="font_bold">
-        <item name="android:fontFamily">@font/spoqa_han_sans_neo_bold</item>
-        <item name="fontFamily">@font/spoqa_han_sans_neo_bold</item>
+        <item name="android:fontFamily">@font/spoqa_bold</item>
+        <item name="fontFamily">@font/spoqa_bold</item>
     </style>
 
     // Title
     <style name="style_common_title">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textSize">22sp</item>
+        <item name="android:textSize">22dp</item>
         <item name="android:textColor">@color/color_common_text_gray900</item>
-        <item name="android:fontFamily">@font/spoqa_han_sans_neo_bold</item>
+        <item name="android:fontFamily">@font/spoqa_bold</item>
     </style>
 
     // Sub Title
@@ -51,32 +46,24 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">@color/color_common_text_gray900</item>
-        <item name="android:fontFamily">@font/spoqa_han_sans_neo_bold</item>
+        <item name="android:fontFamily">@font/spoqa_bold</item>
     </style>
 
     // Text
     <style name="style_common_text">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textSize">12sp</item>
+        <item name="android:textSize">12dp</item>
         <item name="android:textColor">@color/color_common_text_gray900</item>
-        <item name="android:fontFamily">@font/spoqa_han_sans_neo_medium</item>
+        <item name="android:fontFamily">@font/spoqa_medium</item>
     </style>
 
     <style name="style_common_text_bold">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textSize">12sp</item>
+        <item name="android:textSize">12dp</item>
         <item name="android:textColor">@color/color_common_text_gray900</item>
-        <item name="android:fontFamily">@font/spoqa_han_sans_neo_bold</item>
-    </style>
-
-    <style name="style_common_text_reqular">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:textSize">12sp</item>
-        <item name="android:textColor">@color/color_common_text_gray900</item>
-        <item name="android:fontFamily">@font/spoqa_han_sans_neo_regular</item>
+        <item name="android:fontFamily">@font/spoqa_bold</item>
     </style>
 
     // Button
@@ -84,7 +71,7 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">@drawable/selector_color_gray500_n_white</item>
-        <item name="android:fontFamily">@font/spoqa_han_sans_neo_medium</item>
+        <item name="android:fontFamily">@font/spoqa_medium</item>
         <item name="android:background">@drawable/selector_btn_radius08_gray200_n_violet500</item>
     </style>
 
@@ -92,18 +79,9 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">@drawable/selector_color_gray500_n_white</item>
-        <item name="android:fontFamily">@font/spoqa_han_sans_neo_bold</item>
+        <item name="android:fontFamily">@font/spoqa_bold</item>
         <item name="android:background">@drawable/selector_btn_radius08_gray200_n_violet500</item>
     </style>
-
-    <style name="style_common_button_reqular">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:textColor">@drawable/selector_color_gray500_n_white</item>
-        <item name="android:fontFamily">@font/spoqa_han_sans_neo_regular</item>
-        <item name="android:background">@drawable/selector_btn_radius08_gray200_n_violet500</item>
-    </style>
-
 
     // Label
     <style name="style_common_label">
@@ -126,20 +104,20 @@
     <style name="style_common_checkbox">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textSize">14sp</item>
+        <item name="android:textSize">14dp</item>
         <item name="android:textColor">@drawable/selector_color_gray500_n_gray800</item>
         <item name="android:buttonTint">@color/color_common_violet500</item>
-        <item name="android:fontFamily">@font/spoqa_han_sans_neo_medium</item>
+        <item name="android:fontFamily">@font/spoqa_medium</item>
     </style>
 
     <style name="style_common_checkbox_no_stroke">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textSize">14sp</item>
+        <item name="android:textSize">14dp</item>
         <item name="android:textColor">@drawable/selector_color_gray500_n_gray800</item>
         <item name="android:button">@drawable/selector_checkbox_purple_n_gray</item>
         <item name="android:paddingStart">5dp</item>
-        <item name="android:fontFamily">@font/spoqa_han_sans_neo_medium</item>
+        <item name="android:fontFamily">@font/spoqa_medium</item>
     </style>
 
     // Common ################################################### End

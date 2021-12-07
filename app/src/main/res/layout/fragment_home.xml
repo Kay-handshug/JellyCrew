@@ -43,7 +43,7 @@
             <androidx.appcompat.widget.AppCompatTextView
                 style="@style/style_common_text_bold"
                 android:text="HOME"
-                android:textSize="48sp"
+                android:textSize="48dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
