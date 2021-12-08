@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "382757202644",
+    "project_id": "jellycrew-de081",
+    "storage_bucket": "jellycrew-de081.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:382757202644:android:818d2a48c84c81fa67e941",
+        "android_client_info": {
+          "package_name": "handshug.jellycrew"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "382757202644-q3vpqnb1fba2cr50m218o8vi7kqsonha.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD2D1_9HugtzsAgK4vWiiVHjFQiqfTqnFY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "382757202644-q3vpqnb1fba2cr50m218o8vi7kqsonha.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

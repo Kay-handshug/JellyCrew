@@ -2,16 +2,16 @@ package handshug.jellycrew
 
 import android.app.Application
 import com.facebook.FacebookSdk
-import com.facebook.appevents.AppEventsLogger
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.kakao.sdk.common.KakaoSdk
 import com.nhn.android.naverlogin.OAuthLogin
-import org.koin.android.ext.koin.androidContext
-import org.koin.core.context.startKoin
 import handshug.jellycrew.modules.apiModule
 import handshug.jellycrew.modules.networkModule
 import handshug.jellycrew.modules.viewModelModule
 import kr.co.bootpay.BootpayAnalytics
-import kotlin.random.Random
+import org.koin.android.ext.koin.androidContext
+import org.koin.core.context.startKoin
 
 class App : Application() {
 
@@ -48,6 +48,7 @@ class App : Application() {
 //        FacebookSdk.setAutoInitEnabled(true)
 //        AppEventsLogger.activateApp(this)
 
-//        FirebaseAnalytics.getInstance(this).setUserId(userId)
+//        FirebaseAnalytics.getInstance(this)
+//        FirebaseCrashlytics.getInstance()
     }
 }

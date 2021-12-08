@@ -164,14 +164,11 @@
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/cb_join_terms_agree_item_07"
                 style="@style/style_common_text"
-                android:layout_width="0dp"
-                android:layout_marginStart="50dp"
-                android:layout_marginEnd="42dp"
                 android:text="@string/join_terms_agree_item_07"
                 android:textColor="@color/color_common_violet500"
                 android:padding="5dp"
-                android:background="@drawable/common_box_radius08_violet100"
-                app:layout_constraintHorizontal_bias="0"
+                android:layout_marginStart="5dp"
+                app:layout_constraintHorizontal_bias="0.3"
                 app:layout_constraintStart_toStartOf="@+id/v_blank"
                 app:layout_constraintEnd_toEndOf="@+id/v_blank"
                 app:layout_constraintTop_toBottomOf="@+id/cb_join_terms_agree_item_06" />

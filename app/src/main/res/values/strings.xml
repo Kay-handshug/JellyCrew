@@ -45,8 +45,8 @@
     <string name="join_terms_agree_item_03">[필수] 개인정보수집 및 이용 동의</string>
     <string name="join_terms_agree_item_04">[선택] 특가, 쿠폰 등 이벤트 알림 이메일, 문자, 앱푸시</string>
     <string name="join_terms_agree_item_05">[선택] 개인정보 유효기간</string>
-    <string name="join_terms_agree_item_06">평생회원(탈퇴 시)으로 가입</string>
-    <string name="join_terms_agree_item_07">※ 평생회원은 가입 적립금 + 1,000원을 더 드려요 :)</string>
+    <string name="join_terms_agree_item_06">탈퇴 시까지 (평생회원)</string>
+    <string name="join_terms_agree_item_07">※ 가입 적립금 +1,000원을 더 드려요!</string>
     <string name="join_terms_agree_user_info_noti">개인정보 유효기간은 1년이 기본이고, 1년 간 접속 기록이 없는 경우 휴면회원(장기 미이용 고객)으로 전환되며, 평생회원으로 가입 시에는 휴면전환 또는 휴면 후 해제없이 탈퇴 시까지 유지되요.</string>
     <string name="join_terms_agree_view_detail">보기</string>
     <string name="join_terms_agree_confirm">동의하고 가입하기</string>
